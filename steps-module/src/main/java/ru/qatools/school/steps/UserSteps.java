@@ -2,6 +2,9 @@ package ru.qatools.school.steps;
 
 import ru.qatools.school.data.Place;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * @author lanwen (Merkushev Kirill)
  */
@@ -21,7 +24,9 @@ public class UserSteps {
         return this;
     }
 
-    public UserSteps should() {
-
+    public UserSteps shouldSeeCurrentPlace() {
+        goTo(Place.HOME);
+        assertThat(place, is(Place.HOME));
+        return this;
     }
 }
