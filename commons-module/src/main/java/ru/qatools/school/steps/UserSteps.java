@@ -20,15 +20,4 @@ public class UserSteps {
         this.place = place;
         return this;
     }
-
-    public UserSteps shouldBe(Place place) {
-        this.place = place;
-        if (this.place == "Yandex"){
-            return True;
-        }
-        else{
-            return False;
-        }
-        return this;
-    }
 }
