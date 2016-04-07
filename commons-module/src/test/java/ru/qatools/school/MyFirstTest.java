@@ -1,28 +1,23 @@
 package ru.qatools.school;
 
 import org.junit.Test;
-import ru.qatools.school.data.Place;
 
-import static ru.qatools.school.steps.UserSteps.user;
+import static ru.qatools.school.data.Place.*;
+import static ru.qatools.school.steps.UserSteps.*;
+
 
 /**
- * @author lanwen (Merkushev Kirill)
+ * @author gladnik (Nikolai Gladkov)
  */
 public class MyFirstTest {
 
-
     @Test
-    public void shouldBeAtYandexAfterGoToYandex() {
-        user().goTo(Place.AT_YANDEX).shouldSeeCurrentPlace(Place.AT_YANDEX);
+    public void shouldBeAtHomeWhenGoToHome() {
+        user().goTo(HOME).shouldBeAtPlace(HOME);
     }
 
     @Test
-    public void shouldBeAtHomeAfterGoToHome() {
-        user().goTo(Place.HOME).shouldSeeCurrentPlace(Place.HOME);
-    }
-
-    @Test
-    public void shouldBeNullIfPlaceNull() {
-        user().goTo(null).shouldSeeCurrentPlace(null);
+    public void shouldBeAtYandexWhenGoToYandex() {
+        user().goTo(AT_YANDEX).shouldBeAtPlace(AT_YANDEX);
     }
 }
