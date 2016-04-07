@@ -13,9 +13,6 @@ public class MyFirstTest {
 
     @Test
     public void test() {
-        user().goTo(Place.HOME);
-        user().shouldSeeCurrentPlace();
-        user().goTo(Place.AT_YANDEX);
         user().shouldSeeCurrentPlace();
     }
     
