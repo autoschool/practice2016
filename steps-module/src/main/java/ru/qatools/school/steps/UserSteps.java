@@ -24,6 +24,8 @@ public class UserSteps {
         return this;
     }
     public void verifyLocation(Place newPlace){
+        /*except that our this.place that we get after goTo
+          equal to newPlace (left part) */
         assertThat(newPlace, is(this.place));
 
     }
