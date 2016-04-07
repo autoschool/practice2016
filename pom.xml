@@ -11,13 +11,18 @@
     
     <modules>
         <module>steps-module</module>
+        <module>commons-module</module>
     </modules>
 
     <name>Automation Foreva</name>
     <description>First automation project ever</description>
-    
+
     <dependencies>
-    <!--Common deps here-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
     </dependencies>
-    
+
 </project>
