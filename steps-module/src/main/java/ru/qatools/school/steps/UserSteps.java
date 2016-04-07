@@ -20,4 +20,8 @@ public class UserSteps {
         this.place = place;
         return this;
     }
+
+    public UserSteps should() {
+
+    }
 }
