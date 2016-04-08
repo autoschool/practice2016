@@ -25,8 +25,8 @@ public class UserSteps {
         return this;
     }
 
-    public UserSteps shouldSeeCurrentPlace() {
-        assertThat(place, isA(Place.class));
+    public UserSteps shouldSeeCurrentPlace(Place place) {
+        assertThat(this.place, is(place));
         return this;
     }
 }
