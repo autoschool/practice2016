@@ -13,8 +13,8 @@ public class MyFirstTest {
 
     @Test
     public void test() {
-        user().goTo(Place.AT_YANDEX).shouldSeeCurrentPlace();
-        user().goTo(Place.HOME).shouldSeeCurrentPlace();
+        user().goTo(Place.AT_YANDEX).shouldSeeCurrentPlace(Place.AT_YANDEX).goTo(Place.HOME).
+                shouldSeeCurrentPlace(Place.HOME).goTo(null).shouldSeeCurrentPlace(null);
     }
     
 }
