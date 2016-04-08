@@ -5,5 +5,6 @@ package ru.qatools.school.data;
  */
 public enum Place {
     HOME,
-    AT_YANDEX
+    AT_YANDEX,
+    THE_MIDDLE_OF_NOWHERE
 }
