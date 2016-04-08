@@ -21,7 +21,7 @@ public class MyFirstTest {
                 .verifyLocation(Place.AT_YANDEX);
     }
     @Test
-    public void expectHomeWhenGoTOHome(){
+    public void expectHomeWhenGoToHome(){
         user().goTo(Place.HOME)
                 .verifyLocation(Place.HOME);
     }
