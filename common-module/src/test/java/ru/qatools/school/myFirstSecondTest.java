@@ -14,10 +14,10 @@ public class myFirstSecondTest {
 
     @DataProvider
     public static Object[][] places() {
-        return new Object[][] {
+        return new Object[][]{
                 {Place.HOME},
                 {Place.AT_YANDEX}
-                };
+        };
     }
 
     @Test
@@ -25,7 +25,6 @@ public class myFirstSecondTest {
     public void forEveryPlaceExpectPlaceWhenGoToPlace(Place place) {
         user().goTo(place)
                 .verifyLocation(place);
-        System.out.println(place);
 
     }
 
