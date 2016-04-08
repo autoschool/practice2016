@@ -24,8 +24,8 @@ public class UserSteps {
         return this;
     }
 
-    public void checkPlace(Place neededPlace) {
-        assertThat(place, is(neededPlace));
+    public void checkPlace(Place anExpectedPlace) {
+        assertThat("user must be in the same place that expected", this.place, is(anExpectedPlace));
     }
 
 }

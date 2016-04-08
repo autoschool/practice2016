@@ -11,9 +11,17 @@ import static ru.qatools.school.steps.UserSteps.user;
 public class MyFirstTest {
 
     @Test
-    public void verifyCurrentPlace() {
+    public void shouldBeAtYandexWhenGoToYandex() {
         user().goTo(Place.AT_YANDEX).checkPlace(Place.AT_YANDEX);
-        user().goTo(Place.HOME).checkPlace(Place.HOME);
     }
-    
+
+    @Test
+    public void shouldBeAtHomeWhenGoHome() {
+        user().goTo(Place.HOME).checkPlace(Place.THE_MIDDLE_OF_NOWHERE);
+    }
+
+    @Test
+    public void shouldBeInTheMiddleOfNowhereWhenGoToTheMIddleOfNowhere() {
+        user().goTo(Place.THE_MIDDLE_OF_NOWHERE).checkPlace(Place.THE_MIDDLE_OF_NOWHERE);
+    }
 }
