@@ -25,7 +25,8 @@ public class UserSteps {
         return this;
     }
 
-    public void isUserAtPlace(Place place){
-        Assert.assertThat(this.place, is(place));
+    public void shouldBeAtPlace(Place place){
+        Assert.assertThat(String.format("User at wrong place: expected %1$s but found %2$s", place, this.place),
+                this.place, is(place));
     }
 }

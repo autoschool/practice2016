@@ -27,7 +27,7 @@ public class MyFirstTest {
     @Test
     @UseDataProvider("places")
     public void goToPlace(Place place) {
-        user().goTo(place).isUserAtPlace(place);
+        user().goTo(place).shouldBeAtPlace(place);
     }
 
 }
