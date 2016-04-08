@@ -12,9 +12,17 @@ public class MyFirstTest {
 
 
     @Test
-    public void test() {
-        user().goTo(Place.AT_YANDEX).shouldSeeCurrentPlace(Place.AT_YANDEX).goTo(Place.HOME).
-                shouldSeeCurrentPlace(Place.HOME).goTo(null).shouldSeeCurrentPlace(null);
+    public void shouldBeAtYandexAfterGoToYandex() {
+        user().goTo(Place.AT_YANDEX).shouldSeeCurrentPlace(Place.AT_YANDEX);
     }
-    
+
+    @Test
+    public void shouldBeAtHomeAfterGoToHome() {
+        user().goTo(Place.HOME).shouldSeeCurrentPlace(Place.HOME);
+    }
+
+    @Test
+    public void shouldBeNullIfPlaceNull() {
+        user().goTo(null).shouldSeeCurrentPlace(null);
+    }
 }
