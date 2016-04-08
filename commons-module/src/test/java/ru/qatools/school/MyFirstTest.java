@@ -7,6 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.qatools.school.data.Place;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static ru.qatools.school.steps.UserSteps.user;
 
 /**
@@ -17,11 +21,8 @@ import static ru.qatools.school.steps.UserSteps.user;
 public class MyFirstTest {
 
     @DataProvider
-    public static java.lang.Object[][] places() {
-        return new java.lang.Object[][]{
-                {Place.AT_YANDEX},
-                {Place.HOME},
-        };
+    public static List<Object> places() {
+        return new ArrayList<Object>(Arrays.asList(Place.values()));
     }
 
     @Test
