@@ -2,6 +2,9 @@ package ru.qatools.school.steps;
 
 import ru.qatools.school.data.Place;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * @author lanwen (Merkushev Kirill)
  */
@@ -19,5 +22,9 @@ public class UserSteps {
     public UserSteps goTo(Place place) {
         this.place = place;
         return this;
+    }
+
+    public void verifyUserLocation(Place place) {
+        assertThat(this.place, is(place));
     }
 }
