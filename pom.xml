@@ -8,7 +8,7 @@
     <artifactId>school-2016</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    
+
     <modules>
         <module>steps-module</module>
         <module>commons-module</module>
@@ -16,9 +16,9 @@
 
     <name>Automation Foreva</name>
     <description>First automation project ever</description>
-    
+
     <dependencies>
-    <!--Common deps here-->
+        <!--Common deps here-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -26,5 +26,5 @@
         </dependency>
 
     </dependencies>
-    
+
 </project>
