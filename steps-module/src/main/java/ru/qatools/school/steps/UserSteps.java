@@ -7,7 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 /**
  * @author lanwen (Merkushev Kirill)
- * @author totallynotkate
+ * @author totallynotkate (Kate Kocijevska)
  */
 public class UserSteps {
     

@@ -15,7 +15,7 @@ import static ru.qatools.school.steps.UserSteps.user;
 
 /**
  * @author lanwen (Merkushev Kirill)
- * @author totallynotkate
+ * @author totallynotkate (Kate Kocijevska)
  */
 @RunWith(DataProviderRunner.class)
 public class MyFirstTest {
