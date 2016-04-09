@@ -22,7 +22,9 @@ public class MyFirstTest {
 
     @DataProvider
     public static List<Object> places() {
-        return new ArrayList<Object>(Arrays.asList(Place.values()));
+        ArrayList<Object> places = new ArrayList<Object>(Arrays.asList(Place.values()));
+        places.add(null);
+        return places;
     }
 
     @Test
