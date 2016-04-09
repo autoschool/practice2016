@@ -1,6 +1,8 @@
 package ru.qatools.school.steps;
 
 import ru.qatools.school.data.Place;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 /**
  * @author lanwen (Merkushev Kirill)
@@ -19,5 +21,9 @@ public class UserSteps {
     public UserSteps goTo(Place place) {
         this.place = place;
         return this;
+    }
+
+    public void shouldSeePlace(){
+        assertThat("You should go to place at Yandex", place, is(Place.AT_YANDEX));
     }
 }
