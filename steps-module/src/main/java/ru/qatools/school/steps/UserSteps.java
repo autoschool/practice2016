@@ -1,6 +1,8 @@
 package ru.qatools.school.steps;
 
 import ru.qatools.school.data.Place;
+
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -22,8 +24,8 @@ public class UserSteps {
         return this;
     }
 
-    public UserSteps checkLocation(Place place){
-        assertThat(place, this.place);
+    public UserSteps expectSameLocation(Place place){
+        assertThat("this locations is same", this.place, is(place));
         return this;
     }
 
