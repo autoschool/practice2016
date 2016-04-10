@@ -25,8 +25,8 @@ public class UserSteps {
     }
 
     public UserSteps expectSameLocation(Place place){
-        assertThat("this locations is same", this.place, is(place));
-        
+        assertThat("this locations is not same", this.place, is(place));
+
         return this;
     }
 
