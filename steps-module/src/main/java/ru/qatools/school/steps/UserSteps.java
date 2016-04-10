@@ -23,7 +23,7 @@ public class UserSteps {
         return this;
     }
 
-    public void shouldSeePlace(){
-        assertThat("You should go to place at Yandex", place, is(Place.AT_YANDEX));
+    public void shouldBeInPlace(Place place){
+        assertThat(place, is(this.place));
     }
 }

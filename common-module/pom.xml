@@ -11,8 +11,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
-    <artifactId>common-module</artifactId>
-    <name>Common Test</name>
+    <artifactId>commons-module</artifactId>
+    <name>Commons Test</name>
 
     <dependencies>
         <dependency>
