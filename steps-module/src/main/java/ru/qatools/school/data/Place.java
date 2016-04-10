@@ -6,6 +6,6 @@ import org.hamcrest.Matcher;
 /**
  * @author lanwen (Merkushev Kirill)
  */
-public enum Place implements Matcher<Place> {
+public enum Place {
     HOME,
     AT_YANDEX}

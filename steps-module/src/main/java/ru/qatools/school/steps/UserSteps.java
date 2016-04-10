@@ -18,13 +18,13 @@ public class UserSteps {
     public static UserSteps user() {
         return new UserSteps();
     }
-    
+
     public UserSteps goTo(Place place) {
         this.place = place;
         return this;
     }
 
-    public UserSteps expectSameLocation(Place place){
+    public UserSteps expectSameLocation(Place place) {
         assertThat("this locations is not same", this.place, is(place));
 
         return this;
