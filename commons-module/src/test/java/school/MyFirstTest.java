@@ -1,5 +1,6 @@
-package ru.qatools.school;
+package school;
 
+import ru.qatools.school.data.Place;
 import static ru.qatools.school.steps.UserSteps.user;
 
 /**
@@ -8,7 +9,7 @@ import static ru.qatools.school.steps.UserSteps.user;
 public class MyFirstTest {
     
     public void test() {
-        user().goTo(null); 
+        user().checkLocation(null).goTo(Place.AT_YANDEX).checkLocation(Place.AT_YANDEX);
     }
     
 }
