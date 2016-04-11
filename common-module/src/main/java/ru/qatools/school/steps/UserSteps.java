@@ -1,6 +1,6 @@
-package ru.qatools.school.steps;
+package main.java.ru.qatools.school.steps;
 
-import ru.qatools.school.data.Place;
+import main.java.ru.qatools.school.data.Place;
 
 /**
  * @author lanwen (Merkushev Kirill)
@@ -19,9 +19,5 @@ public class UserSteps {
     public UserSteps goTo(Place place) {
         this.place = place;
         return this;
-    }
-
-    public Place getPlace() {
-        return place;
     }
 }

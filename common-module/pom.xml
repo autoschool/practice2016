@@ -11,14 +11,21 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
-    <artifactId>steps-module</artifactId>
-    <name>Logic Module</name>
+    <artifactId>common-module</artifactId>
+    <name>Common Module</name>
 
     <dependencies>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>steps-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
 
 </project>
