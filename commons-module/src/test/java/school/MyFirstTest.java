@@ -6,6 +6,7 @@ import static ru.qatools.school.steps.UserSteps.user;
 
 /**
  * @author lanwen (Merkushev Kirill)
+ * @author arrumm (Arkhipov Roman)
  */
 public class MyFirstTest {
 
