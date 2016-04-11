@@ -7,8 +7,8 @@ import static ru.qatools.school.steps.UserSteps.user;
  */
 public class MyFirstTest {
     
-    public void test() {
-        user().goTo(null); 
+    public void test()
+        user().goTo(null);
     }
     
 }

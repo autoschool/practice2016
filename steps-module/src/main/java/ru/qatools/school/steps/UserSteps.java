@@ -21,14 +21,9 @@ public class UserSteps {
         return this;
     }
 
-    public UserSteps shouldBe(Place place) {
+    public void shouldBe(Place place) {
         this.place = place;
-        if (this.place == "Yandex"){
-            return True;
-        }
-        else{
-            return False;
-        }
-        return this;
+        assertThat(this.place, Place.AT_YANDEX);
     }
+
 }
