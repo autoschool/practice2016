@@ -10,11 +10,21 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>steps-module</artifactId>
+    <artifactId>commons-module</artifactId>
     <packaging>jar</packaging>
 
-    <name>steps-module</name>
+    <name>commons-module</name>
 
     <dependencies>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>steps-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.java</groupId>
+            <artifactId>junit-dataprovider</artifactId>
+            <version>1.10.4</version>
+        </dependency>
     </dependencies>
 </project>
