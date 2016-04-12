@@ -24,7 +24,8 @@ public class UserSteps {
         return this;
     }
 
-    public void shouldBeAtPlace(Place place) {
+    public UserSteps shouldBeAtPlace(Place place) {
         assertThat("Wrong location!", this.place, is(place));
+        return this;
     }
 }
