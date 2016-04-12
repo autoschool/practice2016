@@ -10,7 +10,7 @@ import static ru.qatools.school.steps.UserSteps.user;
 public class MyFirstTest {
 
     @Test
-    public void testStudentIsLearning(){
+    public void StudentShouldStudyWhenAtYandex(){
         user().shouldBeStudying(Place.AT_YANDEX);
     }
     
