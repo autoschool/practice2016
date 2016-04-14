@@ -1,5 +1,10 @@
 package ru.qatools.school.steps;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+import org.hamcrest.CoreMatchers;
 import ru.qatools.school.data.Place;
 
 /**
@@ -18,6 +23,11 @@ public class UserSteps {
     
     public UserSteps goTo(Place place) {
         this.place = place;
+        return this;
+    }
+
+    public UserSteps isPlaseExist(Place place) {
+        assertThat(this.place,is(equalTo(place)));
         return this;
     }
 }

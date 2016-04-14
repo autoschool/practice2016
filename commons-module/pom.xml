@@ -11,5 +11,11 @@
 
     <artifactId>commons-module</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>steps-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
