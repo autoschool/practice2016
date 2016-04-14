@@ -23,6 +23,7 @@ public class MainPage {
     @FindBy(css = ".card.card_md")
     private List<WeatherWidget> weatherWidget;
 
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
