@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
+import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
@@ -23,10 +24,17 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны видеть виджет на главной странице")
+    @Title("Must see widget on main page")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+    }
+
+    @Test
+    @Title("City from widget must match city from URL")
+    public void shouldWidgetCityBeExpectedCity() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldBeWeatherOfRightCity(MOSCOW, onMainPage().getWeatherWidget().get(0).getWidgetTitle().getWidgetCity());
     }
 
     private MainPage onMainPage() {

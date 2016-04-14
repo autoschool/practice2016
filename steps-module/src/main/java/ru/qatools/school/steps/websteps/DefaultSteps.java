@@ -6,6 +6,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -22,15 +23,18 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
-    @Step("Открываем главную страницу для города «{0}»")
+    @Step("Open main page of city «{0}»")
     public void openMainPageWithCity(String city) {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Должны видеть на странице «{0}»")
+    @Step("Should see this element: «{0}»")
     public void shouldSee(WebElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat("Should see element", element, isDisplayed());
     }
+
+    @Step("Should be city, mentioned in URL")
+    public void shouldBeWeatherOfRightCity(String linkCity, WebElement widgetCity){ assertThat("Should be same city, that expected", linkCity, is(widgetCity.getText()));}
 
     private MainPage onMainPage() {
         return new MainPage(driver);
