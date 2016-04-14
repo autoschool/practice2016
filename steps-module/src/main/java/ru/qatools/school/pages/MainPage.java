@@ -27,5 +27,13 @@ public class MainPage {
         return weatherWidget;
     }
 
+//    @Name("Название города в виджете")
+//    @FindBy(css = ".card.card_md .inplace.inplace_displayed")
+//    private List<WeatherWidgetTitle> weatherWidgetTitle;
+//
+//    public List<WeatherWidgetCityName> checkWeatherWidgetCityName() {
+//        return weatherWidgetCityName;
+//    }
+
 
 }

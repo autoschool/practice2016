@@ -29,6 +29,13 @@ public class WeatherWebTest {
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
+    @Test
+    @Title("Должны видеть виджет с названием города")
+    public void shouldSeeWidgetWithCityName() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSee(onMainPage().getWeatherWidgetTitle().get(0));
+    }
+
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
