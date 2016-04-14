@@ -29,6 +29,20 @@ public class WeatherWebTest {
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
+    @Test
+    @Title("В заголовке виджета должны видеть город, указанный в ссылке")
+    public void shouldSeeSelectedCityOnWidgetTitle(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeRightCityInWidgetsTitle(MOSCOW);
+    }
+
+    @Test
+    @Title("Должны видеть на один виджет больше после нажатия на кнопку +")
+    public void shouldSeeOneMoreWidget(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeNewAddedWidget(onMainPage());
+    }
+
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
