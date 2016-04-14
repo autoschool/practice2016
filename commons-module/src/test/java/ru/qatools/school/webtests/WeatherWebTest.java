@@ -6,7 +6,10 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Title;
+
+import static org.junit.Assert.assertThat;
 
 public class WeatherWebTest {
 
@@ -29,8 +32,23 @@ public class WeatherWebTest {
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
+    @Test
+    @Title("Должны увидеть виджет с именем города")
+    public void shouldSeeWidgetWithTitleCity() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeTitleWidgetEqualCity(MOSCOW);
+    }
+
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
 
+    @Test
+    @Title("Должны видеть добавленный виджет на главной странице")
+    public void shouldSeeAddWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.addWidgetOnMainPage();
+        defaultSteps.shouldSeeAddedWidgets(onMainPage().getWeatherWidget().size());
+    }
 }
+
