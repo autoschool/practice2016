@@ -33,4 +33,7 @@ public class WeatherWebTest {
         return new MainPage(webDriverRule.getDriver());
     }
 
+    @Test
+    @Title("Должны ")
+
 }

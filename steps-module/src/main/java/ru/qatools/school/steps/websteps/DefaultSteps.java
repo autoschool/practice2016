@@ -1,11 +1,13 @@
 package ru.qatools.school.steps.websteps;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -34,5 +36,10 @@ public class DefaultSteps {
 
     private MainPage onMainPage() {
         return new MainPage(driver);
+    }
+
+    @Step("Должны видеть название города  «{0}»")
+    public void shouldSeeCorrectCityName(String city) {
+        assertThat("Должны видеть название города на виджете", onMainPage().getWeatherWidget().get(0).getWidgetTitle(), is(city) );
     }
 }
