@@ -11,4 +11,8 @@ public class WidgetTitle extends HtmlElement {
     public Rectangle getRect() {
         return null;
     }
+
+    public String getName() {
+        return "";
+    }
 }

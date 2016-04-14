@@ -6,16 +6,15 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.steps.websteps.WidgetSteps;
 import ru.yandex.qatools.allure.annotations.Title;
 
 public class WeatherWebTest {
 
-    public static final String MOSCOW = "Moscow";
-
-    private DefaultSteps defaultSteps;
-
+    private static final String MOSCOW = "Moscow";
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
+    private DefaultSteps defaultSteps;
 
     @Before
     public void initSteps() {
@@ -27,6 +26,13 @@ public class WeatherWebTest {
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+    }
+
+    @Test
+    @Title("В виджете отображается заданный город")
+    public void widgetTitleShouldMatchCity() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        WidgetSteps.expectTitle(onMainPage().getWeatherWidget().get(0), MOSCOW);
     }
 
     private MainPage onMainPage() {

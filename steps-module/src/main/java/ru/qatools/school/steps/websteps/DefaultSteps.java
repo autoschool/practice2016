@@ -14,7 +14,7 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
  */
 public class DefaultSteps {
 
-    public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
 
     private WebDriver driver;
 

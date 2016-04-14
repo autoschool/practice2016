@@ -33,6 +33,7 @@ public class WeatherWidget extends HtmlElement {
         return widgetTitle;
     }
 
+
     public WebElement getActions() {
         return actions;
     }
