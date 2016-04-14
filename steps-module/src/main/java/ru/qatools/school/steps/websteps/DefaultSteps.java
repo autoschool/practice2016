@@ -1,5 +1,6 @@
 package ru.qatools.school.steps.websteps;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
@@ -30,6 +31,11 @@ public class DefaultSteps {
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
+    }
+
+    @Step("Нажимаем кнопку «Добавить виджет»")
+    public void clickAddWidget() {
+        driver.findElement(By.className("new-card")).click();
     }
 
     private MainPage onMainPage() {
