@@ -27,6 +27,7 @@ public class WeatherWebTest {
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
     @Test

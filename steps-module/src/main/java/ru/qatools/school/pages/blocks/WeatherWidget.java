@@ -25,9 +25,6 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private WebElement actions;
 
-
-
-
     public WidgetText getWidgetText() {
         return widgetText;
     }
