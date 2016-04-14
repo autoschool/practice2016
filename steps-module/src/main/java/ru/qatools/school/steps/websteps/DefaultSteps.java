@@ -6,6 +6,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -30,6 +31,35 @@ public class DefaultSteps {
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
+    }
+
+    @Step("Должны видеть город «{0}»")
+    public void shouldSeeWidgetWithCity(String actual, String expected) {
+        assertThat("Ожидали другой город", actual, is(expected));
+    }
+
+    @Step("Добавляем еще один виджет")
+    public void addNewWidget() {
+        onMainPage().getAddCityButton().click();
+    }
+
+    @Step("Должны увидеть {0} виджета(ов)")
+    public void shouldSeeThisNumberOfWidgets(int count) {
+        assertThat("Количество виджетов не соответствует ожидаемому", onMainPage().getWeatherWidget().size(), is(count));
+    }
+
+    @Step("Последнему виджету назначаем город")
+    public void editLastWidget(String cityName) {
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().click();
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().clear();
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().sendKeys(cityName);
+        // В этом месте надо было добраться до контекстного меню и кликнуть туда, но опять 2:44...
+        // ...поэтому кликать надо вручную :(
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private MainPage onMainPage() {
