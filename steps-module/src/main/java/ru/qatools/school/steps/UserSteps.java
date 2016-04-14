@@ -2,11 +2,16 @@ package ru.qatools.school.steps;
 
 import ru.qatools.school.data.Place;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+
 /**
  * @author lanwen (Merkushev Kirill)
+ * @author gladnik (Gladkov Nikolai)
  */
 public class UserSteps {
-    
+
     private Place place;
 
     private UserSteps() {
@@ -15,20 +20,14 @@ public class UserSteps {
     public static UserSteps user() {
         return new UserSteps();
     }
-    
+
     public UserSteps goTo(Place place) {
         this.place = place;
         return this;
     }
 
-    public UserSteps shouldBe(Place place) {
-        this.place = place;
-        if (this.place == "Yandex"){
-            return True;
-        }
-        else{
-            return False;
-        }
+    public UserSteps shouldBeAtPlace(Place expectedPlace) {
+        assertThat("Places should match!", this.place, is(expectedPlace));
         return this;
     }
 }
