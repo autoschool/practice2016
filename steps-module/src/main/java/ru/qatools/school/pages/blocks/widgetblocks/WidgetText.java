@@ -11,7 +11,7 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  */
 public class WidgetText extends HtmlElement {
 
-    @Name("Картинка текущей погоды")
+    @Name("Current weather image")
     @FindBy(css = ".weather-image")
     private WebElement weatherImage;
 

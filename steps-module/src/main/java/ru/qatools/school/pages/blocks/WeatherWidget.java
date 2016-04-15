@@ -13,15 +13,15 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  */
 public class WeatherWidget extends HtmlElement {
 
-    @Name("Заголовок виджета")
+    @Name("Widget title")
     @FindBy(css = ".card-title")
     private WidgetTitle widgetTitle;
 
-    @Name("Текст виджета")
+    @Name("Widget text")
     @FindBy(css = ".card-text")
     private WidgetText widgetText;
 
-    @Name("Панель управления виджетом")
+    @Name("Widget actions")
     @FindBy(css = ".card-actions")
     private WebElement actions;
 
