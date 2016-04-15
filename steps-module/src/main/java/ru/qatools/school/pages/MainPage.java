@@ -26,14 +26,14 @@ public class MainPage {
 
     @Name("Кнопка добавления виджета")
     @FindBy(css = ".new-card")
-    private Button newWidgetdButton;
+    private Button newWidgetButton;
 
     public List<WeatherWidget> getWeatherWidgetList() {
         return weatherWidgetList;
     }
 
     public Button getNewWidgetButton() {
-        return newWidgetdButton;
+        return newWidgetButton;
     }
 
 }
