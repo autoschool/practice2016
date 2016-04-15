@@ -2,11 +2,13 @@ package ru.qatools.school.steps;
 
 import ru.qatools.school.data.Place;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 
 /**
  * @author lanwen (Merkushev Kirill)
+ * @author gladnik (Gladkov Nikolai)
  */
 public class UserSteps {
 
@@ -24,8 +26,8 @@ public class UserSteps {
         return this;
     }
 
-    public UserSteps shouldBeAtPlace(Place place) {
-        assertThat("Wrong location!", this.place, is(place));
+    public UserSteps shouldBeAtPlace(Place expectedPlace) {
+        assertThat("Places should match!", this.place, is(expectedPlace));
         return this;
     }
 }

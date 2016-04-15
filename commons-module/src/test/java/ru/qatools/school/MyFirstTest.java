@@ -13,45 +13,41 @@ import java.util.List;
 
 import static ru.qatools.school.steps.UserSteps.user;
 
-/**
- * @author lanwen (Merkushev Kirill)
- */
 
+/**
+ * @author gladnik (Nikolai Gladkov)
+ */
 @RunWith(DataProviderRunner.class)
 public class MyFirstTest {
 
     @DataProvider
     public static List<Object> places() {
-        ArrayList<Object> places = new ArrayList<Object>(Arrays.asList(Place.values()));
-        places.add(null);
-        return places;
+        List<Object> placesList
+                = new ArrayList<Object>(Arrays.asList(Place.values()));
+        placesList.add(null);
+        return placesList;
+    }
+
+    @Test
+    public void shouldBeAtNullWhenDefault() {
+        user().shouldBeAtPlace(null);
     }
 
     @Test
     @UseDataProvider("places")
-    public void verifyPlace(Place place) {
-        user().goTo(place)
-                .shouldBeAtPlace(place);
-    }
-}
-
-/*public class MyFirstTest {
-
-    @Test
-    public void verifyNullWhenGoToNull() {
-        user().goTo(null)
-                .shouldBeAtPlace(null);
+    public void afterGoSomewhereShouldBeThere(Place place) {
+        user().goTo(place).shouldBeAtPlace(place);
     }
 
     @Test
-    public void verifyHomeWhenGoToHome() {
-        user().goTo(Place.HOME)
-                .shouldBeAtPlace(Place.HOME);
+    @UseDataProvider("places")
+    public void afterGoSomewhereTwiceShouldBeThere(Place place) {
+        user().goTo(place).goTo(place).shouldBeAtPlace(place);
     }
 
     @Test
-    public void verifyYandexWhenGoToYandex() {
-        user().goTo(Place.AT_YANDEX)
+    public void afterGoSomewhereElseShouldBeThere() {
+        user().goTo(Place.HOME).goTo(Place.AT_YANDEX)
                 .shouldBeAtPlace(Place.AT_YANDEX);
     }
-}*/
+}
