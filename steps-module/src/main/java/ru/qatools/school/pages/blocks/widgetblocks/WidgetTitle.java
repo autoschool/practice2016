@@ -11,8 +11,8 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Название города")
-    @FindBy(css = ".card-title__primary")
+    @Name("Поле с названием города")
+    @FindBy(css = ".card-title__primary div *:first-child")
     private WebElement cityTitle;
 
     public Rectangle getRect() {

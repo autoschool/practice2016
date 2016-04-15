@@ -1,10 +1,14 @@
 package ru.qatools.school.steps.websteps;
 
-import org.openqa.selenium.Keys;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
+import ru.qatools.school.pages.blocks.WeatherWidget;
+import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.allure.annotations.Step;
+
+import java.util.List;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -29,21 +33,31 @@ public class DefaultSteps {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Добавляем еще один город")
-    public void addNewCity(String anotherCity) {
-        onMainPage().getAddCityButton().click();
-        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().sendKeys(Keys.DELETE);
-        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().sendKeys(anotherCity);
+    @Step("Нажимаем на кнопку +")
+    public void pressAddWidgetButton() {
+        onMainPage().getNewWidgetButton().click();
     }
 
     @Step("Должны видеть на странице «{0}»")
-    public void shouldSee(WebElement element) {
+    public void shouldSeeElement(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Должны видеть верный текст: «{0}»")
-    public void shouldSeeText(String actual, String expected) {
-        assertThat("Должны видеть текст", actual, is(expected));
+    @Step("Должны видеть у виджета город: «{0}»")
+    public void shouldSeeCityName(WidgetTitle titleBlock, String expectedCityName) {
+        assertThat("Должны видеть текст", titleBlock.getCity().getText(), is(expectedCityName));
+    }
+
+    @Step("Количество виджетов на странице должно быть равным {0}")
+    public void shouldHaveWidgetNumber(int quantityOfWidgets) {
+        Assert.assertThat(onMainPage().getWeatherWidgetList().size(), is(quantityOfWidgets));
+    }
+
+    @Step("Должны видеть на странице все элементы из списка {0}")
+    public void shouldSeeAllElements(List<WeatherWidget> widgets) {
+        for (WeatherWidget widget : widgets) {
+            shouldSeeElement(widget);
+        }
     }
 
     private MainPage onMainPage() {
