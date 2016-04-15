@@ -28,12 +28,20 @@ public class MainPage {
     @FindBy(css = ".new-card")
     private WebElement addCityButton;
 
+    @Name("Всплывающее меню")
+    @FindBy(css = ".city")
+    private WebElement popUpMenu;
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
 
     public WebElement getAddCityButton() {
         return addCityButton;
+    }
+
+    public WebElement getPopUpMenu() {
+        return popUpMenu;
     }
 
 }

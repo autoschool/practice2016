@@ -2,6 +2,7 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -33,7 +34,7 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Должны видеть город «{0}»")
+    @Step("Должны видеть виджет с городом «{0}»")
     public void shouldSeeWidgetWithCity(String actual, String expected) {
         assertThat("Ожидали другой город", actual, is(expected));
     }
@@ -48,18 +49,14 @@ public class DefaultSteps {
         assertThat("Количество виджетов не соответствует ожидаемому", onMainPage().getWeatherWidget().size(), is(count));
     }
 
-    @Step("Последнему виджету назначаем город")
+    @Step("Последнему виджету назначаем город «{0}»")
     public void editLastWidget(String cityName) {
         onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().click();
         onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().clear();
         onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().sendKeys(cityName);
-        // В этом месте надо было добраться до контекстного меню и кликнуть туда, но опять 2:44...
-        // ...поэтому кликать надо вручную :(
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(onMainPage().getPopUpMenu(), 1, 1).click().build().perform();
     }
 
     private MainPage onMainPage() {

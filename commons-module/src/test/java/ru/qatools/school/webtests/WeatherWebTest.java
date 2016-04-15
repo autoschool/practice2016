@@ -1,7 +1,6 @@
 package ru.qatools.school.webtests;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
@@ -40,14 +39,13 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должен добавиться новый виджет")
-    public void shouldBeAdditionalCity() {
+    public void shouldBeAdditionalWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         int numberOfWidgets = onMainPage().getWeatherWidget().size();
         defaultSteps.addNewWidget();
         defaultSteps.shouldSeeThisNumberOfWidgets(numberOfWidgets + 1);
     }
 
-    @Ignore("Не дописан выбор города из контекстного меню")
     @Test
     @Title("Должен измениться город в последнем виджете")
     public void shouldBeRenamedCityInLastWidget() {
