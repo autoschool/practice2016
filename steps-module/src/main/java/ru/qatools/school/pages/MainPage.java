@@ -24,9 +24,9 @@ public class MainPage {
     @FindBy(css = ".card.card_md")
     private List<WeatherWidget> weatherWidget;
 
-    @Name("Кнопка добавления города")
+    @Name("Кнопка добавления виджета")
     @FindBy(css = ".new-card")
-    private WebElement addCityButton;
+    private WebElement addWidgetButton;
 
     @Name("Всплывающее меню")
     @FindBy(css = ".city")
@@ -36,8 +36,8 @@ public class MainPage {
         return weatherWidget;
     }
 
-    public WebElement getAddCityButton() {
-        return addCityButton;
+    public WebElement getAddWidgetButton() {
+        return addWidgetButton;
     }
 
     public WebElement getPopUpMenu() {

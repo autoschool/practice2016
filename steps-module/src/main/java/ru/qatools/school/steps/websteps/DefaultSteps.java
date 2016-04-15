@@ -2,7 +2,6 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -41,7 +40,7 @@ public class DefaultSteps {
 
     @Step("Добавляем еще один виджет")
     public void addNewWidget() {
-        onMainPage().getAddCityButton().click();
+        onMainPage().getAddWidgetButton().click();
     }
 
     @Step("Должны увидеть {0} виджета(ов)")
@@ -55,8 +54,9 @@ public class DefaultSteps {
         onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().clear();
         onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameInLastWidget().sendKeys(cityName);
 
-        Actions actions = new Actions(driver);
-        actions.moveToElement(onMainPage().getPopUpMenu(), 1, 1).click().build().perform();
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(onMainPage().getPopUpMenu(), 1, 1).click().build().perform();
+        onMainPage().getPopUpMenu().click();
     }
 
     private MainPage onMainPage() {
