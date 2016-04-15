@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
-import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
@@ -24,17 +23,27 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Must see widget on main page")
+    @Title("Widget on main page must be seen")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.shouldBeSeen(onMainPage().getWeatherWidgets().get(0));
     }
 
     @Test
     @Title("City from widget must match city from URL")
-    public void shouldWidgetCityBeExpectedCity() {
+    public void shouldWidgetCityBeLinkCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldBeWeatherOfRightCity(MOSCOW, onMainPage().getWeatherWidget().get(0).getWidgetTitle().getWidgetCity());
+        defaultSteps.shouldBeWeatherOfLinkCity(MOSCOW, onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getWidgetCity());
+    }
+
+    @Test
+    @Title("Widget must be added after pushing \"add new widget\" button")
+    public void shouldWidgetBeAdded() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        int buttonTimesPushed = 5;
+        defaultSteps.pushNewWeatherButtonNTimes(buttonTimesPushed);
+        defaultSteps.shouldExistAsMuchWidgetsAs(buttonTimesPushed + 1, onMainPage().getWeatherWidgets());
+        defaultSteps.shouldBeSeen(onMainPage().getWeatherWidgets());
     }
 
     private MainPage onMainPage() {
