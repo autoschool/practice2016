@@ -6,11 +6,13 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
- * Created by kurau.
+ * @author kurau
+ * @author gladnik (Nikolai Gladkov)
  */
 public class DefaultSteps {
 
@@ -30,6 +32,16 @@ public class DefaultSteps {
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
+    }
+
+    @Step("Текст элемента «{0}» должен быть «{1}»")
+    public void expectText(WebElement element, String text) {
+        assertThat("Неверный текст элемента", element.getText(), is(text));
+    }
+
+    @Step("Кликаем на элемент «{0}»")
+    public void clickElement(WebElement element) {
+        element.click();
     }
 
     private MainPage onMainPage() {

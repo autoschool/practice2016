@@ -19,20 +19,12 @@
 
     <properties>
         <compiler.version>1.8</compiler.version>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <allure.version>1.4.23</allure.version>
         <selenium.version>2.53.0</selenium.version>
         <htmlelements.version>1.15</htmlelements.version>
         <aspectj.version>1.8.5</aspectj.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -73,6 +65,11 @@
                 <groupId>ru.yandex.qatools.htmlelements</groupId>
                 <artifactId>htmlelements-matchers</artifactId>
                 <version>1.12</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -115,6 +112,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-
 </project>

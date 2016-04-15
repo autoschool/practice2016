@@ -6,9 +6,12 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
-import ru.qatools.school.steps.websteps.WidgetSteps;
 import ru.yandex.qatools.allure.annotations.Title;
 
+/**
+ * @author kurau
+ * @author gladnik (Nikolai Gladkov)
+ */
 public class WeatherWebTest {
 
     private static final String MOSCOW = "Moscow";
@@ -32,11 +35,20 @@ public class WeatherWebTest {
     @Title("В виджете отображается заданный город")
     public void widgetTitleShouldMatchCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        WidgetSteps.expectTitle(onMainPage().getWeatherWidget().get(0), MOSCOW);
+        defaultSteps.expectText(onMainPage().getWeatherWidget().get(0)
+                .getWidgetTitle().getCityName(), MOSCOW);
+    }
+
+    @Test
+    @Title("Отображается два виджета после нажатия на кнопку добавления виджета")
+    public void shouldSeeTwoWidgetsWhenAddOne() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.clickElement(onMainPage().getButtonAddWidget());
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(1));
     }
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
-
 }
