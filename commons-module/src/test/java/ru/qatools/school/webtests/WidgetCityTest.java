@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.qatools.school.data.City;
 import ru.qatools.school.pages.MainPage;
-import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
@@ -24,34 +23,30 @@ import java.util.List;
  * Created by aasx on 14.04.2016.
  */
 public class WidgetCityTest {
+    @Rule
+    public WebDriverRule webDriverRule = new WebDriverRule();
+    private DefaultSteps steps;
+
     @DataProvider
-    public static List<Object> cities() {
+    public static List<Object> dataProviderCities() {
         return new ArrayList<Object>(Arrays.asList(City.values()));
     }
 
-    private DefaultSteps defaultSteps;
-
-    @Rule
-    public WebDriverRule webDriverRule = new WebDriverRule();
-    // @Test
-
     @Before
     public void initSteps() {
-        defaultSteps = new DefaultSteps(webDriverRule.getDriver());
+        steps = new DefaultSteps(webDriverRule.getDriver());
     }
 
-
     @Test
-    @UseDataProvider("cities")
+    @UseDataProvider("dataProviderCities")
     @Title("Должны видеть виджет города, указанного в URL")
-    public void expectCityNameEqualsNameFromUrl(City city) {
-        defaultSteps.openMainPageWithCity(city.toString());
-        defaultSteps.shouldSeeNameOfCity(onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName(),city.toString());
+    public void expectCityNameEqualsCityNameFromUrl(City cityToUrl) {
+        steps.openMainPageWithCity(cityToUrl.toString());
+        steps.shouldSeeCorrectCityNameAtWidget(cityToUrl.toString());
     }
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
-
 
 }

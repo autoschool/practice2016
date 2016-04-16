@@ -2,10 +2,8 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.qatools.school.data.City;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -34,11 +32,14 @@ public class DefaultSteps {
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
-    @Step("Должны увидеть название города «{1}» на виджете «{0}» ")
-    public void shouldSeeNameOfCity(WebElement element, String cityFromUrl){
+
+    @Step("Должны увидеть название города «{0}» на виджете ")
+    public void shouldSeeCorrectCityNameAtWidget(String cityFromUrl) {
         assertThat("Должны видеть на виджете название города, такое как в URL",
-                element.getText(), is(cityFromUrl));
+                onMainPage().getWeatherWidget().get(0).getWidgetTitle()
+                        .getCityName().getText(), is(cityFromUrl));
     }
+
     private MainPage onMainPage() {
         return new MainPage(driver);
     }
