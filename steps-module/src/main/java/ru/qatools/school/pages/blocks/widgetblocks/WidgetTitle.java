@@ -13,7 +13,7 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WidgetTitle extends HtmlElement {
 
     @Name("Название города в заголовке")
-    @FindBy(css = "span .card-title__primary ")
+    @FindBy(css = ".card-title__primary")
     private WebElement cityName;
 
     public WebElement getNameOfCity() {
