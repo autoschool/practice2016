@@ -36,16 +36,16 @@ public class DefaultSteps {
     }
 
     @Step("Заголовок должен быть «{1}»")
-    public void titleShouldBe(WidgetTitle widgetTitle, String title) {
-        assertThat(widgetTitle.getCity(), is(title));
+    public void cityIntitleShouldBe(WidgetTitle widgetTitle, String title) {
+        assertThat("Город должен быть",widgetTitle.getCity(), is(title));
     }
 
     @Step("Количество виджетов должно быть «{0}»")
     public void widgetsAmountShouldBe(int n) {
-        assertThat(onMainPage().getWeatherWidget().size(), is(n));
+        assertThat("Количество виджетов должно быть",onMainPage().getWeatherWidget().size(), is(n));
     }
 
-    @Step("Жмем кнопку добавить виджет n раз")
+    @Step("Жмем кнопку добавить виджет «{0}» раз")
     public void clickAddWidgetButtonNTimes(int n) {
         while(n-- > 0)
             onMainPage().getNewWidgetButton().click();

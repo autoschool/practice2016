@@ -42,7 +42,7 @@ public class TitleTest {
     @UseDataProvider("dataProviderCity")
     public void titleShouldBeCity(String city) {
         defaultSteps.openMainPageWithCity(city);
-        defaultSteps.titleShouldBe(onMainPage().getWeatherWidget().get(0).getWidgetTitle(), city);
+        defaultSteps.cityIntitleShouldBe(onMainPage().getWeatherWidget().get(0).getWidgetTitle(), city);
     }
 
     private MainPage onMainPage() {
