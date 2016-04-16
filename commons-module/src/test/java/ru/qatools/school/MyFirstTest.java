@@ -13,41 +13,24 @@ import java.util.List;
 
 import static ru.qatools.school.steps.UserSteps.user;
 
-
 /**
- * @author gladnik (Nikolai Gladkov)
+ * @author lanwen (Merkushev Kirill)
  */
 @RunWith(DataProviderRunner.class)
 public class MyFirstTest {
 
     @DataProvider
-    public static List<Object> places() {
-        List<Object> placesList
-                = new ArrayList<Object>(Arrays.asList(Place.values()));
-        placesList.add(null);
-        return placesList;
+    public static List<Object> getPlaces(){
+        ArrayList<Object> places = new ArrayList<Object>(Arrays.asList(Place.values()));
+        places.add(null);
+        return places;
     }
 
     @Test
-    public void shouldBeAtNullWhenDefault() {
-        user().shouldBeAtPlace(null);
+    @UseDataProvider("getPlaces")
+    public void userGoTo(Place place) {
+        user().goTo(place)
+              .shouldBeInPlace(place);
     }
-
-    @Test
-    @UseDataProvider("places")
-    public void afterGoSomewhereShouldBeThere(Place place) {
-        user().goTo(place).shouldBeAtPlace(place);
-    }
-
-    @Test
-    @UseDataProvider("places")
-    public void afterGoSomewhereTwiceShouldBeThere(Place place) {
-        user().goTo(place).goTo(place).shouldBeAtPlace(place);
-    }
-
-    @Test
-    public void afterGoSomewhereElseShouldBeThere() {
-        user().goTo(Place.HOME).goTo(Place.AT_YANDEX)
-                .shouldBeAtPlace(Place.AT_YANDEX);
-    }
+    
 }
