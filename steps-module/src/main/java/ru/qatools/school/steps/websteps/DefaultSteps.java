@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -34,10 +35,20 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    //метод, сравнивающий текст элемента и эталонный
     @Step("Текст «{0}» элемента должен быть «{1}»")
     public void expectedElementTextIsSameToText(WebElement webElement, String text) {
         assertThat("Текст элемента и ожидаемый не совпадают", webElement.getText(), is(text));
+    }
+
+    @Step("Должен добавиться виджет «{0}»")
+    public void pressNewCardButtonOnPage() {
+        onMainPage().getNewCardButton().click();
+    }
+
+    @Step("Количество виджетов на странице должно быть «{0}»")
+    public void expectedWidgetsQuantityOnPage(int widgetsQuantity) {
+        assertThat("Количество виджетов на странице не равно ожидаемому",
+                onMainPage().getWeatherWidgetList().size(),is(widgetsQuantity));
     }
 
     private MainPage onMainPage() {

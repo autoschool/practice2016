@@ -10,6 +10,7 @@ import java.io.File;
 
 /**
  * Created by kurau.
+ * added by arrumm (Arkhipov Roman)
  */
 public class WebDriverRule extends ExternalResource {
 
@@ -17,12 +18,8 @@ public class WebDriverRule extends ExternalResource {
 
     protected void before() throws Throwable {
 
-        //привет, костыли
-        File pathBinary = new File("D:\\my Programs\\firefox\\firefox.exe");
-        FirefoxBinary Binary = new FirefoxBinary(pathBinary);
-        FirefoxProfile firefoxPro = new FirefoxProfile();
-        this.driver = new FirefoxDriver(Binary,firefoxPro);
-        //this.driver = new FirefoxDriver();
+        System.setProperty("webdriver.firefox.bin", "D:\\my Programs\\firefox\\firefox.exe");
+        this.driver = new FirefoxDriver();
     }
 
     protected void after() {
