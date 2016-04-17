@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
 public class WeatherWebTest {
 
     public static final String MOSCOW = "Moscow";
+    public static final String SPB = "Saint Petersburg";
 
     private DefaultSteps defaultSteps;
 
@@ -33,7 +34,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны увидеть виджет с именем города")
+    @Title("Должны увидеть виджет с именем города на главной странице")
     public void shouldSeeWidgetWithTitleCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeTitleWidgetEqualCity(MOSCOW);
@@ -47,8 +48,14 @@ public class WeatherWebTest {
     @Title("Должны видеть добавленный виджет на главной странице")
     public void shouldSeeAddWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.addWidgetOnMainPage();
-        defaultSteps.shouldSeeAddedWidgets(onMainPage().getWeatherWidget().size());
+        defaultSteps.shouldSeeWidgetAdd(SPB);
+    }
+
+    @Test
+    @Title("Должны увидеть виджеты, кроме удаленного на главной странице")
+    public void shouldSeeRemoveWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeWidgetRemove(SPB);
     }
 }
 
