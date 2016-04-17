@@ -13,11 +13,12 @@ public class WebDriverRule extends ExternalResource {
 
     protected void before() throws Throwable {
         this.driver = new FirefoxDriver();
+        driver.manage().window().maximize();
     }
 
     protected void after() {
-        driver.close();
-        driver.quit();
+        //driver.close();
+        //driver.quit();
     }
 
     public WebDriver getDriver() {
