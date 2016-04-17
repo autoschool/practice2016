@@ -43,7 +43,7 @@ public class WeatherWebTest {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.expectedElementTextIsSameToText(
                 defaultSteps.getFirstElementFromWidgetsList(onMainPage().getWeatherWidgetList())
-                        .getWidgetTitle().getNameOfCity(),
+                        .getWidgetTitle().getCityNameElement(),
                 CITY);
     }
 

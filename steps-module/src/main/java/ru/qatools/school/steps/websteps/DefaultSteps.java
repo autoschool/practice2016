@@ -16,6 +16,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
@@ -45,7 +46,7 @@ public class DefaultSteps {
 
     @Step("Текст «{0}» элемента должен быть «{1}»")
     public void expectedElementTextIsSameToText(WebElement webElement, String text) {
-        assertThat("Текст элемента и ожидаемый не совпадают", webElement.getText(), is(text));
+        assertThat("Текст элемента и ожидаемый не совпадают", webElement, hasText(text));
     }
 
     @Step("Должен кликнуться элемент «{0}»")

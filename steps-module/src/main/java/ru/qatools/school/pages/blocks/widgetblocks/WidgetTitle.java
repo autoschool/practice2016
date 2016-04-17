@@ -14,10 +14,10 @@ public class WidgetTitle extends HtmlElement {
 
     @Name("Название города в заголовке")
     @FindBy(css = ".card-title__primary")
-    private WebElement cityName;
+    private WebElement cityNameElement;
 
-    public WebElement getNameOfCity() {
-        return cityName;
+    public WebElement getCityNameElement() {
+        return cityNameElement;
     }
 
     public Rectangle getRect() {
