@@ -6,10 +6,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
+import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
+
+import java.util.List;
 
 public class WeatherWebTest {
 
@@ -30,7 +34,8 @@ public class WeatherWebTest {
     public void shouldSeeWidgetWithCityInURLOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.expectedElementTextIsSameToText(
-                onMainPage().getWeatherWidgetList().get(0).getWidgetTitle().getNameOfCity(),
+                defaultSteps.getFirstElementFromWidgetsList(onMainPage().getWeatherWidgetList())
+                        .getWidgetTitle().getNameOfCity(),
                 CITY);
     }
 
@@ -39,8 +44,8 @@ public class WeatherWebTest {
     public void shouldDetectOnceMoreWidgetOnThePage() {
         defaultSteps.openMainPageWithCity(CITY);
         int widgetsQ = onMainPage().getWeatherWidgetList().size();
-        defaultSteps.pressNewCardButtonOnPage();
-        defaultSteps.expectedWidgetsQuantityOnPage(widgetsQ+1);
+        defaultSteps.clickButton(onMainPage().getNewCardButton());
+        defaultSteps.expectedWidgetsQuantityOnPage(onMainPage().getWeatherWidgetList(), widgetsQ + 1);
     }
 
     private MainPage onMainPage() {

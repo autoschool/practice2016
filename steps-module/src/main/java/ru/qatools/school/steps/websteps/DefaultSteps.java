@@ -3,16 +3,22 @@ package ru.qatools.school.steps.websteps;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
+import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.Button;
 
+import java.util.List;
+
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
  * Created by kurau.
+ *
  * @author arrumm (Arkhipov Roman)
  */
 public class DefaultSteps {
@@ -40,15 +46,18 @@ public class DefaultSteps {
         assertThat("Текст элемента и ожидаемый не совпадают", webElement.getText(), is(text));
     }
 
-    @Step("Должен добавиться виджет «{0}»")
-    public void pressNewCardButtonOnPage() {
-        onMainPage().getNewCardButton().click();
+    @Step("Должен кликнуться элемент «{0}»")
+    public void clickButton(Button button) {
+        button.click();
     }
 
     @Step("Количество виджетов на странице должно быть «{0}»")
-    public void expectedWidgetsQuantityOnPage(int widgetsQuantity) {
-        assertThat("Количество виджетов на странице не равно ожидаемому",
-                onMainPage().getWeatherWidgetList().size(),is(widgetsQuantity));
+    public void expectedWidgetsQuantityOnPage(List<WeatherWidget> wwList, int widgetsQuantity) {
+        assertThat("Количество виджетов на странице не равно ожидаемому", wwList, hasSize(widgetsQuantity));
+    }
+
+    public WeatherWidget getFirstElementFromWidgetsList(List<WeatherWidget> inList) {
+        return inList.get(0);
     }
 
     private MainPage onMainPage() {
