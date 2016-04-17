@@ -6,6 +6,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -30,6 +31,16 @@ public class DefaultSteps {
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
+    }
+
+    @Step("В виджете «{0}» должны видеть город «{1}»")
+    public void shouldSeeCityInWidget(WebElement element, String city) {
+        assertThat("В виджете не отбражается заявленный город", element.getText(), is(city));
+    }
+
+    @Step("Кликаем по элементу «{0}»")
+    public void clickElement(WebElement element) {
+        element.click();
     }
 
     private MainPage onMainPage() {
