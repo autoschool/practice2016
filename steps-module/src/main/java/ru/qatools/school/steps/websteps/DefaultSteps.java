@@ -1,10 +1,13 @@
 package ru.qatools.school.steps.websteps;
 
+import com.google.common.base.Predicate;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByCssSelector;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.pages.MainPage;
@@ -13,6 +16,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -44,14 +48,13 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Проверяем что заголовок виджета это запрошенный город")
+    @Step("Заголовок виджета должен совпадать с запрошенным городом")
     public void shouldSeeTitleWidgetEqualCity(String city) {
         assertThat("Заголовок города равен названию виджета",
-                driver.findElement(By.cssSelector("div .inplace.inplace_displayed")).getText(), equalTo(city));
+                driver.findElement(By.cssSelector(".inplace.inplace_displayed")).getText(), equalTo(city));
     }
 
-    @Step("Добавляем виджет на страницу")
-    public void addWidgetOnMainPage(String city) {
+    private void addWidgetOnMainPage(String city) {
         driver.findElement(By.cssSelector(".new-card")).click();
         driver.findElement(By.cssSelector("span.inplace.inplace_displayed")).click();
         driver.findElement(By.cssSelector("input.inplace.inplace_editable")).clear();
@@ -64,8 +67,7 @@ public class DefaultSteps {
         addWidgetOnMainPage(city);
         boolean find = false;
         List<WebElement> spans = driver.findElements(By.cssSelector(".inplace.inplace_displayed"));
-        for (WebElement span : spans)
-        {
+        for (WebElement span : spans) {
             String text = span.getText();
             if (text.equals(city)) {
                 find = true;
@@ -79,15 +81,43 @@ public class DefaultSteps {
     public void shouldSeeWidgetRemove(String removeCity) {
         int count = onMainPage().getWeatherWidget().size();
         List<WeatherWidget> widgets = onMainPage().getWeatherWidget();
-        for (WeatherWidget widget : widgets )
-        {
-            String text = widget.findElement(By.cssSelector(".inplace.inplace_displayed")).getText();
-            if (text.equals(removeCity)) {
+        for (WeatherWidget widget : widgets) {
+            if (widget.findElement(By.cssSelector(".inplace.inplace_displayed")).getText().equals(removeCity)) {
                 widget.findElement(By.cssSelector(".remove-card.btn.btn-default")).click();
                 break;
             }
         }
         assertThat("Количество виджетов не уменьшилось на единицу после удаления одного виджета", --count, is(onMainPage().getWeatherWidget().size()));
+    }
+
+    @Step("На ввод не полного названия города должно срабатывать автозаполнение")
+    public void shouldAutocompliteCity(String city) {
+        driver.findElement(By.cssSelector(".inplace.inplace_displayed")).click();
+        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).clear();
+        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).sendKeys(city.substring(0, city.length() / 2));
+        WebElement element = (new WebDriverWait(driver, 10))
+                .until((ExpectedCondition<WebElement>) d -> {
+                    List<WebElement> elements = driver.findElements(By.cssSelector(".city__name"));
+                    for (WebElement element1 : elements) {
+                        if (element1.getText().equals(city)) {
+                            return element1;
+                        }
+                    }
+                    return null;
+                });
+        element.click();
+        assertThat("Заголовок города равен названию набираемого города",
+                driver.findElement(By.cssSelector(".inplace.inplace_displayed")).getText(), equalTo(city));
+    }
+
+    @Step("Должны меняться форматы вывода градуса")
+    public void shouldSeeChangeFormatDegree() {
+        driver.findElement(By.cssSelector(".weather-temperature.md-12")).click();
+        assertThat("Не произошло преобразование градусов цельсия в градусы кельвина", driver.findElement(By.cssSelector(".weather-temperature__unit")).getText(), equalTo("°K"));
+        driver.findElement(By.cssSelector(".weather-temperature.md-12")).click();
+        assertThat("Не произошло преобразование градусов в кельвинах в градусы фаренгейта", driver.findElement(By.cssSelector(".weather-temperature__unit")).getText(), equalTo("°F"));
+        driver.findElement(By.cssSelector(".weather-temperature.md-12")).click();
+        assertThat("Не произошло преобразование градусов фаренгейта в градусы °Kaif", driver.findElement(By.cssSelector(".weather-temperature__unit")).getText(), equalTo("°Kaif"));
     }
 
     private MainPage onMainPage() {
