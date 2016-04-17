@@ -8,18 +8,19 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 /**
  * Created by kurau.
+ * Changed by onegines (Eugene Kirienko).
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Название города в последнем виджете")
+    @Name("Название города в заголовке")
     @FindBy(css = ".inplace")
-    private WebElement cityNameInLastWidget;
+    private WebElement cityNameInTitle;
 
     public Rectangle getRect() {
         return null;
     }
 
-    public WebElement getCityNameInLastWidget() {
-        return cityNameInLastWidget;
+    public WebElement getCityNameInTitle() {
+        return cityNameInTitle;
     }
 }
