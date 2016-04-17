@@ -10,6 +10,7 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 /**
  * Created by kurau.
+ * Changed by onegines (Eugene Kirienko).
  */
 public class WeatherWidget extends HtmlElement {
 
