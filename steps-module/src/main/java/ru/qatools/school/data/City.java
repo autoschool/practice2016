@@ -6,13 +6,13 @@ package ru.qatools.school.data;
 public enum City {
     MOSCOW("Moscow"), PITER("Saint-Petersburg"), KALUGA("Калуга");
 
-    private String city;
+    private String name;
 
-    City(String city){
-        this.city = city;
+    City(String name){
+        this.name = name;
     }
 
-    public String getText(){
-        return city;
+    public String getName(){
+        return name;
     }
 }

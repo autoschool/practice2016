@@ -46,13 +46,13 @@ public class DefaultSteps {
 
     @Step("Нажимаем на кнопку добавить виджет")
     public void addWeatherWidget(){
-        onMainPage().addWeatherWidget();
+        onMainPage().getNewCard().click();
     }
 
     @Step("Должны видеть количество виджетов - «{0}»")
-    public void shouldSeeAmountWidget(int expectedAmountWidget){
-        int actualAmountWidget = onMainPage().getWeatherWidget().size();
-        assertThat("Должны видеть верное количество виджетов ", actualAmountWidget, is(expectedAmountWidget));
+    public void shouldSeeCountWidget(int expectedCountWidget){
+        int actualCountWidget = onMainPage().getWeatherWidget().size();
+        assertThat("Должны видеть верное количество виджетов ", actualCountWidget, is(expectedCountWidget));
     }
     private MainPage onMainPage() {
         return new MainPage(driver);

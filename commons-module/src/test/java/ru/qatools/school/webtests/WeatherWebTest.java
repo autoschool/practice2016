@@ -21,6 +21,7 @@ import java.util.List;
 public class WeatherWebTest {
 
     private DefaultSteps defaultSteps;
+    private int countWidget;
 
 
     @DataProvider
@@ -40,7 +41,7 @@ public class WeatherWebTest {
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(City.MOSCOW.getText());
+        defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
@@ -48,18 +49,18 @@ public class WeatherWebTest {
     @UseDataProvider("getCities")
     @Title("Должный видеть виджет с указанным городом")
     public void shouldSeeWidgetWithCurrentCity(City city){
-        defaultSteps.openMainPageWithCity(city.getText());
-        defaultSteps.shouldSeeCity(city.getText());
+        defaultSteps.openMainPageWithCity(city.getName());
+        defaultSteps.shouldSeeCity(city.getName());
     }
 
     @Test
     @Title("Должны видеть виджетов на один больше")
     public void shouldSeeWidgetIncrement(){
-        defaultSteps.openMainPageWithCity(City.MOSCOW.getText());
-        int amountWidget = onMainPage().getWeatherWidget().size();
+        defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
+        countWidget = onMainPage().getWeatherWidget().size();
         defaultSteps.addWeatherWidget();
-        amountWidget++;
-        defaultSteps.shouldSeeAmountWidget(amountWidget);
+        countWidget++;
+        defaultSteps.shouldSeeCountWidget(countWidget);
     }
 
     private MainPage onMainPage() {

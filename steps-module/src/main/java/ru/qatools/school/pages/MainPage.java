@@ -40,8 +40,7 @@ public class MainPage {
         return weatherWidget;
     }
 
-    public void addWeatherWidget(){
-        newCard.click();
+    public WebElement getNewCard() {
+        return newCard;
     }
-
 }
