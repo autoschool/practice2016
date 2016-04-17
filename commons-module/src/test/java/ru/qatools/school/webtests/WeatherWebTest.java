@@ -15,8 +15,8 @@ import static org.junit.Assert.assertThat;
 
 public class WeatherWebTest {
 
-    public static final String MOSCOW = "Moscow";
-    public static final String SPB = "Saint Petersburg";
+    private static final String MOSCOW = "Moscow";
+    private static final String SPB = "Saint Petersburg";
 
     private DefaultSteps defaultSteps;
 
