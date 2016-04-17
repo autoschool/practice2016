@@ -33,7 +33,7 @@ public class WeatherWebTest {
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(null);
-        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidgetOnMainPage());
+        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class WeatherWebTest {
     public void shouldSeeWidgetWithCityInURLOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldSeeElementTextIsSameToText(
-                defaultSteps.getFirstWidgetOnMainPage().getWidgetTitle().getCityNameElement(),
+                defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement(),
                 CITY);
     }
 

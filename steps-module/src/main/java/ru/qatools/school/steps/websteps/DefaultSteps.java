@@ -66,7 +66,7 @@ public class DefaultSteps {
         assertThat("Количество виджетов на странице не равно ожидаемому", wwList, hasSize(widgetsQuantity));
     }
 
-    public WeatherWidget getFirstWidgetOnMainPage() {
+    public WeatherWidget getFirstWidget() {
         return onMainPage().getWeatherWidgetList().get(0);
     }
 
