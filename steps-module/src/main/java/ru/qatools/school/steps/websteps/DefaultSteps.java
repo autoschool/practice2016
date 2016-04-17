@@ -16,6 +16,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.exists;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -43,6 +44,12 @@ public class DefaultSteps {
     public void shouldSeeElement(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
+
+    @Step("Должны видеть на странице все элементы списка «{0}»")
+    public void shouldSeeAllElementFromList(List<? extends WebElement> wwList) {
+        assertThat("Видим не все элементы", (List<WebElement>)wwList, everyItem(both(exists()).and(isDisplayed())));
+    }
+
 
     @Step("Текст «{0}» элемента должен быть «{1}»")
     public void shouldSeeElementTextIsSameToText(WebElement webElement, String text) {

@@ -52,7 +52,7 @@ public class WeatherWebTest {
         int widgetsQ = onMainPage().getWeatherWidgetList().size();
         defaultSteps.clickButton(onMainPage().getNewCardButton());
         defaultSteps.shouldBeWidgetsQuantityOnPage(onMainPage().getWeatherWidgetList(), widgetsQ + 1);
-
+        defaultSteps.shouldSeeAllElementFromList(onMainPage().getWeatherWidgetList());
     }
 
     private MainPage onMainPage() {
