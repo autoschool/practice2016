@@ -45,7 +45,7 @@ public class DefaultSteps {
     }
 
     @Step("Текст «{0}» элемента должен быть «{1}»")
-    public void expectedElementTextIsSameToText(WebElement webElement, String text) {
+    public void shouldSeeElementTextIsSameToText(WebElement webElement, String text) {
         assertThat("Текст элемента и ожидаемый не совпадают", webElement, hasText(text));
     }
 
@@ -55,12 +55,12 @@ public class DefaultSteps {
     }
 
     @Step("Количество виджетов на странице должно быть «{0}»")
-    public void expectedWidgetsQuantityOnPage(List<WeatherWidget> wwList, int widgetsQuantity) {
+    public void shouldBeWidgetsQuantityOnPage(List<WeatherWidget> wwList, int widgetsQuantity) {
         assertThat("Количество виджетов на странице не равно ожидаемому", wwList, hasSize(widgetsQuantity));
     }
 
-    public WeatherWidget getFirstElementFromWidgetsList(List<WeatherWidget> inList) {
-        return inList.get(0);
+    public WeatherWidget getFirstWidgetOnMainPage() {
+        return onMainPage().getWeatherWidgetList().get(0);
     }
 
     private MainPage onMainPage() {
