@@ -2,6 +2,7 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.w3c.dom.html.HTMLElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -10,6 +11,7 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import java.util.List;
 
 import static java.lang.String.format;
+import static org.hamcrest.Matchers.both;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -37,7 +39,7 @@ public class DefaultSteps {
     }
 
     @Step("Должны видеть на странице «{0}»")
-    public void shouldSee(WebElement element) {
+    public void shouldSeeElement(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 

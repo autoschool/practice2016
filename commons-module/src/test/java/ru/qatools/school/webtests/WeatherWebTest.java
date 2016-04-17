@@ -30,7 +30,15 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны видеть виджет для города в URL на главной странице")
+    @Title("Должны видеть виджет на главной странице")
+    public void shouldSeeWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(null);
+        defaultSteps.shouldSeeElement(
+                defaultSteps.getFirstElementFromWidgetsList(onMainPage().getWeatherWidgetList()));
+    }
+
+    @Test
+    @Title("Должны видеть виджет c городом в заголовке таком же, как в URL на главной странице")
     public void shouldSeeWidgetWithCityInURLOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.expectedElementTextIsSameToText(
@@ -46,6 +54,7 @@ public class WeatherWebTest {
         int widgetsQ = onMainPage().getWeatherWidgetList().size();
         defaultSteps.clickButton(onMainPage().getNewCardButton());
         defaultSteps.expectedWidgetsQuantityOnPage(onMainPage().getWeatherWidgetList(), widgetsQ + 1);
+
     }
 
     private MainPage onMainPage() {
