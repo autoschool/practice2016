@@ -17,8 +17,8 @@ public class WebDriverRule extends ExternalResource {
     }
 
     protected void after() {
-        //driver.close();
-        //driver.quit();
+        driver.close();
+        driver.quit();
     }
 
     public WebDriver getDriver() {
