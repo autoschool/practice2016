@@ -57,9 +57,9 @@ public class DefaultSteps {
     private void addWidgetOnMainPage(String city) {
         onMainPage().getAddWidget().click();
         onMainPage().getInplace().get(0).click();
-        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).clear();
-        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).sendKeys(city);
-        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).sendKeys(Keys.RETURN);
+        onMainPage().getEditInplace().clear();
+        onMainPage().getEditInplace().sendKeys(city);
+        onMainPage().getEditInplace().sendKeys(Keys.RETURN);
     }
 
     @Step("На главной странице виджеты добавляются")
