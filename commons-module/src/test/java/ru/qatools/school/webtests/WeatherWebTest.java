@@ -6,6 +6,7 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Title;
 
 public class WeatherWebTest {
@@ -22,6 +23,7 @@ public class WeatherWebTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
+    @Features("Веб-тесты")
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
@@ -29,6 +31,7 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeElement(onMainPage().getWeatherWidgetList().get(0));
     }
 
+    @Features("Веб-тесты")
     @Test
     @Title("Должен отображаться город, переданный в запросе")
     public void shouldSeeCityFromGETQuery() {
@@ -36,6 +39,7 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeCityName(onMainPage().getWeatherWidgetList().get(0).getWidgetTitle(), CITY);
     }
 
+    @Features("Веб-тесты")
     @Test
     @Title("Должен добавляться еще один виджет")
     public void shouldBeAbleToAddWidget() {

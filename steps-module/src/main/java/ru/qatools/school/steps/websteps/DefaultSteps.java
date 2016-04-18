@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
+import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
@@ -50,7 +51,8 @@ public class DefaultSteps {
 
     @Step("Количество виджетов на странице должно быть равным {0}")
     public void shouldHaveWidgetNumber(int quantityOfWidgets) {
-        Assert.assertThat(onMainPage().getWeatherWidgetList().size(), is(quantityOfWidgets));
+        assertThat("Название виджета должно быть", onMainPage().getWeatherWidgetList().size(),
+                is(quantityOfWidgets));
     }
 
     @Step("Должны видеть на странице все элементы из списка {0}")

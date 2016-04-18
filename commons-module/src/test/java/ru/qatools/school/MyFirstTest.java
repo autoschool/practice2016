@@ -6,6 +6,7 @@ import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.qatools.school.data.Place;
+import ru.yandex.qatools.allure.annotations.Features;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,23 +29,27 @@ public class MyFirstTest {
         return placesList;
     }
 
+    @Features("Интеграционные тесты")
     @Test
     public void shouldBeAtNullWhenDefault() {
         user().shouldBeAtPlace(null);
     }
 
+    @Features("Интеграционные тесты")
     @Test
     @UseDataProvider("places")
     public void afterGoSomewhereShouldBeThere(Place place) {
         user().goTo(place).shouldBeAtPlace(place);
     }
 
+    @Features("Интеграционные тесты")
     @Test
     @UseDataProvider("places")
     public void afterGoSomewhereTwiceShouldBeThere(Place place) {
         user().goTo(place).goTo(place).shouldBeAtPlace(place);
     }
 
+    @Features("Интеграционные тесты")
     @Test
     public void afterGoSomewhereElseShouldBeThere() {
         user().goTo(Place.HOME).goTo(Place.AT_YANDEX)
