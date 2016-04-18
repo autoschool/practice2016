@@ -30,17 +30,19 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("В заголовке виджета должны видеть город, указанный в ссылке")
-    public void shouldSeeSelectedCityOnWidgetTitle(){
+    @Title("В заголовке виджета должны видеть город, указанный в запросе")
+    public void shouldSeeSelectedCityOnWidgetTitle() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeRightCityInWidgetsTitle(MOSCOW);
     }
 
     @Test
     @Title("Должны видеть на один виджет больше после нажатия на кнопку +")
-    public void shouldSeeOneMoreWidget(){
+    public void shouldSeeOneMoreWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeNewAddedWidget(onMainPage());
+        int numberOfWidgets = onMainPage().getWeatherWidget().size();
+        defaultSteps.addNewWidgetOnMainPage();
+        defaultSteps.shouldHaveWidgetNumberOnMainPage(numberOfWidgets+1);
     }
 
     private MainPage onMainPage() {
