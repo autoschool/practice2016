@@ -8,6 +8,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
@@ -33,17 +34,20 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Должны видеть в заголовке город, указанный в ссылке")
+    @Step("Должны видеть в заголовке виджета текст: {0}")
     public void shouldSeeRightCityInWidgetsTitle(String cityName){
-        assertThat("Город в заголовке совпадает с указанным в ссылке",
-                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getPrimaryTitle().getCityName() , is(cityName));
+        assertThat("Должны видеть текст",
+                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getPrimaryTitle(), hasText(cityName));
     }
 
-    @Step("Должны видеть на один виджет больше после добавления")
-    public void shouldSeeNewAddedWidget(MainPage page){
-        int numberOfWidgets = page.getWeatherWidget().size();
-        page.getAddNewWidgetButton().click();
-        assertThat("Должны видеть на один виджет больше", page.getWeatherWidget().size(), is(numberOfWidgets+1));
+    @Step("Нажимаем на кнопку добавления виджета")
+    public void addNewWidgetOnMainPage(){
+        onMainPage().getAddNewWidgetButton().click();
+    }
+
+    @Step("Число виджетов на странице должно быть равно: {0}")
+    public void shouldHaveWidgetNumberOnMainPage(int numberOfWidgets){
+        assertThat("Должны видеть виджетов", onMainPage().getWeatherWidget().size(), is(numberOfWidgets));
     }
 
     private MainPage onMainPage() {
