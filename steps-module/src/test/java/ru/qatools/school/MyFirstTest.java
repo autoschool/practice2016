@@ -1,5 +1,6 @@
 package ru.qatools.school;
 
+import org.junit.Test;
 import ru.qatools.school.data.Place;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -12,16 +13,19 @@ import static ru.qatools.school.steps.UserSteps.user;
  */
 public class MyFirstTest {
 
-    public void isPlaceYandex() {
-        user().goTo(Place.AT_YANDEX).isPlaseExist(Place.AT_YANDEX);
+    @Test
+    public void whenPlaceIsYandex() {
+        user().goTo(Place.AT_YANDEX).ensureThatPlaseIsEqualToExpectedValue(Place.AT_YANDEX);
     }
 
-    public void isPlaceHome() {
-        user().goTo(Place.HOME).isPlaseExist(Place.HOME);
+    @Test
+    public void whenPlaceIsHome() {
+        user().goTo(Place.HOME).ensureThatPlaseIsEqualToExpectedValue(Place.HOME);
     }
 
-    public void isPlaceNull() {
-        user().goTo(null).isPlaseExist(null);
+    @Test
+    public void whenPlaceIsNull() {
+        user().goTo(null).ensureThatPlaseIsEqualToExpectedValue(null);
     }
 
 }
