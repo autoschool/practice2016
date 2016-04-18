@@ -1,5 +1,6 @@
 package ru.qatools.school.steps.websteps;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -43,9 +44,9 @@ public class DefaultSteps {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Должны видеть на странице «{0}»")
+    @Step("Должны видеть элемент «{0}»")
     public void shouldSee(HtmlElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat("Должны видеть элемент", element, both(exists()).and(isDisplayed()));
     }
 
     @Step("Должны видеть каждый из «{0}»")
@@ -54,7 +55,7 @@ public class DefaultSteps {
     }
 
     @Step("Текст элемента «{0}» должен быть «{1}»")
-    public void expectText(HtmlElement element, String text) {
+    public void shouldHaveText(HtmlElement element, String text) {
         assertThat("Неверный текст элемента", element, hasText(text));
     }
 
@@ -63,13 +64,20 @@ public class DefaultSteps {
         Thread.sleep(1000);
     }
 
-    @Step("Количество элементов «{0}» должно быть «{1}»")
-    public void expectSize(Collection<? extends WebElement> elements, int size) {
+    @Step("Количество элементов «{0}» должно быть {1}")
+    public void shouldHaveSize(Collection<? extends WebElement> elements, int size) {
         assertThat("Неверное количество элементов", elements, hasSize(size));
     }
 
     @Step("Кликаем по [{0}]")
     public void clickOn(HtmlElement element) {
         element.click();
+    }
+
+    @Step("Стираем текст из «{0}»")
+    public void eraseTextFrom(HtmlElement element) {
+        element.click();
+        element.clear();
+        element.sendKeys(Keys.ENTER);
     }
 }

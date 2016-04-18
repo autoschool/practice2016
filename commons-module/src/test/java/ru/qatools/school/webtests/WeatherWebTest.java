@@ -1,11 +1,9 @@
 package ru.qatools.school.webtests;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.*;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
+import ru.qatools.school.rules.ScreenshotOnFailureRule;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
@@ -20,6 +18,8 @@ public class WeatherWebTest {
     @ClassRule
     public static WebDriverRule webDriverRule = new WebDriverRule();
     private static DefaultSteps defaultSteps;
+    @Rule
+    public ScreenshotOnFailureRule screenshotOnFailure = new ScreenshotOnFailureRule(webDriverRule.getDriver());
 
     @BeforeClass
     public static void initSteps() {
@@ -43,7 +43,7 @@ public class WeatherWebTest {
     public void widgetTitleShouldMatchCity() throws InterruptedException {
         defaultSteps.openMainPageWithCity(DEFAULT_CITY);
         defaultSteps.waitASecond();
-        defaultSteps.expectText(firstWidget().widgetTitle().cityName(), DEFAULT_CITY);
+        defaultSteps.shouldHaveText(firstWidget().widgetTitle().cityName(), DEFAULT_CITY);
     }
 
     @Test
@@ -51,8 +51,17 @@ public class WeatherWebTest {
     public void shouldSeeTwoWidgetsWhenAddOne() {
         defaultSteps.openMainPageWithCity(DEFAULT_CITY);
         defaultSteps.clickOn(onMainPage().getAddWidgetButton());
-        defaultSteps.expectSize(onMainPage().allWeatherWidgets(), 2);
+        defaultSteps.shouldHaveSize(onMainPage().allWeatherWidgets(), 2);
         defaultSteps.shouldSee(onMainPage().allWeatherWidgets());
+    }
+
+    @Test
+    @Title("Должно отображаться поле для ввода города после стирания из него текста")
+    public void cityNameFieldRemainsVisibleWhenCleared() throws InterruptedException {
+        defaultSteps.openMainPageWithCity(DEFAULT_CITY);
+        defaultSteps.waitASecond();
+        defaultSteps.eraseTextFrom(firstWidget().widgetTitle().cityName());
+        defaultSteps.shouldSee(firstWidget().widgetTitle().cityName());
     }
 
     private MainPage onMainPage() {

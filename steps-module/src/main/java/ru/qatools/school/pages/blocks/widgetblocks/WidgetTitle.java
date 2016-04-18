@@ -10,8 +10,8 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Название текущего города")
-    @FindBy(css = ".card-title__primary")
+    @Name("Поле для названия текущего города")
+    @FindBy(css = ".inplace")
     private HtmlElement cityName;
 
     public HtmlElement cityName() {
