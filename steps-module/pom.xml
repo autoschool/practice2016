@@ -40,6 +40,10 @@
             <groupId>ru.yandex.qatools.htmlelements</groupId>
             <artifactId>htmlelements-matchers</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.matchers</groupId>
+            <artifactId>webdriver-matchers</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
