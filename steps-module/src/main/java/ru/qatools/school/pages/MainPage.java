@@ -60,4 +60,8 @@ public class MainPage {
         return listTemperatures;
     }
 
+    public void addWidget(String city) {
+
+    }
+
 }
