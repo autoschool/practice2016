@@ -51,12 +51,12 @@ public class DefaultSteps {
     @Step("Заголовок виджета должен совпадать с запрошенным городом")
     public void shouldSeeTitleWidgetEqualCity(String city) {
         assertThat("Заголовок города равен названию виджета",
-                driver.findElement(By.cssSelector(".inplace.inplace_displayed")).getText(), equalTo(city));
+                onMainPage().getInplace().get(0).getText(), equalTo(city));
     }
 
     private void addWidgetOnMainPage(String city) {
-        driver.findElement(By.cssSelector(".new-card")).click();
-        driver.findElement(By.cssSelector("span.inplace.inplace_displayed")).click();
+        onMainPage().getAddWidget().click();
+        onMainPage().getInplace().get(0).click();
         driver.findElement(By.cssSelector("input.inplace.inplace_editable")).clear();
         driver.findElement(By.cssSelector("input.inplace.inplace_editable")).sendKeys(city);
         driver.findElement(By.cssSelector("input.inplace.inplace_editable")).sendKeys(Keys.RETURN);
