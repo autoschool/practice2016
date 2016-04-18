@@ -10,7 +10,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 
 public class WeatherWebTest {
 
-    public static final String MOSCOW = "Moscow";
+    public static final String CITY = "Moscow";
 
     private DefaultSteps defaultSteps;
 
@@ -25,7 +25,24 @@ public class WeatherWebTest {
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.openMainPageWithCity(CITY);
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+    }
+
+    @Test
+    @Title("Должны видеть заданный город в виджете на главной странице")
+    public void verifyCityInWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(CITY);
+        defaultSteps.shouldSeeCityInWidget(onMainPage().getWeatherWidget().get(0)
+                .getWidgetTitle().getCityName(), CITY);
+    }
+
+    @Test
+    @Title("После клика по кнопке добавления должны видеть 2 виджета на главной странице")
+    public void shouldSee2WidgetsOnMainPage() {
+        defaultSteps.openMainPageWithCity(CITY);
+        defaultSteps.clickElement(onMainPage().getButtonAddWidget());
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
