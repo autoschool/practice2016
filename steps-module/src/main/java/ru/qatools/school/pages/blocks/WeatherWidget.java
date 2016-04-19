@@ -3,7 +3,6 @@ package ru.qatools.school.pages.blocks;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.qatools.school.pages.blocks.widgetblocks.CityName;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetText;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.htmlelements.annotations.Name;
@@ -26,18 +25,15 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private WebElement actions;
 
-    private CityName cityName;
+//    @Name("Название города")
+//    private CityName cityName;
 
-    public CityName getCityName() {
-        return cityName;
-    }
 
     public WidgetText getWidgetText() {
         return widgetText;
     }
 
     public WidgetTitle getWidgetTitle() {
-
         return widgetTitle;
     }
 

@@ -33,7 +33,7 @@ public class WeatherWebTest {
     @Title("Должны видеть виджет с названием города")
     public void shouldSeeWidgetWithCityName() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidgetTitle().get(0));
+        defaultSteps.shouldSeeCityName(MOSCOW);
     }
 
     private MainPage onMainPage() {

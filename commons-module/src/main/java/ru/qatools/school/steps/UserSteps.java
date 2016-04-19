@@ -15,10 +15,9 @@ public class UserSteps {
     public static UserSteps user() {
         return new UserSteps();
     }
-    
+
     public UserSteps goTo(Place place) {
-        this.place = place;
-        return this;
+        return null;
     }
 
     public void shouldBeAtPlace(Object o) {

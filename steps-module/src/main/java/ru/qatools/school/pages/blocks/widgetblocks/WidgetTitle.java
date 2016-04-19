@@ -10,12 +10,12 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  * Created by kurau.
  */
 public class WidgetTitle extends HtmlElement {
-    @Name("Название виджета")
+    @Name("Название города")
     @FindBy(css = ".card-title__primary .inplace_displayed")
-    private WebElement widgetTitle;
+    private WebElement cityName;
 
-    public WebElement getWidgetTitle() {
-        return widgetTitle;
+    public WebElement getCityName() {
+        return cityName;
     }
 
     public Rectangle getRect() {
