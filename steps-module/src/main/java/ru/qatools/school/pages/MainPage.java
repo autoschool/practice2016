@@ -25,6 +25,9 @@ public class MainPage {
     @FindBy(css = ".new-card")
     private HtmlElement buttonAddWidget;
 
+    @Name("Первый виджет")
+    private HtmlElement firstWidget;
+
     public MainPage(WebDriver driver) {
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
@@ -34,5 +37,7 @@ public class MainPage {
     }
 
     public HtmlElement getButtonAddWidget() { return buttonAddWidget; }
+
+    public HtmlElement getFirstWidget() { return getWeatherWidget().get(0);}
 
 }

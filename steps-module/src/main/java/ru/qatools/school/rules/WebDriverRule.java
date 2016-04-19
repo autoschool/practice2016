@@ -16,13 +16,17 @@ public class WebDriverRule extends ExternalResource {
 
     private WebDriver driver;
 
+    //конструктор
+   public WebDriverRule(WebDriver ddriver){
+        driver=ddriver;
+    }
+
     protected void before() throws Throwable {
-        this.driver = new FirefoxDriver();
+        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+"t");
     }
 
     protected void after() {
-        driver.close();
-        driver.quit();
+        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+"w");
     }
 
     public WebDriver getDriver() {

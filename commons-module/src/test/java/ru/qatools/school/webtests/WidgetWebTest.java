@@ -4,9 +4,13 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExternalResource;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.qatools.school.data.City;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
@@ -20,10 +24,29 @@ import java.util.stream.Stream;
 /**
  * Created by aasx on 14.04.2016.
  */
+
 public class WidgetWebTest {
+    public static WebDriver driver;
+    @ClassRule
+    public static ExternalResource resource = new ExternalResource() {
+        @Override
+        protected void before() throws Throwable {
+            driver = new FirefoxDriver();
+        }
+
+        @Override
+        protected void after() {
+            driver.close();
+            driver.quit();
+
+        }
+    };
+
     private static DefaultSteps steps;
+
     @Rule
-    public WebDriverRule webDriverRule = new WebDriverRule();
+    public WebDriverRule webDriverRule = new WebDriverRule(driver);
+
 
     @DataProvider
     public static String[] dataProviderCities() {
@@ -32,7 +55,8 @@ public class WidgetWebTest {
 
     @Before
     public void initSteps() {
-        steps = new DefaultSteps(webDriverRule.getDriver());
+        //steps = new DefaultSteps(webDriverRule.getDriver());
+        steps = new DefaultSteps(driver);
     }
 
     @Test
@@ -40,12 +64,12 @@ public class WidgetWebTest {
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage(String cityToUrl) {
         steps.openMainPageWithCity(cityToUrl);
-        steps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        steps.shouldSee(onMainPage().getFirstWidget());
     }
 
     @Test
     @UseDataProvider("dataProviderCities")
-    @Title("Должны видеть виджет города [«{0}»], указанного в URL")
+    @Title("Должны видеть виджет города, указанного в URL")
     public void expectCityNameEqualsCityNameFromUrl(String cityToUrl) {
         steps.openMainPageWithCity(cityToUrl);
         steps.shouldSeeCorrectCityNameAtWidget(cityToUrl);
@@ -58,11 +82,11 @@ public class WidgetWebTest {
         steps.openMainPageWithCity(cityToUrl);
         int numberOfWidget = onMainPage().getWeatherWidget().size();
         steps.clickElement(onMainPage().getButtonAddWidget());
-        steps.expectNumberOfWeatherWidgets(numberOfWidget+1);
+        steps.expectNumberOfWeatherWidgets(numberOfWidget + 1);
     }
 
     private MainPage onMainPage() {
-        return new MainPage(webDriverRule.getDriver());
+        return new MainPage(driver);
     }
 
 }
