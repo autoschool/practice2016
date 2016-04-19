@@ -20,4 +20,7 @@ public class UserSteps {
         this.place = place;
         return this;
     }
+
+    public void shouldBeAtPlace(Object o) {
+    }
 }
