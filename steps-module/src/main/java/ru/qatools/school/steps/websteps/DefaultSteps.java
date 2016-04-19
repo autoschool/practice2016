@@ -35,10 +35,10 @@ public class DefaultSteps {
 
     @Step("В виджете «{0}» должны видеть город «{1}»")
     public void shouldSeeCityInWidget(WebElement element, String city) {
-        assertThat("В виджете не отбражается заявленный город", element.getText(), is(city));
+        assertThat("В виджете отбражается не тот город!", element.getText(), is(city));
     }
 
-    @Step("Кликаем по элементу «{0}»")
+    @Step("Кликаем по «{0}»")
     public void clickElement(WebElement element) {
         element.click();
     }

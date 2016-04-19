@@ -39,11 +39,11 @@ public class WeatherWebTest {
 
     @Test
     @Title("После клика по кнопке добавления должны видеть 2 виджета на главной странице")
-    public void shouldSee2WidgetsOnMainPage() {
+    public void shouldSeeTwoWidgetsOnMainPageAfterAddOne() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.clickElement(onMainPage().getButtonAddWidget());
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(1));
     }
 
     private MainPage onMainPage() {
