@@ -1,7 +1,6 @@
 package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -44,7 +43,9 @@ public class DefaultSteps {
 
 
     @Step("Кликаем на элемент «{0}»")
-    public void clickElement(HtmlElement element) {element.click();}
+    public void clickElement(HtmlElement element) {
+        element.click();
+    }
 
     @Step("Количество виджетов должно быть «{0}» и они должны быть видимы")
     public void expectNumberOfWeatherWidgets(int expectedQuantity) {

@@ -1,7 +1,6 @@
 package ru.qatools.school.pages.blocks;
 
 import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetText;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;

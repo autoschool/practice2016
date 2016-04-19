@@ -27,6 +27,8 @@ import java.util.stream.Stream;
 
 public class WidgetWebTest {
     public static WebDriver driver;
+    private static DefaultSteps steps;
+
     @ClassRule
     public static ExternalResource resource = new ExternalResource() {
         @Override
@@ -42,8 +44,6 @@ public class WidgetWebTest {
         }
     };
 
-    private static DefaultSteps steps;
-
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule(driver);
 
@@ -55,7 +55,6 @@ public class WidgetWebTest {
 
     @Before
     public void initSteps() {
-        //steps = new DefaultSteps(webDriverRule.getDriver());
         steps = new DefaultSteps(driver);
     }
 

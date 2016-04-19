@@ -1,7 +1,6 @@
 package ru.qatools.school.pages;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.qatools.school.pages.blocks.WeatherWidget;
@@ -36,8 +35,12 @@ public class MainPage {
         return weatherWidget;
     }
 
-    public HtmlElement getButtonAddWidget() { return buttonAddWidget; }
+    public HtmlElement getButtonAddWidget() {
+        return buttonAddWidget;
+    }
 
-    public HtmlElement getFirstWidget() { return getWeatherWidget().get(0);}
+    public HtmlElement getFirstWidget() {
+        return getWeatherWidget().get(0);
+    }
 
 }
