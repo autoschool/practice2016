@@ -2,6 +2,7 @@
 WebTest for WeatherWidget http://weather.lanwen.ru/#?cities=%s
 
 See all info in repo [autoschool/autoschool.github.io](https://github.com/autoschool/autoschool.github.io)
+
 +Contains afew test according to Task
 
 +Implemented DataProvider for cities
