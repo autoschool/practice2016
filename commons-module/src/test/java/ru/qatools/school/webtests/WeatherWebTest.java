@@ -44,7 +44,7 @@ public class WeatherWebTest {
         int beforeAddWidget = onMainPage().getWeatherWidget().size();
         defaultSteps.addNewWidgetWithCity(PITER);
         int afterAddWidget = onMainPage().getWeatherWidget().size();
-        defaultSteps.shouldSeeNewWidget(beforeAddWidget, afterAddWidget);
+        defaultSteps.shouldBeOneMoreWidget(beforeAddWidget, afterAddWidget);
         defaultSteps.shouldSeeWidgetWithCity(PITER);
     }
 

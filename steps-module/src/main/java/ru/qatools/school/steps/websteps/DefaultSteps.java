@@ -49,7 +49,7 @@ public class DefaultSteps {
     }
 
     @Step("Должны увидеть добавленный виджет")
-    public void shouldSeeNewWidget(int beforeAddWidget, int afterAddWidget) {
+    public void shouldBeOneMoreWidget(int beforeAddWidget, int afterAddWidget) {
         assertEquals(beforeAddWidget + 1, afterAddWidget);
     }
 
