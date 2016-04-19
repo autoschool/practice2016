@@ -11,15 +11,8 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Заголовок виджета")
-    @FindBy(css = ".inplace.inplace_displayed")
-    private WebElement widgetTitle;
-
     public Rectangle getRect() {
         return null;
     }
 
-    public WebElement getWidgetTitle() {
-        return widgetTitle;
-    }
 }

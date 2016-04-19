@@ -25,6 +25,10 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private WebElement actions;
 
+    @Name("Название города в виджете")
+    @FindBy(css = ".inplace.inplace_displayed")
+    private WebElement inplace;
+
     public WidgetText getWidgetText() {
         return widgetText;
     }
@@ -35,6 +39,10 @@ public class WeatherWidget extends HtmlElement {
 
     public WebElement getActions() {
         return actions;
+    }
+
+    public WebElement getInplace() {
+        return inplace;
     }
 
     public Rectangle getRect() {
