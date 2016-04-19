@@ -48,7 +48,7 @@ public class DefaultSteps {
 
     @Step("Должны видеть на один виджет больше")
     public void shouldSeeOtherCountOfWidgets(int widgetCount) {
-        assertEquals("Должны видеть другое кол-во виджетов", onMainPage().getWeatherWidgetList().size(), widgetCount);
+        assertEquals("ДДолжны видеть отличное от начального кол-во виджетов", onMainPage().getWeatherWidgetList().size(), widgetCount);
     }
 
     private MainPage onMainPage() {
