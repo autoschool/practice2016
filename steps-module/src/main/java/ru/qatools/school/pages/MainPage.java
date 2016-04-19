@@ -1,6 +1,7 @@
 package ru.qatools.school.pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.qatools.school.pages.blocks.WeatherWidget;
@@ -26,13 +27,13 @@ public class MainPage {
 
     @Name("Кнопка добавления виджета")
     @FindBy(css = ".new-card")
-    private Button addWidgetButton;
+    private WebElement addWidgetButton;
 
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
 
-    public Button getAddWidgetButton() {
+    public WebElement getAddWidgetButton() {
         return addWidgetButton;
     }
 

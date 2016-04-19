@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.awt.*;
+
 import static java.lang.String.format;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.*;
@@ -39,6 +41,13 @@ public class DefaultSteps {
         mainPage = new MainPage(driver);
         WebElement cityName = mainPage.getWeatherWidget().get(0).getWidgetTitle().getCityName();
         assertThat("Название города в заголовке совпадает с названием искомого города", cityName, hasText(city));
+    }
+
+    @Step("После нажатия кнопки Добавить появляется еще один виджет")
+    public void addNewWidget(WebElement element) {
+        mainPage = new MainPage(driver);
+        mainPage.getAddWidgetButton().click();
+        assertThat("Появился второй виджет", mainPage.getWeatherWidget().get(1), isDisplayed());
     }
 
     private MainPage onMainPage() {
