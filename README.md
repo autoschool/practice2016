@@ -1,5 +1,5 @@
-# WebTest for WeatherWidget http://weather.lanwen.ru/#?cities=%s
 #Practise of automation school 2016
+WebTest for WeatherWidget http://weather.lanwen.ru/#?cities=%s
 
 See all info in repo [autoschool/autoschool.github.io](https://github.com/autoschool/autoschool.github.io)
 
