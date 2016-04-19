@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
+import static org.hamcrest.Matchers.*;
 
 import static java.lang.String.format;
 import static org.junit.Assert.assertThat;
@@ -32,6 +33,27 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
+    @Step("Долный видеть на странице город «{0}»")
+    public void shouldSeeCity(String city){
+        String actualCity = "no such city onMainPage";
+        for (WebElement element : onMainPage().getWeatherCities())
+            if (element.getText().equals(city)) {
+                actualCity = city;
+                break;
+            }
+        assertThat("Должен быть город ".concat(city), actualCity, is(city));
+    }
+
+    @Step("Нажимаем на кнопку добавить виджет")
+    public void addWeatherWidget(){
+        onMainPage().getNewCard().click();
+    }
+
+    @Step("Должны видеть количество виджетов - «{0}»")
+    public void shouldSeeCountWidget(int expectedCountWidget){
+        int actualCountWidget = onMainPage().getWeatherWidget().size();
+        assertThat("Должны видеть верное количество виджетов ", actualCountWidget, is(expectedCountWidget));
+    }
     private MainPage onMainPage() {
         return new MainPage(driver);
     }
