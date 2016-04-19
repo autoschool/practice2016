@@ -28,7 +28,7 @@ public class WeatherWebTest {
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElement(onMainPage().getWeatherWidgetList().get(0));
+        defaultSteps.shouldSeeElement(onMainPage().getFirstWidget());
     }
 
     @Features("Веб-тесты")
@@ -36,7 +36,7 @@ public class WeatherWebTest {
     @Title("Должен отображаться город, переданный в запросе")
     public void shouldSeeCityFromGETQuery() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeCityName(onMainPage().getWeatherWidgetList().get(0).getWidgetTitle(), CITY);
+        defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetTitle().getCity(), CITY);
     }
 
     @Features("Веб-тесты")
@@ -47,7 +47,7 @@ public class WeatherWebTest {
         int initialNumberOfWidgets = onMainPage().getWeatherWidgetList().size();
         defaultSteps.pressAddWidgetButton();
         defaultSteps.shouldHaveWidgetNumber(initialNumberOfWidgets + 1);
-        defaultSteps.shouldSeeAllElements(onMainPage().getWeatherWidgetList());
+        defaultSteps.shouldSeeAllWidgets();
     }
 
     private MainPage onMainPage() {

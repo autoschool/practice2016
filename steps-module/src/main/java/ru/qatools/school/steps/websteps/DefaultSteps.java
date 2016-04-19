@@ -1,12 +1,9 @@
 package ru.qatools.school.steps.websteps;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
-import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
-import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
@@ -44,9 +41,9 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Должны видеть у виджета город: «{0}»")
-    public void shouldSeeCityName(WidgetTitle titleBlock, String expectedCityName) {
-        assertThat("Должны видеть текст", titleBlock.getCity().getText(), is(expectedCityName));
+    @Step("Должны видеть у элемента {0} текст «{1}»")
+    public void shouldHaveText(WebElement element, String expectedText) {
+        assertThat("Должны видеть текст", element.getText(), is(expectedText));
     }
 
     @Step("Количество виджетов на странице должно быть равным {0}")
@@ -55,9 +52,10 @@ public class DefaultSteps {
                 is(quantityOfWidgets));
     }
 
-    @Step("Должны видеть на странице все элементы из списка {0}")
-    public void shouldSeeAllElements(List<WeatherWidget> widgets) {
-        for (WeatherWidget widget : widgets) {
+    @Step("Все виджеты на странице должны быть видимы")
+    public void shouldSeeAllWidgets() {
+        List<WeatherWidget> weatherWidgets = onMainPage().getWeatherWidgetList();
+        for (WeatherWidget widget : weatherWidgets) {
             shouldSeeElement(widget);
         }
     }
