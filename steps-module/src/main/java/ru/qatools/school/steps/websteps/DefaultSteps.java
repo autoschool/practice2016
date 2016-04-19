@@ -44,10 +44,10 @@ public class DefaultSteps {
     }
 
     @Step("После нажатия кнопки Добавить появляется еще один виджет")
-    public void addNewWidget(WebElement element) {
+    public void addNewWidget(Integer widgetNumber) {
         mainPage = new MainPage(driver);
         mainPage.getAddWidgetButton().click();
-        assertThat("Появился второй виджет", mainPage.getWeatherWidget().get(1), isDisplayed());
+        assertThat("Появился новый виджет", mainPage.getWeatherWidget().get(widgetNumber), isDisplayed());
     }
 
     private MainPage onMainPage() {
