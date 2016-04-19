@@ -13,9 +13,9 @@ public class WidgetText extends HtmlElement {
 
     @Name("Картинка текущей погоды")
     @FindBy(css = ".weather-image")
-    private WebElement weatherImage;
+    private HtmlElement weatherImage;
 
-    public WebElement getWeatherImage() {
+    public HtmlElement getWeatherImage() {
         return weatherImage;
     }
 

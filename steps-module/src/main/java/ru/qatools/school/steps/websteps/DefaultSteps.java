@@ -30,19 +30,19 @@ public class DefaultSteps {
     }
 
     @Step("Должны видеть на странице «{0}»")
-    public void shouldSee(WebElement element) {
+    public void shouldSee(HtmlElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
     @Step("Должны увидеть название города «{0}» на виджете ")
     public void shouldSeeCorrectCityNameAtWidget(String cityFromUrl) {
-        assertThat("Должны видеть на виджете название города, такое как в URL",
+        assertThat("Должны видеть на виджете название города, такое как в URL: «{1}»",
                 onMainPage().getWeatherWidget().get(0).getWidgetTitle()
                         .getCityName().getText(), is(cityFromUrl));
     }
 
     @Step("Кликаем на элемент «{0}»")
-    public void clickElement(WebElement element) {element.click();}
+    public void clickElement(HtmlElement element) {element.click();}
 
     private MainPage onMainPage() {
         return new MainPage(driver);

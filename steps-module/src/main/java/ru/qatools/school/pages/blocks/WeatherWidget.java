@@ -23,7 +23,7 @@ public class WeatherWidget extends HtmlElement {
 
     @Name("Панель управления виджетом")
     @FindBy(css = ".card-actions")
-    private WebElement actions;
+    private HtmlElement actions;
 
     public WidgetText getWidgetText() {
         return widgetText;
@@ -33,7 +33,7 @@ public class WeatherWidget extends HtmlElement {
         return widgetTitle;
     }
 
-    public WebElement getActions() {
+    public HtmlElement getActions() {
         return actions;
     }
 

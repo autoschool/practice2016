@@ -12,15 +12,15 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WidgetTitle extends HtmlElement {
     @Name("Картинка текущей погоды")
     @FindBy(css = ".weather-image")
-    private WebElement weatherImage;
+    private HtmlElement weatherImage;
 
     @Name("Название города")
     @FindBy(css = ".card-title__primary")
-    private WebElement cityName;
+    private HtmlElement cityName;
 
-    public WebElement getCityName() {return cityName;}
+    public HtmlElement getCityName() {return cityName;}
 
-    public WebElement getWeatherImage() {
+    public HtmlElement getWeatherImage() {
         return weatherImage;
     }
 
