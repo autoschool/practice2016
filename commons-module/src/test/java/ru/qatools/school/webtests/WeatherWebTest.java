@@ -37,7 +37,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны видеть отличное от начального кол-во виджетов")
-    public void shouldSeeOtherCountOfWidgets(){
+    public void shouldSeeDifferentCountOfWidgets(){
         defaultSteps.openMainPageWithCity(CITY);
         int widgetCount = onMainPage().getWeatherWidgetList().size();
         defaultSteps.pushButton(onMainPage().getButton());
