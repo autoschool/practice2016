@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.pages.MainPage;
+import ru.qatools.school.pages.MainPageMethods;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -19,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 import static java.lang.String.format;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -31,6 +33,7 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
 public class DefaultSteps {
 
     public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String NEW_WIDGET = "What a city?";
 
     private WebDriver driver;
 
@@ -51,50 +54,30 @@ public class DefaultSteps {
     @Step("Заголовок виджета должен совпадать с запрошенным городом")
     public void shouldSeeTitleWidgetEqualCity(String city) {
         assertThat("Заголовок города равен названию виджета",
-                onMainPage().getInplace().get(0).getText(), equalTo(city));
+                onMainPage().getPlaces().get(0).getText(), equalTo(city));
     }
 
     private void addWidgetOnMainPage(String city) {
-        onMainPage().getAddWidget().click();
-        onMainPage().getInplace().get(0).click();
-        onMainPage().getEditInplace().clear();
-        onMainPage().getEditInplace().sendKeys(city);
-        onMainPage().getEditInplace().sendKeys(Keys.RETURN);
+        mainPageMethods().addWidget();
+        mainPageMethods().renameWidget(NEW_WIDGET, city);
     }
 
     @Step("На главной странице виджеты добавляются")
     public void shouldSeeWidgetAdd(String city) {
         addWidgetOnMainPage(city);
-        boolean find = false;
-        List<WebElement> spans = driver.findElements(By.cssSelector(".inplace.inplace_displayed"));
-        for (WebElement span : spans) {
-            String text = span.getText();
-            if (text.equals(city)) {
-                find = true;
-                break;
-            }
-        }
-        assertTrue("Виджет с именем " + city + "не добавился", find);
+        assertThat("Widget has", city, is(mainPageMethods().hasItem(city)));
     }
 
     @Step("На главной странице виджет можно удалить")
     public void shouldSeeWidgetRemove(String removeCity) {
-        int count = onMainPage().getWeatherWidget().size();
-        List<WeatherWidget> widgets = onMainPage().getWeatherWidget();
-        for (WeatherWidget widget : widgets) {
-            if (widget.findElement(By.cssSelector(".inplace.inplace_displayed")).getText().equals(removeCity)) {
-                widget.findElement(By.cssSelector(".remove-card.btn.btn-default")).click();
-                break;
-            }
-        }
-        assertThat("Количество виджетов не уменьшилось на единицу после удаления одного виджета", --count, is(onMainPage().getWeatherWidget().size()));
+        int count = mainPageMethods().countWidgets();
+        mainPageMethods().clickOnElement(mainPageMethods().findWidget(removeCity));
+        assertThat("Количество виджетов не уменьшилось на единицу после удаления одного виджета", mainPageMethods().countWidgets(), is(count - 1));
     }
 
     @Step("На ввод не полного названия города должно срабатывать автозаполнение")
     public void shouldAutocompliteCity(String city) {
-        driver.findElement(By.cssSelector(".inplace.inplace_displayed")).click();
-        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).clear();
-        driver.findElement(By.cssSelector("input.inplace.inplace_editable")).sendKeys(city.substring(0, city.length() / 2));
+        mainPageMethods().renameWidget(mainPageMethods().allWidgets().get(0).getInplace().getText(), city.substring(0, city.length()/2));
         WebElement element = (new WebDriverWait(driver, 10))
                 .until((ExpectedCondition<WebElement>) d -> {
                     List<WebElement> elements = driver.findElements(By.cssSelector(".city__name"));
@@ -122,5 +105,9 @@ public class DefaultSteps {
 
     private MainPage onMainPage() {
         return new MainPage(driver);
+    }
+
+    private MainPageMethods mainPageMethods() {
+        return new MainPageMethods(driver);
     }
 }
