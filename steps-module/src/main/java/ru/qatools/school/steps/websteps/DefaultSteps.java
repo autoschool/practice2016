@@ -6,12 +6,14 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
-
-import java.util.concurrent.TimeUnit;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.both;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.exists;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
@@ -33,20 +35,15 @@ public class DefaultSteps {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Должны видеть на странице «{0}»")
+    @Step("Должны видеть на странице элемент «{0}»")
     public void shouldSee(WebElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat("Должны видеть элемент", element, both(exists()).and(isDisplayed()));
     }
 
     @Step("Должны видеть виджет с городом «{1}»")
     public void shouldSeeWidgetWithCity(WeatherWidget widget, String expected) {
-        String actual = widget.getWidgetTitle().getCityNameInTitle().getText();
+        String actual = widget.getWidgetTitle().getCityName().getText();
         assertThat("Ожидали другой город", actual, is(expected));
-    }
-
-    @Step("Добавляем еще один виджет")
-    public void addNewWidget() {
-        onMainPage().getAddWidgetButton().click();
     }
 
     @Step("Должны увидеть {0} виджета(ов)")
@@ -55,21 +52,28 @@ public class DefaultSteps {
     }
 
     @Step("Первому виджету назначаем город «{0}», вводя полное название и нажимая 'Return'")
-    public void editLastWidgetWithEnterFullName(String cityName) {
-        onMainPage().getFirstWidget().getWidgetTitle().getCityNameInTitle().click();
-        onMainPage().getFirstWidget().getWidgetTitle().getCityNameInTitle().clear();
-        onMainPage().getFirstWidget().getWidgetTitle().getCityNameInTitle().sendKeys(cityName + Keys.RETURN);
+    public void editFirstWidgetWithEnterFullName(String cityName) {
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().click();
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().clear();
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().sendKeys(cityName);
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().sendKeys(Keys.RETURN);
     }
 
-    @Step("Первому виджету назначаем город «{0}, вводя начало название и кликая по всплывающему меню»")
-    public void editLastWidgetWithPopup(String cityName) {
-        String beginOfCityName = cityName.substring(0, (cityName.length() > 4 ? 4 : cityName.length()));
+    @Step("Вводим название города «{0}»")
+    public void enterCityName(String cityName) {
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().click();
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().clear();
+        onMainPage().getFirstWidget().getWidgetTitle().getCityName().sendKeys(cityName);
+    }
 
-        onMainPage().getFirstWidget().getWidgetTitle().getCityNameInTitle().click();
-        onMainPage().getFirstWidget().getWidgetTitle().getCityNameInTitle().clear();
-        onMainPage().getFirstWidget().getWidgetTitle().getCityNameInTitle().sendKeys(beginOfCityName);
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        onMainPage().getCityChoosePopup().click();
+    @Step("Кликаем по элементу {0}")
+    public void clickOn(HtmlElement element) {
+        element.click();
+    }
+
+    @Step("Элемент «{0}» должен содержать текст «{1}»")
+    public void shouldHaveText(HtmlElement element, String text) {
+        assertThat("Текст в элементе не соответствует ожидаемому", element, hasText(text));
     }
 
     private MainPage onMainPage() {
