@@ -3,11 +3,13 @@ package ru.qatools.school.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+//import ru.qatools.school.pages.blocks.AddWidgetButton;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -23,20 +25,16 @@ public class MainPage {
     @FindBy(css = ".card.card_md")
     private List<WeatherWidget> weatherWidget;
 
+    @Name("Кнопка добавления виджета")
+    @FindBy(css = ".new-card")
+    private Button addWidgetButton;
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
 
-
-
-
-//    @Name("Название города в виджете")
-//    @FindBy(css = ".card.card_md .inplace.inplace_displayed")
-//    private List<WeatherWidgetTitle> weatherWidgetTitle;
-//
-//    public List<WeatherWidgetCityName> checkWeatherWidgetCityName() {
-//        return weatherWidgetCityName;
-//    }
-
+    public Button getAddWidgetButton() {
+        return addWidgetButton;
+    }
 
 }
