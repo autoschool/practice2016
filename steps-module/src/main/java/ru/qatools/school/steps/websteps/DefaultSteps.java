@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -39,6 +40,9 @@ public class DefaultSteps {
                 onMainPage().getWeatherWidget().get(0).getWidgetTitle()
                         .getCityName().getText(), is(cityFromUrl));
     }
+
+    @Step("Кликаем на элемент «{0}»")
+    public void clickElement(WebElement element) {element.click();}
 
     private MainPage onMainPage() {
         return new MainPage(driver);

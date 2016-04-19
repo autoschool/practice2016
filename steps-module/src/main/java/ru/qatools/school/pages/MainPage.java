@@ -1,6 +1,7 @@
 package ru.qatools.school.pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.qatools.school.pages.blocks.WeatherWidget;
@@ -15,16 +16,22 @@ import java.util.List;
  */
 public class MainPage {
 
-    public MainPage(WebDriver driver) {
-        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
-    }
-
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
     private List<WeatherWidget> weatherWidget;
 
+    @Name("Кнопка добавления виджета")
+    @FindBy(css = ".new-card")
+    private WebElement buttonAddWidget;
+
+    public MainPage(WebDriver driver) {
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
+    }
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
+
+    public WebElement getButtonAddWidget() { return buttonAddWidget; }
 
 }
