@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.MainPageMethods;
+import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
 import java.util.List;
 import static java.lang.String.format;
@@ -22,6 +23,11 @@ public class DefaultSteps {
 
     public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
     private static final String NEW_WIDGET = "What a city?";
+    private static final String CELCIUM = "°C";
+    private static final String KELVIN = "°K";
+    private static final String FARINGEIT = "°F";
+    private static final String KAIF = "°Kaif";
+
 
     private WebDriver driver;
 
@@ -53,42 +59,40 @@ public class DefaultSteps {
     @Step("На главной странице виджеты добавляются")
     public void shouldSeeWidgetAdd(String city) {
         addWidgetOnMainPage(city);
-        assertThat("Widget has", city, is(mainPageMethods().findWidget(city).getText()));
+        assertThat("Widget has", city, is(mainPageMethods().hasItem(city)));
     }
 
     @Step("На главной странице виджет можно удалить")
-    public void shouldSeeWidgetRemove(String removeCity) {
+    public void shouldSeeWidgetRemove() {
         int count = mainPageMethods().countWidgets();
-        mainPageMethods().clickOnElement(mainPageMethods().findWidget(removeCity));
-        assertThat("Количество виджетов не уменьшилось на единицу после удаления одного виджета", mainPageMethods().countWidgets(), is(count - 1));
+        mainPageMethods().clickOnElement(mainPageMethods().allWidgets().get(0).getRemoveBtn());
+        assertThat("Количество виджетов не уменьшилось после удаления одного виджета",
+                mainPageMethods().countWidgets(), is(count - 1));
     }
 
     @Step("На ввод не полного названия города должно срабатывать автозаполнение")
     public void shouldAutocompliteCity(String city) {
-        mainPageMethods().renameWidget(mainPageMethods().allWidgets().get(0).getPlace().getText(), city.substring(0, city.length()/2));
-        WebElement element = (new WebDriverWait(driver, 10))
-                .until((ExpectedCondition<WebElement>) d -> {
-                    List<WebElement> elements = driver.findElements(By.cssSelector(".city__name"));
-                    for (WebElement element1 : elements) {
-                        if (element1.getText().equals(city)) {
-                            return element1;
-                        }
-                    }
-                    return null;
-                });
-        element.click();
+        mainPageMethods().autoComplete(city);
         assertThat("Заголовок города равен названию набираемого города",
-                driver.findElement(By.cssSelector(".inplace.inplace_displayed")).getText(), equalTo(city));
+                mainPageMethods().findWidget(city).getText(), equalTo(city));
     }
 
     @Step("Должны меняться форматы вывода градуса")
     public void shouldSeeChangeFormatDegree() {
-        driver.findElement(By.cssSelector(".weather-temperature.md-12")).click();
-        assertThat("Не произошло преобразование градусов цельсия в градусы кельвина", driver.findElement(By.cssSelector(".weather-temperature__unit")).getText(), equalTo("°K"));
-        driver.findElement(By.cssSelector(".weather-temperature.md-12")).click();
-        assertThat("Не произошло преобразование градусов в кельвинах в градусы фаренгейта", driver.findElement(By.cssSelector(".weather-temperature__unit")).getText(), equalTo("°F"));
-        driver.findElement(By.cssSelector(".weather-temperature.md-12")).click();
-        assertThat("Не произошло преобразование градусов фаренгейта в градусы °Kaif", driver.findElement(By.cssSelector(".weather-temperature__unit")).getText(), equalTo("°Kaif"));
+        mainPageMethods().allWidgets().get(0).getWeatherBlock().click();
+        assertThat("Не произошло преобразование градусов цельсия в градусы кельвина",
+                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(KELVIN));
+        mainPageMethods().allWidgets().get(0).getWeatherBlock().click();
+        assertThat("Не произошло преобразование градусов в кельвинах в градусы фаренгейта",
+                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(FARINGEIT));
+        mainPageMethods().allWidgets().get(0).getWeatherBlock().click();
+        assertThat("Не произошло преобразование градусов фаренгейта в градусы °Kaif",
+                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(KAIF));
+    }
+
+    @Step("Начальное открытие виджета, единица измерений температуры Цельсий")
+    public void shouldSeeTemperatureCelcium() {
+        assertThat("Начальное значение температуры не в Цельсиях", mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(CELCIUM));
     }
 
     private MainPage onMainPage() {

@@ -6,12 +6,8 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
-import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Title;
 
-import javax.swing.plaf.synth.SynthProgressBarUI;
-
-import static org.junit.Assert.assertThat;
 
 public class WeatherWebTest {
 
@@ -23,12 +19,14 @@ public class WeatherWebTest {
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
 
+
     @Before
     public void initSteps() {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
     @Test
+    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -37,6 +35,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны увидеть виджет с именем города на главной странице")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     public void shouldSeeWidgetWithTitleCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeTitleWidgetEqualCity(MOSCOW);
@@ -48,31 +47,43 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны видеть добавленный виджет на главной странице")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
     public void shouldSeeAddWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeWidgetAdd(SPB);
     }
 
-//    @Test
-//    @Title("Должны увидеть виджеты, кроме удаленного на главной странице")
-//    public void shouldSeeRemoveWidgetOnMainPage() {
-//        defaultSteps.openMainPageWithCity(SPB);
-//        defaultSteps.shouldSeeWidgetRemove(SPB);
-//    }
-//
-//    @Test
-//    @Title("Должны увидеть автозаполнение при не полном наборе названия")
-//    public void shouldAutoCompleteCity() {
-//        defaultSteps.openMainPageWithCity(MOSCOW);
-//        defaultSteps.shouldAutocompliteCity(SPB);
-//    }
-//
-//    @Test
-//    @Title("Должны меняться форматы вывода градуса")
-//    public void shouldSeeChangeFormatDegree() {
-//        defaultSteps.openMainPageWithCity(SPB);
-//        defaultSteps.shouldSeeChangeFormatDegree();
-//    }
+    @Test
+    @Title("Должны увидеть виджеты, кроме удаленного на главной странице")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("3")
+    public void shouldSeeRemoveWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeWidgetRemove();
+    }
+
+    @Test
+    @Title("Должны увидеть автозаполнение при не полном наборе названия")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    public void shouldAutoCompleteCity() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldAutocompliteCity(SPB);
+    }
+
+    @Test
+    @Title("Должны меняться форматы вывода градуса")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("6")
+    public void shouldSeeChangeFormatDegree() {
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeChangeFormatDegree();
+    }
+
+    @Test
+    @Title("Открываем виджет, единица измерения температуры Цельсий")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("5")
+    public void shouldSeeTemperatureCelcium() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeTemperatureCelcium();
+    }
 
 }
 
