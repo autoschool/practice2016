@@ -27,7 +27,11 @@ public class WeatherWidget extends HtmlElement {
 
     @Name("Название города в виджете")
     @FindBy(css = ".inplace.inplace_displayed")
-    private WebElement inplace;
+    private WebElement place;
+
+    @Name("Кнопка удаления виджета")
+    @FindBy(css = ".remove-card.btn.btn-default")
+    private WebElement removeBtn;
 
     public WidgetText getWidgetText() {
         return widgetText;
@@ -41,8 +45,12 @@ public class WeatherWidget extends HtmlElement {
         return actions;
     }
 
-    public WebElement getInplace() {
-        return inplace;
+    public WebElement getPlace() {
+        return place;
+    }
+
+    public WebElement getRemoveBtn() {
+        return removeBtn;
     }
 
     public Rectangle getRect() {
