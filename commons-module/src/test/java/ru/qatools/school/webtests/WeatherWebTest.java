@@ -116,6 +116,83 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB.substring(0, SPB.length() / 3));
     }
 
+    @Test
+    @Title("Должны увидеть надпись показателя рассвета")
+    public void shouldSeeTitleSunrise() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть надпись показателя заката")
+    public void shouldSeeTitleSunset() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть надпись показателя скорости ветра")
+    public void shouldSeeTitleWind() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть надпись показателя влажности")
+    public void shouldSeeTitleHumidity() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть картинку для показателя рассвета")
+    public void shouldSeeImageSunrise() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть картинку для показателя рассвета")
+    public void shouldSeeImageSunset() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть картинку для показателя рассвета")
+    public void shouldSeeImageWind() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть картинку для показателя рассвета")
+    public void shouldSeeImageHumidity() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть основную картинку виджета")
+    public void shouldSeeMainImage() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть формат времени для значения поля рассвет")
+    public void shouldSeeFormatTimeSunrise() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть формат времени для значения поля закат")
+    public void shouldSeeFormatTimeSunset() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть формат скорости для значения поля скорость ветра")
+    public void shouldSeeFormatSpeedWind() {
+
+    }
+
+    @Test
+    @Title("Должны увидеть формат времени для значения поля влажность")
+    public void shouldSeeFormatHumidity() {
+
+    }
 
     @Test
     @Title("Можем менять форматы вывода градусов")
