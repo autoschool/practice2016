@@ -26,42 +26,34 @@ public class MainPage {
 
     @Name("Список городов")
     @FindBy(css = ".inplace.inplace_displayed")
-    private List<WeatherWidget> inplace;
+    private List<WebElement> places;
 
     @Name("Добавление нового виджета")
     @FindBy(css = ".new-card")
     private WebElement addWidget;
 
-    @Name("Редактируемое поле названия города")
-    @FindBy(css = "input.inplace.inplace_editable")
-    private WeatherWidget editInplace;
-
-    @Name("Кнопка удаления виджета")
-    @FindBy(css = ".remove-card.btn.btn-default")
-    private WeatherWidget removeBtn;
-
     @Name("Список элементов отображения температуры")
     @FindBy(css = "weather-temperature.md-12")
     private List<WebElement> listTemperatures;
+
+    @Name("Редактируемое поле названия города")
+    @FindBy(css = "input.inplace.inplace_editable")
+    private WebElement editPlace;
 
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
 
-    public List<WeatherWidget> getPlaces() {
-        return inplace;
+    public List<WebElement> getPlaces() {
+        return places;
+    }
+
+    public WebElement getEditPlace() {
+        return editPlace;
     }
 
     public WebElement getAddWidget() {
         return addWidget;
-    }
-
-    public WeatherWidget getEditInplace() {
-        return editInplace;
-    }
-
-    public WeatherWidget getRemoveBtn() {
-        return removeBtn;
     }
 
     public List<WebElement> getListTemperatures() {
