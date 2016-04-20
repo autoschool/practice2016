@@ -52,6 +52,27 @@ public class MainPage {
     @FindBy(css = "span.info-line__value")
     private List<WebElement> infoValues;
 
+    @Name("Строки отображения времени")
+    @FindBy(css = ".card-title__secondary>div>div")
+    private List<WebElement> timeOnWidget;
+
+    @Name("Изображение рассвета")
+    @FindBy(css = ".wi.wi-sunrise")
+    private WebElement sunrise;
+
+    @Name("Изображение рассвета")
+    @FindBy(css = ".wi.wi-sunset")
+    private WebElement sunset;
+
+    @Name("Изображение рассвета")
+    @FindBy(css = ".wi.wi-strong-wind")
+    private WebElement wind;
+
+    //Поиск элемента по маске
+    @Name("Основное изображение на виджете")
+    @FindBy(css = ".wi.weather-image")
+    private WebElement mainImage;
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
@@ -76,12 +97,32 @@ public class MainPage {
         return titleValues;
     }
 
+    public List<WebElement> getTimeOnWidget() {
+        return timeOnWidget;
+    }
+
     public List<WebElement> getInfoValues() {
         return infoValues;
     }
 
     public List<WebElement> getListTemperatures() {
         return listTemperatures;
+    }
+
+    public WebElement getSunrise() {
+        return sunrise;
+    }
+
+    public WebElement getSunset() {
+        return sunset;
+    }
+
+    public WebElement getWind() {
+        return wind;
+    }
+
+    public WebElement getMainImage() {
+        return mainImage;
     }
 
 }
