@@ -39,7 +39,7 @@ public class MainPageMethods {
     }
 
     public WebElement findWidget(String city) {
-        WebElement element = (new WebDriverWait(driver, 10))
+        WebElement element = (new WebDriverWait(driver, 3))
                 .until((ExpectedCondition<WebElement>) d -> {
                     List<WebElement> widgets = mainPage.getPlaces();
                     for (WebElement widget : widgets) {
@@ -66,6 +66,23 @@ public class MainPageMethods {
         return mainPage.getWeatherWidget();
     }
 
+    public void autoComplete(String city) {
+        mainPage.getPlaces().get(0).click();
+        mainPage.getEditPlace().clear();
+        mainPage.getEditPlace().sendKeys(city.substring(0, city.length()/2));
+        WebElement element = (new WebDriverWait(driver, 5))
+                .until((ExpectedCondition<WebElement>) d -> {
+                    List<WebElement> widgets = mainPage.getAutoCompleteValues();
+                    for (WebElement widget : widgets) {
+                        if (widget.getText().equals(city)) {
+                            return widget;
+                        }
+                    }
+                    return null;
+                });
+        element.click();
+    }
+
     public Matcher<String> hasItem(String city) {
         final List<WebElement> list = mainPage.getPlaces();
         return new TypeSafeDiagnosingMatcher<String>() {
@@ -77,14 +94,14 @@ public class MainPageMethods {
             @Override
             protected boolean matchesSafely(String city, Description mismatch) {
                 for (WebElement widget : list) {
-                    if (widget.getText() != city) {
+                    if (widget.getText().equals(city)) {
                         mismatch.appendText("return city was ")
                                 .appendValue(widget.getText());
-                        return false;
+                        return true;
                     }
                 }
 
-                return true;
+                return false;
             }
         };
     }

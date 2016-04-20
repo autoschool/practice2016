@@ -33,6 +33,14 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".remove-card.btn.btn-default")
     private WebElement removeBtn;
 
+    @Name("Блок отображения температуры")
+    @FindBy(css = ".weather-temperature.md-12")
+    private WebElement weatherBlock;
+
+    @Name("Единица измерения температуры")
+    @FindBy(css = ".weather-temperature__unit")
+    private WebElement weatherType;
+
     public WidgetText getWidgetText() {
         return widgetText;
     }
@@ -51,6 +59,14 @@ public class WeatherWidget extends HtmlElement {
 
     public WebElement getRemoveBtn() {
         return removeBtn;
+    }
+
+    public WebElement getWeatherBlock() {
+        return weatherBlock;
+    }
+
+    public WebElement getWeatherType() {
+        return weatherType;
     }
 
     public Rectangle getRect() {

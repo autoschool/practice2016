@@ -40,6 +40,10 @@ public class MainPage {
     @FindBy(css = "input.inplace.inplace_editable")
     private WebElement editPlace;
 
+    @Name("Выпадающий список значений автодополнений")
+    @FindBy(css = "span.city__name")
+    private List<WebElement> autoCompleteValues;
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
@@ -54,6 +58,10 @@ public class MainPage {
 
     public WebElement getAddWidget() {
         return addWidget;
+    }
+
+    public List<WebElement> getAutoCompleteValues() {
+        return autoCompleteValues;
     }
 
     public List<WebElement> getListTemperatures() {
