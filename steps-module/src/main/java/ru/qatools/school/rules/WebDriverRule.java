@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by kurau.
+ * Changed by onegines (Eugene Kirienko).
  */
 public class WebDriverRule extends ExternalResource {
 
