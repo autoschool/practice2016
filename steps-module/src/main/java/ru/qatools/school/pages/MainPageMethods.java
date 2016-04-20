@@ -39,17 +39,13 @@ public class MainPageMethods {
     }
 
     public WebElement findWidget(String city) {
-        WebElement element = (new WebDriverWait(driver, 3))
-                .until((ExpectedCondition<WebElement>) d -> {
-                    List<WebElement> widgets = mainPage.getPlaces();
-                    for (WebElement widget : widgets) {
-                        if (widget.getText().equals(city)) {
-                            return widget;
-                        }
-                    }
-                    return null;
-                });
-        return element;
+        List<WebElement> widget = mainPage.getPlaces();
+        for (WebElement element : widget) {
+            if (element.getText().equals(city)) {
+                return element;
+            }
+        }
+        return null;
     }
 
     public void renameWidget(String oldName, String newName) {
@@ -70,16 +66,13 @@ public class MainPageMethods {
         mainPage.getPlaces().get(0).click();
         mainPage.getEditPlace().clear();
         mainPage.getEditPlace().sendKeys(city.substring(0, city.length()/2));
-        WebElement element = (new WebDriverWait(driver, 5))
-                .until((ExpectedCondition<WebElement>) d -> {
-                    List<WebElement> widgets = mainPage.getAutoCompleteValues();
-                    for (WebElement widget : widgets) {
-                        if (widget.getText().equals(city)) {
-                            return widget;
-                        }
-                    }
-                    return null;
-                });
+        WebElement element = null;
+        List<WebElement> widget = mainPage.getAutoCompleteValues();
+        for (WebElement elem : widget) {
+            if (elem.getText().equals(city)) {
+                element = elem;
+            }
+        }
         element.click();
     }
 
@@ -104,5 +97,9 @@ public class MainPageMethods {
                 return false;
             }
         };
+    }
+
+    public MainPage getMainPage() {
+        return mainPage;
     }
 }

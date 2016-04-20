@@ -15,7 +15,7 @@ public class WebDriverRule extends ExternalResource {
 
     protected void before() throws Throwable {
         this.driver = new FirefoxDriver();
-        //driver.manage().window().maximize();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
