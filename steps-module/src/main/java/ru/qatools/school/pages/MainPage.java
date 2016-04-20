@@ -44,6 +44,14 @@ public class MainPage {
     @FindBy(css = "span.city__name")
     private List<WebElement> autoCompleteValues;
 
+    @Name("Заголовки показателей")
+    @FindBy(css = "span.info-line__title")
+    private List<WebElement> titleValues;
+
+    @Name("Данные показателей погоды")
+    @FindBy(css = "span.info-line__value")
+    private List<WebElement> infoValues;
+
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
     }
@@ -62,6 +70,14 @@ public class MainPage {
 
     public List<WebElement> getAutoCompleteValues() {
         return autoCompleteValues;
+    }
+
+    public List<WebElement> getTitleValues() {
+        return titleValues;
+    }
+
+    public List<WebElement> getInfoValues() {
+        return infoValues;
     }
 
     public List<WebElement> getListTemperatures() {

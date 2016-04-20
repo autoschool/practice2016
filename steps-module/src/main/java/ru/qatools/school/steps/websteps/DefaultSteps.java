@@ -1,5 +1,6 @@
 package ru.qatools.school.steps.websteps;
 
+import com.thoughtworks.selenium.condition.Not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
 import java.util.List;
 import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -56,10 +58,22 @@ public class DefaultSteps {
         mainPageMethods().renameWidget(NEW_WIDGET, city);
     }
 
+    @Step("На главной странице без виджетов отображается кнопка добавить виджет")
+    public void shouldSeeButtonAddWidgetOnMainPage() {
+        assertThat("На главной странице нет кнопки добавит виджет", mainPageMethods().getMainPage().getAddWidget(), isDisplayed());
+    }
+
+    @Step("На главной странице должна быть только кнопка добавления города")
+    public void shouldSeeOnlyButtonAddWidget() {
+        assertThat("На главной странице только кнопка добавления виджета", mainPageMethods().allWidgets().size(), is(0));
+    }
+
     @Step("На главной странице виджеты добавляются")
     public void shouldSeeWidgetAdd(String city) {
+        int count = mainPageMethods().countWidgets();
         addWidgetOnMainPage(city);
         assertThat("Widget has", city, is(mainPageMethods().hasItem(city)));
+        assertThat("Количество виджетов не увеличелось", mainPageMethods().allWidgets().size(), is(count + 1));
     }
 
     @Step("На главной странице виджет можно удалить")

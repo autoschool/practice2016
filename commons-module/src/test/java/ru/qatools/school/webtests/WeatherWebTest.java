@@ -19,13 +19,17 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
-    @Rule
-    public TPInformerRule tms = new TPInformerRule("merkushevio");
+    //@Rule
+    //public TPInformerRule tms = new TPInformerRule("merkushevio");
 
 
     @Before
     public void initSteps() {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
+    }
+
+    private MainPage onMainPage() {
+        return new MainPage(webDriverRule.getDriver());
     }
 
     @Test
@@ -44,8 +48,20 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeTitleWidgetEqualCity(MOSCOW);
     }
 
-    private MainPage onMainPage() {
-        return new MainPage(webDriverRule.getDriver());
+    @Test
+    @Title("Должны увидеть страницу с кнопокой добавить виджет")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
+    public void shouldSeeButtonOnMainPage() {
+        defaultSteps.openMainPageWithCity("");
+        defaultSteps.shouldSeeButtonAddWidgetOnMainPage();
+    }
+
+    @Test
+    @Title("Не указав город должны увидеть только кнопку добавления виджета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
+    public void shouldSeeOnlyButtonAddWidget() {
+        defaultSteps.openMainPageWithCity("");
+        defaultSteps.shouldSeeOnlyButtonAddWidget();
     }
 
     @Test
@@ -87,6 +103,8 @@ public class WeatherWebTest {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeTemperatureCelcium();
     }
+
+
 
 }
 
