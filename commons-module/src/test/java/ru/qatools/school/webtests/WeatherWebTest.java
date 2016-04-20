@@ -6,6 +6,7 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
 
 
