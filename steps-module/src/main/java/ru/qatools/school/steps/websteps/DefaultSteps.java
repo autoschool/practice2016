@@ -1,30 +1,18 @@
 package ru.qatools.school.steps.websteps;
 
-import com.google.common.base.Predicate;
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByCssSelector;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.MainPageMethods;
-import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
-
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Function;
-
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
@@ -65,7 +53,7 @@ public class DefaultSteps {
     @Step("На главной странице виджеты добавляются")
     public void shouldSeeWidgetAdd(String city) {
         addWidgetOnMainPage(city);
-        assertThat("Widget has", city, is(mainPageMethods().hasItem(city)));
+        assertThat("Widget has", city, is(mainPageMethods().findWidget(city).getText()));
     }
 
     @Step("На главной странице виджет можно удалить")
@@ -77,7 +65,7 @@ public class DefaultSteps {
 
     @Step("На ввод не полного названия города должно срабатывать автозаполнение")
     public void shouldAutocompliteCity(String city) {
-        mainPageMethods().renameWidget(mainPageMethods().allWidgets().get(0).getInplace().getText(), city.substring(0, city.length()/2));
+        mainPageMethods().renameWidget(mainPageMethods().allWidgets().get(0).getPlace().getText(), city.substring(0, city.length()/2));
         WebElement element = (new WebDriverWait(driver, 10))
                 .until((ExpectedCondition<WebElement>) d -> {
                     List<WebElement> elements = driver.findElements(By.cssSelector(".city__name"));

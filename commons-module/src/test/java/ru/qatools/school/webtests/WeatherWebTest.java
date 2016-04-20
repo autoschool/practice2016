@@ -53,26 +53,26 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeWidgetAdd(SPB);
     }
 
-    @Test
-    @Title("Должны увидеть виджеты, кроме удаленного на главной странице")
-    public void shouldSeeRemoveWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(SPB);
-        defaultSteps.shouldSeeWidgetRemove(SPB);
-    }
-
-    @Test
-    @Title("Должны увидеть автозаполнение при не полном наборе названия")
-    public void shouldAutoCompleteCity() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldAutocompliteCity(SPB);
-    }
-
-    @Test
-    @Title("Должны меняться форматы вывода градуса")
-    public void shouldSeeChangeFormatDegree() {
-        defaultSteps.openMainPageWithCity(SPB);
-        defaultSteps.shouldSeeChangeFormatDegree();
-    }
+//    @Test
+//    @Title("Должны увидеть виджеты, кроме удаленного на главной странице")
+//    public void shouldSeeRemoveWidgetOnMainPage() {
+//        defaultSteps.openMainPageWithCity(SPB);
+//        defaultSteps.shouldSeeWidgetRemove(SPB);
+//    }
+//
+//    @Test
+//    @Title("Должны увидеть автозаполнение при не полном наборе названия")
+//    public void shouldAutoCompleteCity() {
+//        defaultSteps.openMainPageWithCity(MOSCOW);
+//        defaultSteps.shouldAutocompliteCity(SPB);
+//    }
+//
+//    @Test
+//    @Title("Должны меняться форматы вывода градуса")
+//    public void shouldSeeChangeFormatDegree() {
+//        defaultSteps.openMainPageWithCity(SPB);
+//        defaultSteps.shouldSeeChangeFormatDegree();
+//    }
 
 }
 
