@@ -3,24 +3,19 @@ package ru.qatools.school.pages;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class MainPageMethods {
 
     private MainPage mainPage;
-    private WebDriver driver;
 
     public MainPageMethods(WebDriver driver) {
-        this.driver = driver;
         mainPage = new MainPage(driver);
     }
 
@@ -38,10 +33,9 @@ public class MainPageMethods {
         mainPage.getAddWidget().click();
     }
 
-    public WebElement findWidget(String city) {
-        List<WebElement> widget = mainPage.getPlaces();
-        for (WebElement element : widget) {
-            if (element.getText().equals(city)) {
+    public WebElement findElement(List<WebElement> list, String name) {
+        for (WebElement element : list) {
+            if (element.getText().equalsIgnoreCase(name)) {
                 return element;
             }
         }
@@ -49,7 +43,7 @@ public class MainPageMethods {
     }
 
     public void renameWidget(String oldName, String newName) {
-        WebElement element = findWidget(oldName);
+        WebElement element = findElement(getAllPlaces(), oldName);
         clickOnElement(element);
         sendChars(mainPage.getEditPlace(), newName);
     }
@@ -60,6 +54,14 @@ public class MainPageMethods {
 
     public List<WeatherWidget> allWidgets() {
         return mainPage.getWeatherWidget();
+    }
+
+    public List<WebElement> getAllPlaces() {
+        return mainPage.getPlaces();
+    }
+
+    public List<WebElement> getTitleValues() {
+        return mainPage.getTitleValues();
     }
 
     public void autoComplete(String city) {
@@ -76,19 +78,35 @@ public class MainPageMethods {
         element.click();
     }
 
-    public Matcher<String> hasItem(String city) {
-        final List<WebElement> list = mainPage.getPlaces();
+    public Matcher<String> stringMatcher(String regexp) {
         return new TypeSafeDiagnosingMatcher<String>() {
             @Override
-            public void describeTo(Description description) {
-                description.appendText("expected place");
+            protected boolean matchesSafely(String s, Description description) {
+                Pattern pattern = Pattern.compile(regexp);
+                java.util.regex.Matcher matcher = pattern.matcher(s);
+                description.appendText("String is " + s);
+                return matcher.matches();
             }
 
             @Override
-            protected boolean matchesSafely(String city, Description mismatch) {
+            public void describeTo(Description description) {
+                description.appendText("expected string format");
+            }
+        };
+    }
+
+    public Matcher<String> hasItem(List<WebElement> list) {
+        return new TypeSafeDiagnosingMatcher<String>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("expected list");
+            }
+
+            @Override
+            protected boolean matchesSafely(String word, Description mismatch) {
                 for (WebElement widget : list) {
-                    if (widget.getText().equals(city)) {
-                        mismatch.appendText("return city was ")
+                    if (widget.getText().equals(word)) {
+                        mismatch.appendText("return string was ")
                                 .appendValue(widget.getText());
                         return true;
                     }
