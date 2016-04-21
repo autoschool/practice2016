@@ -60,13 +60,17 @@ public class MainPage {
     @FindBy(css = ".wi.wi-sunrise")
     private WebElement sunrise;
 
-    @Name("Изображение рассвета")
+    @Name("Изображение заката")
     @FindBy(css = ".wi.wi-sunset")
     private WebElement sunset;
 
-    @Name("Изображение рассвета")
+    @Name("Изображение скорости ветра")
     @FindBy(css = ".wi.wi-strong-wind")
     private WebElement wind;
+
+    @Name("Изображение влажности")
+    @FindBy(css = ".wi.wi-raindrops")
+    private WebElement humidity;
 
     //Поиск элемента по маске
     @Name("Основное изображение на виджете")
@@ -119,6 +123,10 @@ public class MainPage {
 
     public WebElement getWind() {
         return wind;
+    }
+
+    public WebElement getHumidity() {
+        return humidity;
     }
 
     public WebElement getMainImage() {
