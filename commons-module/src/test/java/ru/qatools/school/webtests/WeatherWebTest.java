@@ -34,7 +34,8 @@ public class WeatherWebTest {
     @Title("Город в виджете должен совпадать с городом в URL'e")
     public void shouldSeeCityOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeWidgetWithCity(MOSCOW);
+        defaultSteps.shouldBeWidgetWithCity(MOSCOW);
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
     @Test
@@ -45,7 +46,8 @@ public class WeatherWebTest {
         defaultSteps.addNewWidgetWithCity(PITER);
         int afterAddWidget = onMainPage().getWeatherWidget().size();
         defaultSteps.shouldBeOneMoreWidget(beforeAddWidget, afterAddWidget);
-        defaultSteps.shouldSeeWidgetWithCity(PITER);
+        defaultSteps.shouldBeWidgetWithCity(PITER);
+        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
 

@@ -1,5 +1,6 @@
 package ru.qatools.school.steps.websteps;
 
+import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -34,21 +36,23 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Должны видеть виджет с заданым городом «{0}»")
-    public void shouldSeeWidgetWithCity(String city) {
-        assertTrue("Должен быть город: " + city + ", но видим: " + onMainPage().getWeatherWidget().get(0).findElement(By.cssSelector(".inplace")).getText(), onMainPage().getWeatherWidget().get(0).findElement(By.cssSelector(".inplace")).getText().equals(city));
+    @Step("Должен быть виджет с заданым городом «{0}»")
+    public void shouldBeWidgetWithCity(String city) {
+        assertThat("Cities doesn't match",
+                (onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().getText()),
+                is(city));
     }
 
-    @Step("Нажатие кнопки Добавить + в виджет тянется заданный город")
+    @Step("Нажатие кнопки Добавить + в виджет тянется заданный город «{0}»")
     public void addNewWidgetWithCity(String city) {
-        driver.findElement(By.cssSelector(".new-card")).click();
-        onMainPage().getWeatherWidget().get(0).findElement(By.cssSelector(".inplace")).click();
-        onMainPage().getWeatherWidget().get(0).findElement(By.cssSelector(".inplace_editable")).clear();
-        onMainPage().getWeatherWidget().get(0).findElement(By.cssSelector(".inplace_editable")).sendKeys(city);
+        onMainPage().getButtonAddCity().click();
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().click();
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().clear();
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().sendKeys(city);
         onMainPage().getWeatherWidget().get(0).sendKeys(Keys.ENTER);
     }
 
-    @Step("Должны увидеть добавленный виджет")
+    @Step("Должны увидеть на один виджет больше")
     public void shouldBeOneMoreWidget(int beforeAddWidget, int afterAddWidget) {
         assertEquals(beforeAddWidget + 1, afterAddWidget);
     }
