@@ -19,8 +19,8 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
-    //@Rule
-    //public TPInformerRule tms = new TPInformerRule("merkushevio");
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("merkushevio");
 
 
     @Before
@@ -56,13 +56,13 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeButtonAddWidgetOnMainPage();
     }
 
-    @Test
-    @Title("Не указав город должны увидеть только кнопку добавления виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
-    public void shouldSeeOnlyButtonAddWidget() {
-        defaultSteps.openMainPageWithCity("");
-        defaultSteps.shouldSeeOnlyButtonAddWidget();
-    }
+//    @Test
+//    @Title("Не указав город должны увидеть только кнопку добавления виджета")
+//    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
+//    public void shouldSeeOnlyButtonAddWidget() {
+//        defaultSteps.openMainPageWithCity("");
+//        defaultSteps.shouldSeeOnlyButtonAddWidget();
+//    }
 
     @Test
     @Title("Должны видеть добавленный виджет на главной странице")
@@ -77,20 +77,29 @@ public class WeatherWebTest {
     @ru.yandex.qatools.allure.annotations.TestCaseId("3")
     public void shouldSeeRemoveWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.addWidgetOnMainPage(MOSCOW);
         defaultSteps.shouldSeeWidgetRemove();
     }
 
     @Test
-    @Title("Должны увидеть автозаполнение при не полном наборе названия")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    @Title("Должны увидеть автозаполнение при не полном наборе названия виджета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
     public void shouldAutoCompleteCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldAutocompliteCity(SPB);
     }
 
     @Test
+    @Title("Должны увидеть переименование названия виджета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    public void shouldSeeRenameWidget() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB);
+    }
+
+    @Test
     @Title("Должны меняться форматы вывода градуса")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("6")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
     public void shouldSeeChangeFormatDegree() {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeChangeFormatDegree();
@@ -98,7 +107,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Открываем виджет, единица измерения температуры Цельсий")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("5")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeTemperatureCelcium() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeTemperatureCelcium();
@@ -106,50 +115,66 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны увидеть надпись показателя рассвета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeTitleSunrise() {
-
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeTitleSunrise();
     }
 
     @Test
     @Title("Должны увидеть надпись показателя заката")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeTitleSunset() {
-
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeTitleSunset();
     }
 
     @Test
     @Title("Должны увидеть надпись показателя скорости ветра")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeTitleWind() {
-
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeTitleWind();
     }
 
     @Test
     @Title("Должны увидеть надпись показателя влажности")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeTitleHumidity() {
-
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeTitleHumidity();
     }
 
     @Test
     @Title("Должны увидеть картинку для показателя рассвета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeImageSunrise() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeImageSunrise();
     }
 
     @Test
     @Title("Должны увидеть картинку для показателя рассвета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeImageSunset() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeImageSunset();
     }
 
     @Test
     @Title("Должны увидеть картинку для показателя рассвета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeImageWind() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeImageWind();
     }
 
     @Test
     @Title("Должны увидеть картинку для показателя рассвета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeImageHumidity() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeImageHumidity();
     }
 
     @Test
@@ -159,27 +184,35 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны увидеть формат времени для значения поля рассвет")
+    @Title("Формат времени для значения поля рассвет должен быть 'xx:xx'")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeFormatTimeSunrise() {
-
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeFormatTimeSunrise();
     }
 
     @Test
-    @Title("Должны увидеть формат времени для значения поля закат")
+    @Title("Формат времени для значения поля закат должен быть 'xx:xx'")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeFormatTimeSunset() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeFormatTimeSunset();
     }
 
     @Test
-    @Title("Должны увидеть формат скорости для значения поля скорость ветра")
+    @Title("Формат времени для значения поля скорость ветра должен быть 'xx m/s'")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeFormatSpeedWind() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeFormatSpeedWind();
     }
 
     @Test
-    @Title("Должны увидеть формат времени для значения поля влажность")
+    @Title("Формат времени для значения поля влажность должен быть 'xx %'")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
     public void shouldSeeFormatHumidity() {
-
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeFormatHumidity();
     }
 
 
