@@ -36,7 +36,7 @@ public class WeatherWebTest {
     @Title("Должны видеть в заголовке искомый город")
     public void shouldBeTrueCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.cityShoudBe(NEMOSCOW);
+        defaultSteps.cityShoudBe(MOSCOW);
     }
 
     @Test
@@ -45,6 +45,15 @@ public class WeatherWebTest {
     public void shouldBeFalseCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.cityShoudBe(NEMOSCOW);
+    }
+
+    @Test
+    @Title("Должен добавляться еще один виджет")
+    public void shouldBeAbleToAddWidget() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        int numOfWidgets = onMainPage().getWeatherWidget().size();
+        defaultSteps.clickButton(onMainPage().getAddWidgetButton());
+        defaultSteps.shoudBeMoreWidgets(numOfWidgets + 1);
     }
 
     private MainPage onMainPage() {

@@ -7,6 +7,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -36,6 +37,16 @@ public class DefaultSteps {
     @Step("Должны в заголовке виджета видеть город «{0}»")
     public void cityShoudBe(String city){
         assertThat("Город в заголовке должен совпадать с городом в URL", onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCity().getText(), is(city));
+    }
+
+    @Step("Клик на кнопку")
+    public void clickButton(WebElement el){
+        el.click();
+    }
+
+    @Step("Количество виджетов на странице")
+    public void shoudBeMoreWidgets(int exceptCount){
+        assertEquals("Количество виджетов на странице должно совпадать с ожидаемым", onMainPage().getWeatherWidget().size(), exceptCount);
     }
 
     private MainPage onMainPage() {
