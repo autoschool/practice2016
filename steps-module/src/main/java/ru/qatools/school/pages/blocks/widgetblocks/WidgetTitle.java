@@ -20,7 +20,7 @@ public class WidgetTitle extends HtmlElement {
 
     @Name("Список предложенных городов")
     @FindBy(css = ".city-suggest")
-    private List<CitySuggest> citySuggest;
+    private List<CitySuggest> citySuggests;
 
     public Rectangle getRect() {
         return null;
@@ -30,11 +30,11 @@ public class WidgetTitle extends HtmlElement {
         return cityName;
     }
 
-    public List<CitySuggest> getCitySuggest() {
-        return citySuggest;
+    public List<CitySuggest> getCitySuggests() {
+        return citySuggests;
     }
 
     public CitySuggest getFirstSuggest() {
-        return getCitySuggest().get(0);
+        return getCitySuggests().get(0);
     }
 }

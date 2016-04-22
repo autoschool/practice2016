@@ -16,7 +16,7 @@ public class WebDriverRule extends ExternalResource {
 
     protected void before() throws Throwable {
         this.driver = new FirefoxDriver();
-        this.driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        this.driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     protected void after() {
