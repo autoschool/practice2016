@@ -77,7 +77,7 @@ public class MainPage {
     @FindBy(css = ".wi.weather-image")
     private WebElement mainImage;
 
-    public List<WeatherWidget> getWeatherWidget() {
+    public List<WeatherWidget> getWeatherWidgets() {
         return weatherWidget;
     }
 
