@@ -4,10 +4,8 @@ import org.openqa.selenium.WebDriver;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.MainPageMethods;
 import ru.yandex.qatools.allure.annotations.Step;
-
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
  * Created by merkushev.io on 22.04.2016.
@@ -19,14 +17,10 @@ public class WidgetSteps {
     private static final String KELVIN = "°K";
     private static final String FARINGEIT = "°F";
     private static final String KAIF = "°Kaif";
-    private static final String SUNRISE = "Sunrise";
-    private static final String SUNSET = "Sunset";
-    private static final String WIND = "Wind";
-    private static final String HUMIDITY = "Humidity";
     private static final String SUNRISE_TIME = "^[0-2][0-9]:[0-5][0-9]$";
     private static final String SUNSET_TIME = "^[0-2][0-9]:[0-5][0-9]$";
-    private static final String WIND_SPEED = "^[0-9]+ m/s";
-    private static final String HUMIDITY_VALUE = "^[0-9]{0-3} %";
+    private static final String WIND_SPEED = "^[0-9]+.?[0-9]+ m/s";
+    private static final String HUMIDITY_VALUE = "^[0-9]+ %";
 
     public WidgetSteps(WebDriver driver) {
         this.driver = driver;
@@ -65,58 +59,6 @@ public class WidgetSteps {
     public void shouldSeeTemperatureCelcium() {
         assertThat("Начальное значение температуры не в Цельсиях",
                 mainPageMethods().getAllWidgets().get(0).getWeatherType().getText(), equalTo(CELCIUM));
-    }
-
-    @Step("Начальное открытие виджета, отображение элементов")
-    public void shouldSeeTitleSunrise() {
-        assertThat("Заголовка показателя рассвета нет на главной странице", SUNRISE,
-                mainPageMethods().hasItem(mainPageMethods().getTitleValues()));
-        assertThat("Заголовок показателя рассвета не отображается на главной странице",
-                mainPageMethods().findElement(mainPageMethods().getTitleValues(), SUNRISE), isDisplayed());
-    }
-
-    @Step("Должны увидеть надпись показателя заката")
-    public void shouldSeeTitleSunset() {
-        assertThat("Заголовка показателя рассвета нет на главной странице", SUNSET,
-                mainPageMethods().hasItem(mainPageMethods().getTitleValues()));
-        assertThat("Заголовок показателя рассвета не отображается на главной странице",
-                mainPageMethods().findElement(mainPageMethods().getTitleValues(), SUNSET), isDisplayed());
-    }
-
-    @Step("Должны увидеть надпись показателя скорости ветра")
-    public void shouldSeeTitleWind() {
-        assertThat("Заголовка показателя рассвета нет на главной странице", WIND,
-                mainPageMethods().hasItem(mainPageMethods().getTitleValues()));
-        assertThat("Заголовок показателя рассвета не отображается на главной странице",
-                mainPageMethods().findElement(mainPageMethods().getTitleValues(), WIND), isDisplayed());
-    }
-
-    @Step("Должны увидеть надпись показателя влажности")
-    public void shouldSeeTitleHumidity() {
-        assertThat("Заголовка показателя рассвета нет на главной странице", HUMIDITY,
-                mainPageMethods().hasItem(mainPageMethods().getTitleValues()));
-        assertThat("Заголовок показателя рассвета не отображается на главной странице",
-                mainPageMethods().findElement(mainPageMethods().getTitleValues(), HUMIDITY), isDisplayed());
-    }
-
-    @Step("Должны увидеть картинку для показателя рассвета")
-    public void shouldSeeImageSunrise() {
-        assertThat("Картинка показателя рассвета не отображается",onMainPage().getSunrise(), isDisplayed());
-    }
-
-    @Step("Должны увидеть картинку для показателя заката")
-    public void shouldSeeImageSunset() {
-        assertThat("Картинка показателя заката не отображается", onMainPage().getSunset(), isDisplayed());
-    }
-
-    @Step("Должны увидеть картинку для показателя скорости ветра")
-    public void shouldSeeImageWind() {
-        assertThat("Картинка показателя скорости ветра не отображается", onMainPage().getWind(), isDisplayed());
-    }
-
-    @Step("Должны увидеть картинку для показателя влажности")
-    public void shouldSeeImageHumidity() {
-        assertThat("Картинка показателя влажности не отображается", onMainPage().getHumidity(), isDisplayed());
     }
 
     @Step("Формат времени для значения поля рассвет должен быть 'xx:xx'")

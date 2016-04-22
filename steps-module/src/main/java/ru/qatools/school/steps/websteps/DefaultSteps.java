@@ -5,11 +5,6 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.MainPageMethods;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.htmlelements.element.HtmlElement;
-
-import java.util.Arrays;
-import java.util.Collections;
-
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -107,10 +102,24 @@ public class DefaultSteps {
                 mainPageMethods().getAllPlaces().get(0).getText(), equalTo(city));
     }
 
+    @Step("На главной странице меняется формат градусов")
     public void shouldSeeChangeFormatTemperature() {
+        widgetSteps().shouldSeeTemperatureCelcium();
         widgetSteps().shouldSeeChangeFormatDegreeCelciumToKelvin();
         widgetSteps().shouldSeeChangeFormatDegreeKelvinToFarengeit();
         widgetSteps().shouldSeeChangeFormatDegreeFarengeitToKaif();
+    }
+
+    public void shouldSeeWidgetElements() {
+        shouldSee(onMainPage().getTitleValues().toArray(new WebElement[onMainPage().getTitleValues().size()]));
+        shouldSee(onMainPage().getHumidity());
+        shouldSee(onMainPage().getSunrise());
+        shouldSee(onMainPage().getSunset());
+        shouldSee(onMainPage().getWind());
+        widgetSteps().shouldSeeFormatTimeSunrise();
+        widgetSteps().shouldSeeFormatTimeSunset();
+        widgetSteps().shouldSeeFormatSpeedWind();
+        widgetSteps().shouldSeeFormatHumidity();
     }
 
     private MainPage onMainPage() {
