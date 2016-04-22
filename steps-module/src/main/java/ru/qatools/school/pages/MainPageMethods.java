@@ -35,7 +35,7 @@ public class MainPageMethods {
 
     public WebElement findElement(List<WebElement> list, String name) {
         for (WebElement element : list) {
-            if (element.getText().equalsIgnoreCase(name)) {
+            if (element.getText().equals(name)) {
                 return element;
             }
         }
