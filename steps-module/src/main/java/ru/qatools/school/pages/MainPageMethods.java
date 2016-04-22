@@ -49,11 +49,11 @@ public class MainPageMethods {
     }
 
     public int countWidgets() {
-        return mainPage.getWeatherWidget().size();
+        return mainPage.getWeatherWidgets().size();
     }
 
-    public List<WeatherWidget> allWidgets() {
-        return mainPage.getWeatherWidget();
+    public List<WeatherWidget> getAllWidgets() {
+        return mainPage.getWeatherWidgets();
     }
 
     public List<WebElement> getAllPlaces() {

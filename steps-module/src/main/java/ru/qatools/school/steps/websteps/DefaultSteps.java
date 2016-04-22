@@ -18,6 +18,7 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
 public class DefaultSteps {
 
     public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru/";
     private static final String NEW_WIDGET = "What a city?";
     private static final String CELCIUM = "°C";
     private static final String KELVIN = "°K";
@@ -42,6 +43,11 @@ public class DefaultSteps {
     @Step("Открываем главную страницу для города «{0}»")
     public void openMainPageWithCity(String city) {
         driver.get(format(MAIN_PAGE, city));
+    }
+
+    @Step("Открываем главную страницу без параметра»")
+    public void openMainPageWithoutParameter() {
+        driver.get(MAIN_PAGE_WITHOUT_PARAMETERS);
     }
 
     @Step("Должны видеть на странице «{0}»")
@@ -69,7 +75,13 @@ public class DefaultSteps {
     @Step("На главной странице должна быть только кнопка добавления города")
     public void shouldSeeOnlyButtonAddWidget() {
         assertThat("На главной странице только кнопка добавления виджета",
-                mainPageMethods().allWidgets().size(), is(0));
+                mainPageMethods().getAllWidgets().size(), is(0));
+    }
+
+    @Step("Должны увидеть главную страницу с кнопкой добавить виджет")
+    public void shouldSeeButtonOnlyAddWidgetOnMainPageWithoutParameter() {
+        openMainPageWithoutParameter();
+        assertThat("На главной странице не отображатся кнопка добавить виджет", onMainPage().getAddWidget(), isDisplayed());
     }
 
     @Step("На главной странице переименование название виджета")
@@ -78,19 +90,18 @@ public class DefaultSteps {
         assertThat("Widget has", newName, is(mainPageMethods().hasItem(mainPageMethods().getAllPlaces())));
     }
 
-
     @Step("На главной странице виджеты добавляются")
     public void shouldSeeWidgetAdd(String city) {
         int count = mainPageMethods().countWidgets();
         addWidgetOnMainPage(city);
         assertThat("Widget has", city, is(mainPageMethods().hasItem(mainPageMethods().getAllPlaces())));
-        assertThat("Количество виджетов не увеличилось", mainPageMethods().allWidgets().size(), is(count + 1));
+        assertThat("Количество виджетов не увеличилось", mainPageMethods().getAllWidgets().size(), is(count + 1));
     }
 
     @Step("На главной странице виджет можно удалить")
     public void shouldSeeWidgetRemove() {
         int count = mainPageMethods().countWidgets();
-        mainPageMethods().clickOnElement(mainPageMethods().allWidgets().get(0).getRemoveBtn());
+        mainPageMethods().clickOnElement(mainPageMethods().getAllWidgets().get(0).getRemoveBtn());
         assertThat("Количество виджетов не уменьшилось после удаления одного виджета",
                 mainPageMethods().countWidgets(), is(count - 1));
     }
@@ -102,23 +113,31 @@ public class DefaultSteps {
                 mainPageMethods().getAllPlaces().get(0).getText(), equalTo(city));
     }
 
-    @Step("Должны меняться форматы вывода градуса")
-    public void shouldSeeChangeFormatDegree() {
-        mainPageMethods().allWidgets().get(0).getWeatherBlock().click();
+    @Step("Должны увидеть изменение формата вывода градусов")
+    public void shouldSeeChangeFormatDegreeCelciumToKelvin() {
+        mainPageMethods().getAllWidgets().get(0).getWeatherBlock().click();
         assertThat("Не произошло преобразование градусов цельсия в градусы кельвина",
-                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(KELVIN));
-        mainPageMethods().allWidgets().get(0).getWeatherBlock().click();
-        assertThat("Не произошло преобразование градусов в кельвинах в градусы фаренгейта",
-                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(FARINGEIT));
-        mainPageMethods().allWidgets().get(0).getWeatherBlock().click();
-        assertThat("Не произошло преобразование градусов фаренгейта в градусы °Kaif",
-                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(KAIF));
+                mainPageMethods().getAllWidgets().get(0).getWeatherType().getText(), equalTo(KELVIN));
     }
 
-    @Step("Начальное открытие виджета, единица измерений температуры Цельсий")
+    @Step("Должны увидеть изменение формата вывода градусов")
+    public void shouldSeeChangeFormatDegreeKelvinToFarengeit() {
+        mainPageMethods().getAllWidgets().get(0).getWeatherBlock().click();
+        assertThat("Не произошло преобразование градусов в кельвинах в градусы фаренгейта",
+                mainPageMethods().getAllWidgets().get(0).getWeatherType().getText(), equalTo(FARINGEIT));
+    }
+
+    @Step("Должны увидеть изменение формата вывода градусов")
+    public void shouldSeeChangeFormatDegreeFarengeitToKaif() {
+        mainPageMethods().getAllWidgets().get(0).getWeatherBlock().click();
+        assertThat("Не произошло преобразование градусов фаренгейта в градусы °Kaif",
+                mainPageMethods().getAllWidgets().get(0).getWeatherType().getText(), equalTo(KAIF));
+    }
+
+        @Step("Начальное открытие виджета, единица измерений температуры Цельсий")
     public void shouldSeeTemperatureCelcium() {
         assertThat("Начальное значение температуры не в Цельсиях",
-                mainPageMethods().allWidgets().get(0).getWeatherType().getText(), equalTo(CELCIUM));
+                mainPageMethods().getAllWidgets().get(0).getWeatherType().getText(), equalTo(CELCIUM));
     }
 
     @Step("Должны увидеть надпись показателя рассвета")
@@ -155,22 +174,22 @@ public class DefaultSteps {
 
     @Step("Должны увидеть картинку для показателя рассвета")
     public void shouldSeeImageSunrise() {
-        assertThat("Картинка показателя рассвета не отображается", mainPageMethods().getMainPage().getSunrise(), isDisplayed());
+        assertThat("Картинка показателя рассвета не отображается",onMainPage().getSunrise(), isDisplayed());
     }
 
     @Step("Должны увидеть картинку для показателя заката")
     public void shouldSeeImageSunset() {
-        assertThat("Картинка показателя заката не отображается", mainPageMethods().getMainPage().getSunset(), isDisplayed());
+        assertThat("Картинка показателя заката не отображается", onMainPage().getSunset(), isDisplayed());
     }
 
     @Step("Должны увидеть картинку для показателя скорости ветра")
     public void shouldSeeImageWind() {
-        assertThat("Картинка показателя скорости ветра не отображается", mainPageMethods().getMainPage().getWind(), isDisplayed());
+        assertThat("Картинка показателя скорости ветра не отображается", onMainPage().getWind(), isDisplayed());
     }
 
     @Step("Должны увидеть картинку для показателя влажности")
     public void shouldSeeImageHumidity() {
-        assertThat("Картинка показателя влажности не отображается", mainPageMethods().getMainPage().getHumidity(), isDisplayed());
+        assertThat("Картинка показателя влажности не отображается", onMainPage().getHumidity(), isDisplayed());
     }
 
     @Step("Формат времени для значения поля рассвет должен быть 'xx:xx'")
@@ -182,20 +201,20 @@ public class DefaultSteps {
     @Step("Формат времени для значения поля закат должен быть 'xx:xx'")
     public void shouldSeeFormatTimeSunset() {
         assertThat("Формат времени для значения поля закат не 'xx:xx'",
-                mainPageMethods().getMainPage().getInfoValues().get(1).getText(), mainPageMethods().stringMatcher(SUNSET_TIME));
+               onMainPage().getInfoValues().get(1).getText(), mainPageMethods().stringMatcher(SUNSET_TIME));
     }
 
     @Step("Формат времени для значения поля скорость ветра должен быть 'xx m/s'")
     public void shouldSeeFormatSpeedWind() {
         assertThat("Формат времени для значения поля скорость ветра не 'xx m/s'",
-                mainPageMethods().getMainPage().getInfoValues().get(2).getText(), mainPageMethods().stringMatcher(WIND_SPEED));
+                onMainPage().getInfoValues().get(2).getText(), mainPageMethods().stringMatcher(WIND_SPEED));
     }
 
 
     @Step("Формат времени для значения поля влажность должен быть 'xx %'")
     public void shouldSeeFormatHumidity() {
         assertThat("Формат времени для значения поля влажность не 'xx %'",
-                mainPageMethods().getMainPage().getInfoValues().get(3).getText(), mainPageMethods().stringMatcher(HUMIDITY_VALUE));
+               onMainPage().getInfoValues().get(3).getText(), mainPageMethods().stringMatcher(HUMIDITY_VALUE));
     }
 
     private MainPage onMainPage() {
