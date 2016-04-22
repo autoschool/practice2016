@@ -3,11 +3,9 @@ package ru.qatools.school.webtests;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
-import ru.qatools.school.steps.websteps.WidgetSteps;
 import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
 
@@ -21,8 +19,8 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
-//    @Rule
-//    public TPInformerRule tms = new TPInformerRule("merkushevio");
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("merkushevio");
 
 
     @Before

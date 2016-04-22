@@ -76,7 +76,7 @@ public class DefaultSteps {
         mainPageMethods().renameWidget(oldName, newName);
         shouldSee(mainPageMethods().findElement(mainPageMethods().getAllPlaces(), newName));
         assertThat("Новый виджет в списке виджетов не найден", newName,
-                mainPageMethods().hasItem(mainPageMethods().getAllPlaces()));
+                equalTo(mainPageMethods().findElement(onMainPage().getPlaces(), newName)));
     }
 
     @Step("На главной странице виджеты добавляются")
