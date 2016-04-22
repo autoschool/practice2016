@@ -107,7 +107,7 @@ public class MainPageMethods {
                 for (WebElement widget : list) {
                     if (widget.getText().equals(word)) {
                         mismatch.appendText("return string was ")
-                                .appendValue(widget.getText());
+                                .appendText(widget.getText());
                         return true;
                     }
                 }
