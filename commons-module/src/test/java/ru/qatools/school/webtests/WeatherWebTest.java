@@ -47,8 +47,8 @@ public class WeatherWebTest {
     @Title("Должны увидеть элементы виджета")
     @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     public void shouldSeeElements() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
-        // Дописать проверку для отоброжания элементов на виджете используя метод shouldSee(Array elements)
+        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.shouldSeeWidgetElements();
     }
 
     @Test
@@ -56,7 +56,7 @@ public class WeatherWebTest {
     @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     public void shouldSeeButtonOnMainPage() {
         defaultSteps.openMainPageWithCity("");
-        defaultSteps.shouldSee(onMainPage().getAddWidget());
+        defaultSteps.shouldSeeButtonAddWidgetOnMainPage();
         defaultSteps.shouldSeeOnlyButtonAddWidget();
     }
 
@@ -123,6 +123,7 @@ public class WeatherWebTest {
     @Title("Можем менять форматы вывода градусов")
     @ru.yandex.qatools.allure.annotations.TestCaseId("9")
     public void shouldSeeChangeFormatDegree() {
+        defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeChangeFormatTemperature();
     }
 
