@@ -3,9 +3,11 @@ package ru.qatools.school.webtests;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.steps.websteps.WidgetSteps;
 import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
 
@@ -19,8 +21,8 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
-    @Rule
-    public TPInformerRule tms = new TPInformerRule("merkushevio");
+//    @Rule
+//    public TPInformerRule tms = new TPInformerRule("merkushevio");
 
 
     @Before
@@ -42,35 +44,24 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны увидеть все элементы виджета")
+    @Title("Должны увидеть элементы виджета")
     @ru.yandex.qatools.allure.annotations.TestCaseId("1")
-    public void shouldSeeTemperatureCelcium() {
+    public void shouldSeeElements() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeTemperatureCelcium();
-        defaultSteps.shouldSeeTitleSunrise();
-        defaultSteps.shouldSeeTitleSunset();
-        defaultSteps.shouldSeeTitleWind();
-        defaultSteps.shouldSeeTitleHumidity();
-        defaultSteps.shouldSeeImageSunrise();
-        defaultSteps.shouldSeeImageSunset();
-        defaultSteps.shouldSeeImageWind();
-        defaultSteps.shouldSeeImageHumidity();
-        defaultSteps.shouldSeeFormatTimeSunrise();
-        defaultSteps.shouldSeeFormatTimeSunset();
-        defaultSteps.shouldSeeFormatSpeedWind();
-        defaultSteps.shouldSeeFormatHumidity();
+        // Дописать проверку для отоброжания элементов на виджете используя метод shouldSee(Array elements)
     }
 
     @Test
-    @Title("Должны увидеть страницу с кнопокой добавить виджет")
+    @Title("Должны увидеть главную страницу только с кнопокой добавить виджет")
     @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     public void shouldSeeButtonOnMainPage() {
         defaultSteps.openMainPageWithCity("");
-        defaultSteps.shouldSeeButtonAddWidgetOnMainPage();
+        defaultSteps.shouldSee(onMainPage().getAddWidget());
         defaultSteps.shouldSeeOnlyButtonAddWidget();
     }
+
     @Test
-    @Title("Должны увидеть главную страницу с кнопкой добавить виджет")
+    @Title("Должны увидеть главную страницу только с кнопкой добавить виджет")
     @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     public void shouldSeeButtonAddWidgetOnMainPageWithoutParameter() {
         defaultSteps.shouldSeeButtonOnlyAddWidgetOnMainPageWithoutParameter();
@@ -78,7 +69,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны видеть добавленный виджет на главной странице")
+    @Title("Можем добавлять виджет на главной странице")
     @ru.yandex.qatools.allure.annotations.TestCaseId("2")
     public void shouldSeeAddWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -86,7 +77,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны увидеть виджеты, кроме удаленного на главной странице")
+    @Title("Может удалить виджет на главной странице")
     @ru.yandex.qatools.allure.annotations.TestCaseId("3")
     public void shouldSeeRemoveWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(SPB);
@@ -103,30 +94,37 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны увидеть переименование названия виджета")
+    @Title("Можем переименовать виджет")
     @ru.yandex.qatools.allure.annotations.TestCaseId("4")
     public void shouldSeeRenameWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB);
-        defaultSteps.shouldSeeRenameWidget(SPB, "");
-        defaultSteps.shouldSeeRenameWidget("", SPB);
-        defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB.substring(0, SPB.length()/2));
     }
 
     @Test
-    @Title("Должны меняться форматы вывода градуса")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
-    public void shouldSeeChangeFormatDegree() {
+    @Title("Можем очистить название, после чего назначить нове имя")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    public void shouldSeeClearWidgetName() {
         defaultSteps.openMainPageWithCity(SPB);
-        defaultSteps.shouldSeeTemperatureCelcium();
-        defaultSteps.shouldSeeChangeFormatDegreeCelciumToKelvin();
-        defaultSteps.shouldSeeChangeFormatDegreeKelvinToFarengeit();
-        defaultSteps.shouldSeeChangeFormatDegreeFarengeitToKaif();
+        defaultSteps.shouldSeeRenameWidget(SPB, "");
+        defaultSteps.shouldSeeRenameWidget("", SPB);
+    }
+
+    @Test
+    @Title("Можем написать не не полное имя виджета")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    public void shouldSeeNotFullNameWidget() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB.substring(0, SPB.length() / 3));
     }
 
 
-
+    @Test
+    @Title("Можем менять форматы вывода градусов")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
+    public void shouldSeeChangeFormatDegree() {
+        defaultSteps.shouldSeeChangeFormatTemperature();
+    }
 
 
 }
