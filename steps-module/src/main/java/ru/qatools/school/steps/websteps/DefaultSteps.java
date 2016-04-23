@@ -1,11 +1,12 @@
 package ru.qatools.school.steps.websteps;
 
+import org.hamcrest.Matcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.matchers.webdriver.TextMatcher;
 
+import static ru.yandex.qatools.matchers.webdriver.TextMatcher.*;
 import static org.hamcrest.Matchers.*;
 import static java.lang.String.format;
 import static org.junit.Assert.assertThat;
@@ -36,14 +37,7 @@ public class DefaultSteps {
 
     @Step("Должны видеть на странице город «{0}»")
     public void shouldSeeCity(String city){
-        String actualCity = "no such city onMainPage";
-        for (WebElement element : onMainPage().getWeatherCities())
-            if (element.getText().equals(city)) {
-                actualCity = city;
-                break;
-            }
-//        assertThat(onMainPage().getWeatherCities(), hasItem(city));
-        assertThat(actualCity, is(city));
+        assertThat(onMainPage().getWeatherCities(), hasItem((Matcher)text(city)));
     }
 
     @Step("Нажимаем на «{0}»")
@@ -57,6 +51,7 @@ public class DefaultSteps {
         assertThat("Должны видеть верное количество виджетов ", actualCountWidget, is(expectedCountWidget));
     }
     private MainPage onMainPage() {
+        driver.navigate().refresh();
         return new MainPage(driver);
     }
 }

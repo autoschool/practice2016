@@ -15,8 +15,6 @@ import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
 
-import ru.qatools.school.data.City;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,29 +36,31 @@ public class WeatherWebTest {
     @Before
     public void initSteps() {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
-        defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
     }
 
 
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
-    @Ignore
     @Test
     @UseDataProvider("getCities")
     @Title("Должный видеть виджет с указанным городом")
     public void shouldSeeWidgetWithCurrentCity(City city){
+        defaultSteps.openMainPageWithCity(city.getName());
         defaultSteps.shouldSeeCity(city.getName());
     }
 
     @Test
     @Title("Должны видеть виджетов на один больше")
     public void shouldSeeWidgetIncrement(){
+        defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
         int countWidget = onMainPage().getWeatherWidget().size();
         WebElement newCard = onMainPage().getNewCard();
+
         defaultSteps.clickOn(newCard);
         defaultSteps.shouldSeeCountWidget(countWidget + 1);
     }
