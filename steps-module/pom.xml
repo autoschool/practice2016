@@ -44,6 +44,10 @@
             <groupId>ru.yandex.qatools.matchers</groupId>
             <artifactId>webdriver-matchers</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

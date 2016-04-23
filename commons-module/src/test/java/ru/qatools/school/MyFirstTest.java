@@ -3,6 +3,7 @@ package ru.qatools.school;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.qatools.school.data.Place;
@@ -27,6 +28,7 @@ public class MyFirstTest {
     }
 
     @Test
+    @Ignore
     @UseDataProvider("getPlaces")
     public void userGoTo(Place place) {
         user().goTo(place)

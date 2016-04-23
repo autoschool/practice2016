@@ -4,6 +4,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,10 +13,9 @@ import ru.qatools.school.data.City;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
-
-import static ru.yandex.qatools.allure.annotations.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,8 +35,8 @@ public class WeatherWebTest {
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
 
-//    @Rule
-//    public TPInformerRule tms = new TPInformerRule("TESTPRJ");
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("OnoDee87");
 
     @Before
     public void initSteps() {
@@ -52,6 +52,7 @@ public class WeatherWebTest {
     }
 
     @Test
+    @Ignore
     @UseDataProvider("getCities")
     @Title("Должный видеть виджет с указанным городом")
     public void shouldSeeWidgetWithCurrentCity(City city){
@@ -60,6 +61,7 @@ public class WeatherWebTest {
     }
 
     @Test
+    @Ignore
     @Title("Должны видеть виджетов на один больше")
     public void shouldSeeWidgetIncrement(){
         defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
