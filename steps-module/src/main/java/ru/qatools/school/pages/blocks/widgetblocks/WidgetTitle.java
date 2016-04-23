@@ -14,9 +14,13 @@ import java.util.List;
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Название города в заголовке")
+    @Name("Название города")
     @FindBy(css = ".inplace")
     private HtmlElement cityName;
+
+    @Name("Текущее время и дата")
+    @FindBy(css = ".card-title__secondary > div > div")
+    private HtmlElement currentTimeAndData;
 
     @Name("Список предложенных городов")
     @FindBy(css = ".city-suggest")
@@ -32,6 +36,10 @@ public class WidgetTitle extends HtmlElement {
 
     public List<CitySuggest> getCitySuggests() {
         return citySuggests;
+    }
+
+    public HtmlElement getCurrentTimeAndData() {
+        return currentTimeAndData;
     }
 
     public CitySuggest getFirstSuggest() {

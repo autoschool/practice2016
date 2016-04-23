@@ -31,14 +31,6 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
-    public static String getMainPage() {
-        return MAIN_PAGE;
-    }
-
-    public static String getQuery() {
-        return QUERY;
-    }
-
     @Step("Открываем главную страницу без параметров»")
     public void openMainPage() {
         driver.get(MAIN_PAGE);
@@ -73,9 +65,9 @@ public class DefaultSteps {
         }
     }
 
-    @Step("Должны увидеть {0} виджета(ов)")
-    public void shouldBeThisNumberOfWidgets(int count) {
-        assertThat("Количество виджетов не соответствует ожидаемому", onMainPage().getWeatherWidgets().size(), is(count));
+    @Step("Должны увидеть «{1}» элементов(ов) в списке «{0}»")
+    public void shouldBeThisNumberOfElements(List elements, int count) {
+        assertThat("Количество элементов не соответствует ожидаемому", elements.size(), is(count));
     }
 
     @Step("Кликаем по элементу {0}")
@@ -103,7 +95,7 @@ public class DefaultSteps {
         assertThat("Текст в элементе не соответствует ожидаемому", element, hasText(text));
     }
 
-    @Step("Элемент «{0}» должен содержать текст «{1}»")
+    @Step("Ждём элемент «{0}» максимум «{1}» милисекунд")
     public void waitUntilElementReady(HtmlElement element, int timeOut) {
         int pause = 10; // milliseconds
         for (int milliSeconds = 0; ; milliSeconds += pause) {

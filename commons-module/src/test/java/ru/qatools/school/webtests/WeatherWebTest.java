@@ -60,7 +60,7 @@ public class WeatherWebTest {
     @Title("Должны видеть два виджета на главной странице после загрузки")
     public void shouldSeeTwoWidgetsOnMainPage() {
         defaultSteps.openMainPageWithCities(CITY, CITY2);
-        defaultSteps.shouldBeThisNumberOfWidgets(2);
+        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getWeatherWidgets(), 2);
         defaultSteps.shouldSee(onMainPage().getWeatherWidgets());
     }
 
@@ -72,13 +72,46 @@ public class WeatherWebTest {
     }
 
     @Test
+    @Title("Должны видеть виджет со всеми компонентами")
+    public void shouldSeeAllWidgetBlocks() {
+        defaultSteps.openMainPageWithCities(CITY);
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCurrentTimeAndData());
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherImage());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureDigit());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit());
+
+        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getFirstWidget().getWidgetText().getInfoLines(), 4);
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getTitle());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getImage());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getValue());
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getTitle());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getImage());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getValue());
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWindLine().getTitle());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWindLine().getImage());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWindLine().getValue());
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getTitle());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getImage());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getValue());
+
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
+    }
+
+    @Test
     @Title("Должен добавиться новый виджет после щелчка на кнопке '+'")
 //    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
     public void shouldBeAddedNewWidget() {
         defaultSteps.openMainPageWithCities(CITY);
         int numberOfWidgets = onMainPage().getWeatherWidgets().size();
         defaultSteps.clickOn(onMainPage().getAddWidgetButton());
-        defaultSteps.shouldBeThisNumberOfWidgets(numberOfWidgets + 1);
+        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getWeatherWidgets(), numberOfWidgets + 1);
     }
 
     @Test
@@ -102,6 +135,7 @@ public class WeatherWebTest {
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameBegin);
+        defaultSteps.waitUntilElementReady(onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest(), 10000);
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCitySuggests());
     }
 
@@ -118,7 +152,6 @@ public class WeatherWebTest {
         String cityNameInSuggest = onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest().getCityName().getText();
 
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest());
-
         defaultSteps.waitUntilElementReady(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), 10000);
         defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameInSuggest);
 
@@ -138,11 +171,11 @@ public class WeatherWebTest {
     @Title("Должны видеть 0 виджетов после удаления ")
     public void shouldSeeNullWidgetsAfterDelete() {
         defaultSteps.openMainPageWithCities(CITY, CITY2);
-        defaultSteps.shouldBeThisNumberOfWidgets(2);
+        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getWeatherWidgets(), 2);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
-        defaultSteps.shouldBeThisNumberOfWidgets(1);
+        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getWeatherWidgets(), 1);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
-        defaultSteps.shouldBeThisNumberOfWidgets(0);
+        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getWeatherWidgets(), 0);
     }
 
     @Test
