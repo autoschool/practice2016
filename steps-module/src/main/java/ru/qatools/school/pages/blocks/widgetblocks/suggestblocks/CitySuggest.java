@@ -1,26 +1,32 @@
 package ru.qatools.school.pages.blocks.widgetblocks.suggestblocks;
 
 import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 /**
- * Created by kurau.
- * Changed by onegines (Eugene Kirienko).
+ * Created by onegines (Eugene Kirienko).
  */
 public class CitySuggest extends HtmlElement {
 
-    @Name("Предложенный город")
-    @FindBy(css = ".city")
-    private WebElement citySuggest;
+    @Name("Название города")
+    @FindBy(css = ".city__name")
+    private HtmlElement cityName;
+
+    @Name("Регион")
+    @FindBy(css = ".city__country")
+    private HtmlElement countryName;
 
     public Rectangle getRect() {
         return null;
     }
 
-    public WebElement getCitySuggest() {
-        return citySuggest;
+    public HtmlElement getCityName() {
+        return cityName;
+    }
+
+    public HtmlElement getCountryName() {
+        return countryName;
     }
 }

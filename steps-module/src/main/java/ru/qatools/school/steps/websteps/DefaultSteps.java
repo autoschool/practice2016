@@ -2,6 +2,7 @@ package ru.qatools.school.steps.websteps;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
@@ -11,7 +12,6 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import java.util.List;
 
 import static java.lang.String.format;
-import static org.hamcrest.CoreMatchers.both;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.*;
@@ -31,15 +31,18 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
+    public static String getMainPage() {
+        return MAIN_PAGE;
+    }
+
+    public static String getQuery() {
+        return QUERY;
+    }
+
     @Step("Открываем главную страницу без параметров»")
     public void openMainPage() {
         driver.get(MAIN_PAGE);
     }
-
-//    @Step("Открываем главную страницу для города «{0}»")
-//    public void openMainPageWithCity(String city) {
-//        driver.get(MAIN_PAGE + format(QUERY, city));
-//    }
 
     @Step("Открываем главную страницу для городов «{0}»")
     public void openMainPageWithCities(String... cities) {
@@ -58,7 +61,8 @@ public class DefaultSteps {
 
     @Step("Должны видеть на странице элемент «{0}»")
     public void shouldSee(WebElement element) {
-        assertThat("Должны видеть элемент", element, both(exists()).and(isDisplayed()));
+        assertThat("Должен существовать элемент", element, exists());
+        assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
     @Step("Должны видеть на странице элементы «{0}»")
@@ -97,6 +101,26 @@ public class DefaultSteps {
     @Step("Элемент «{0}» должен содержать текст «{1}»")
     public void shouldHaveText(HtmlElement element, String text) {
         assertThat("Текст в элементе не соответствует ожидаемому", element, hasText(text));
+    }
+
+    @Step("Элемент «{0}» должен содержать текст «{1}»")
+    public void waitUntilElementReady(HtmlElement element, int timeOut) {
+        int pause = 10; // milliseconds
+        for (int milliSeconds = 0; ; milliSeconds += pause) {
+            try {
+                element.isDisplayed();
+                break;
+            } catch (StaleElementReferenceException e) {
+                if (milliSeconds > timeOut) {
+                    throw e;
+                }
+                try {
+                    Thread.sleep(pause);
+                } catch (InterruptedException e2) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private MainPage onMainPage() {

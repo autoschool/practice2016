@@ -6,16 +6,16 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 /**
- * Created by kurau.
+ * Created by onegines (Eugene Kirienko).
  */
-public class WidgetText extends HtmlElement {
+public class WidgetActions extends HtmlElement {
 
-    @Name("Картинка текущей погоды")
-    @FindBy(css = ".weather-image")
-    private HtmlElement weatherImage;
+    @Name("Кнопка удаления виджета")
+    @FindBy(css = ".remove-card")
+    private HtmlElement removeWidgetButton;
 
-    public HtmlElement getWeatherImage() {
-        return weatherImage;
+    public HtmlElement getRemoveWidgetButton() {
+        return removeWidgetButton;
     }
 
     public Rectangle getRect() {

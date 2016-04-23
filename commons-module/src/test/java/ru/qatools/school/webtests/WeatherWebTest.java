@@ -89,6 +89,7 @@ public class WeatherWebTest {
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2);
         defaultSteps.confirmText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.waitUntilElementReady(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), 10000);
         defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2);
     }
 
@@ -105,15 +106,62 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны видеть поле с названием города после после удаления текста в нём")
-    public void shouldSeeCityNameInTitleAfterEraseTextInIt() {
+    @Title("Должен измениться город в виджете после выбора города в саджесте")
+    public void shouldSeeCityInWidgetChosenInSuggest() {
+        String cityNameBegin = CITY2.substring(0, (CITY2.length() > 4 ? 4 : CITY2.length()));
 
         defaultSteps.openMainPageWithCities(CITY);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.confirmText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameBegin);
 
+        String cityNameInSuggest = onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest().getCityName().getText();
+
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest());
+
+        defaultSteps.waitUntilElementReady(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), 10000);
+        defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameInSuggest);
+
+    }
+
+    @Test
+    @Title("Должны видеть поле с названием города после после удаления текста в нём")
+    public void shouldSeeCityNameInTitleAfterEraseTextInIt() {
+        defaultSteps.openMainPageWithCities(CITY);
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.confirmText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+    }
+
+    @Test
+    @Title("Должны видеть 0 виджетов после удаления ")
+    public void shouldSeeNullWidgetsAfterDelete() {
+        defaultSteps.openMainPageWithCities(CITY, CITY2);
+        defaultSteps.shouldBeThisNumberOfWidgets(2);
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
+        defaultSteps.shouldBeThisNumberOfWidgets(1);
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
+        defaultSteps.shouldBeThisNumberOfWidgets(0);
+    }
+
+    @Test
+    @Title("После изменения города в виджете должен поменяться URL")
+    public void shouldChangeUrlAfterWidgetRename() {
+        defaultSteps.openMainPageWithCities(CITY);
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2);
+        defaultSteps.confirmText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+        defaultSteps.shouldBeUrl("http://weather.lanwen.ru/#?cities=" + CITY2);
+    }
+
+    @Test
+    @Title("После удаления города в виджете должен поменяться URL")
+    public void shouldChangeUrlAfterWidgetRemove() {
+        defaultSteps.openMainPageWithCities(CITY, CITY2);
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
+        defaultSteps.shouldBeUrl("http://weather.lanwen.ru/#?cities=" + CITY2.replace(" ", "%20"));
     }
 
     private MainPage onMainPage() {
