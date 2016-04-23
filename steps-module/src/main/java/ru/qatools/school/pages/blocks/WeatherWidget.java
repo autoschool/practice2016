@@ -25,6 +25,12 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private WebElement actions;
 
+    @Name("Название города")
+    @FindBy(css = ".card-title__primary")
+    private WebElement cityName;
+
+    public WebElement getCityName() { return cityName; }
+
     public WidgetText getWidgetText() {
         return widgetText;
     }

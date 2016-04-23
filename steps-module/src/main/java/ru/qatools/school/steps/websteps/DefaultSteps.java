@@ -31,7 +31,7 @@ public class DefaultSteps {
 
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat(element, isDisplayed());
     }
 
     private MainPage onMainPage() {
@@ -39,7 +39,18 @@ public class DefaultSteps {
     }
 
     @Step("Должны видеть название города  «{0}»")
-    public void shouldSeeCorrectCityName(String city) {
-        assertThat("Должны видеть название города на виджете", onMainPage().getWeatherWidget().get(0).getWidgetTitle(), is(city) );
+    public void shouldSeeCorrectCityNameOnFirstWidget(String city) {
+        assertThat(onMainPage().getWeatherWidget().get(0).getCityName().getText(), is(city) );
     }
+
+    @Step("Добавить один виджет")
+    public void addOneMoreWidget() {
+        onMainPage().getAddWidgetButton().click();
+    }
+
+    @Step("Количество виджетов на странице должно быть равно «{0}»")
+    public void shouldHaveCorrectWidgetAmount(int widgetAmount) {
+        assertThat(onMainPage().getWeatherWidget().size(), is(widgetAmount));
+    }
+
 }
