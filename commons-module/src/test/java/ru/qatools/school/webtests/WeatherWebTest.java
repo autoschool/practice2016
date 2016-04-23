@@ -4,7 +4,6 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,10 @@ import ru.qatools.school.data.City;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
+
+import static ru.yandex.qatools.allure.annotations.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,13 +35,16 @@ public class WeatherWebTest {
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
 
+//    @Rule
+//    public TPInformerRule tms = new TPInformerRule("TESTPRJ");
+
     @Before
     public void initSteps() {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
-
     @Test
+    @TestCaseId("1")
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(City.MOSCOW.getName());
