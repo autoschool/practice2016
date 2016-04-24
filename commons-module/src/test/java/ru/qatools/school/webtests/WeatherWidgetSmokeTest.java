@@ -6,7 +6,9 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 
 
@@ -20,6 +22,8 @@ public class WeatherWidgetSmokeTest {
 
     private DefaultSteps defaultSteps;
 
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("thebaldsoprano");
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
@@ -29,7 +33,7 @@ public class WeatherWidgetSmokeTest {
 
     @Test
     @Title("Should open main page with widget")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
+    @TestCaseId("2")
     public void shouldOpenMainPageWithWidget(){
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldSeeWidget(onMainPage().getWeatherWidgetList().get(0));
@@ -37,7 +41,7 @@ public class WeatherWidgetSmokeTest {
 
     @Test
     @Title("Should see \"add new widget\" button")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
+    @TestCaseId("3")
     public void shouldSeeAddWidgetButton(){
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldSeeAddWidgetButton(onMainPage().getNewWeatherWidgetCard().get(0));
@@ -45,7 +49,7 @@ public class WeatherWidgetSmokeTest {
 
     @Test
     @Title("Should see \"remove widget\" button")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("3")
+    @TestCaseId("4")
     public void shouldSeeRemoveWidgetButton(){
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldSeeRemoveWidgetButton(onMainPage().getWeatherWidgetList().get(0).getWidgetActions().getRemoveWidgetButton());
@@ -53,7 +57,7 @@ public class WeatherWidgetSmokeTest {
 
     @Test
     @Title("\"Add new widget\" button should add widget")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    @TestCaseId("5")
     public void shouldAddNewWidget(){
         defaultSteps.openMainPageWithCity(CITY);
         int buttonPushes = 3;
@@ -63,7 +67,7 @@ public class WeatherWidgetSmokeTest {
 
     @Test
     @Title("Should remove all widgets")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("5")
+    @TestCaseId("6")
     public void shouldRemoveWidgets(){
         defaultSteps.openMainPageWithCity(CITY);
         int buttonPushes = 1;           //why not work on bigger clicks
