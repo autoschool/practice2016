@@ -2,7 +2,6 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.w3c.dom.html.HTMLElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -27,7 +26,9 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
  */
 public class DefaultSteps {
 
-    public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+
+    private static final String MAIN_PAGE_WOUTPARS = "http://weather.lanwen.ru/";
 
     private WebDriver driver;
 
@@ -40,9 +41,14 @@ public class DefaultSteps {
         driver.get(format(MAIN_PAGE, city));
     }
 
+    @Step("Открываем главную страницу как обычный пользователь")
+    public void openMainPageWithoutParams() {
+        driver.get(MAIN_PAGE_WOUTPARS);
+    }
+
     @Step("Должны видеть на странице «{0}»")
     public void shouldSeeElement(WebElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat("Должны видеть элемент", element, both(exists()).and(isDisplayed()));
     }
 
     @Step("Должны видеть на странице все элементы списка «{0}»")
@@ -68,6 +74,10 @@ public class DefaultSteps {
 
     public WeatherWidget getFirstWidget() {
         return onMainPage().getWeatherWidgetList().get(0);
+    }
+
+    public Button getNewCardButton() {
+        return onMainPage().getNewCardButton();
     }
 
     private MainPage onMainPage() {

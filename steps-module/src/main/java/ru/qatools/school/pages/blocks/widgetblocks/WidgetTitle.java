@@ -13,8 +13,9 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WidgetTitle extends HtmlElement {
 
     @Name("Название города в заголовке")
-    @FindBy(css = ".card-title__primary")
+    @FindBy(css = ".inplace")
     private WebElement cityNameElement;
+
 
     public WebElement getCityNameElement() {
         return cityNameElement;
