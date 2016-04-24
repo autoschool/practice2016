@@ -1,11 +1,9 @@
 package ru.qatools.school.pages.blocks;
 
 import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.qatools.school.pages.blocks.widgetblocks.WidgetText;
-import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 /**
@@ -13,14 +11,14 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
  */
 
 
-public class NewWeatherWidget extends HtmlElement {
+public class NewWeatherWidgetCard extends HtmlElement {
 
-    @Name("New widget button")
+    @Name("Add widget button")
     @FindBy(css = ".new-card__symbol")
-    private WebElement newWeatherWidgetButton;
+    private Button addWidgetButton;
 
-    public WebElement getNewWeatherWidgetButton() {
-        return newWeatherWidgetButton;
+    public Button getAddWidgetButton() {
+        return addWidgetButton;
     }
 
 
