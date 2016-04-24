@@ -15,7 +15,6 @@ public class TPClient {
     private static final String RUN = System.getProperty("tp.api.run", "571b4711071d88000685cfa7");
 
 
-
     public static void callUpdate(String project, List<TCaseStatus> statuses) {
         RestAssured.given()
                 .relaxedHTTPSValidation()

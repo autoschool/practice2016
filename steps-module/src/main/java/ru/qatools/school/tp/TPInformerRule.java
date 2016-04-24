@@ -35,7 +35,7 @@ public class TPInformerRule extends TestWatcher {
     @Override
     protected void failed(Throwable e, Description description) {
         if (e instanceof AssertionError) {
-            updateWithStatus("FAILED", description); 
+            updateWithStatus("FAILED", description);
         } else {
             updateWithStatus("BROKEN", description);
         }
@@ -50,8 +50,8 @@ public class TPInformerRule extends TestWatcher {
         if (description.getAnnotation(TestCaseId.class) != null) {
             TPClient.callUpdate(project,
                     newArrayList(
-                            new TPClient.TCaseStatus(new TPClient.TCase(idFrom(description)), 
-                                    status, 
+                            new TPClient.TCaseStatus(new TPClient.TCase(idFrom(description)),
+                                    status,
                                     currentTimeMillis() - start
                             )));
         }
