@@ -2,9 +2,10 @@ package ru.qatools.school.steps.websteps;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
@@ -13,8 +14,10 @@ import java.util.List;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.*;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
  * Created by kurau.
@@ -53,14 +56,17 @@ public class DefaultSteps {
 
     @Step("Должны видеть на странице элемент «{0}»")
     public void shouldSee(WebElement element) {
-        assertThat("Должен существовать элемент", element, exists());
         assertThat("Должны видеть элемент", element, isDisplayed());
+    }
+
+    @Step("Должны не видеть на странице элемент «{0}»")
+    public void shouldNotSee(WebElement element) {
+        assertThat("Должны не видеть элемент", element, not(isDisplayed()));
     }
 
     @Step("Должны видеть на странице элементы «{0}»")
     public void shouldSee(List<? extends WebElement> elements) {
         for (WebElement element : elements) {
-            assertThat("Должен существовать элемент", element, exists());
             assertThat("Должны видеть элемент", element, isDisplayed());
         }
     }
@@ -95,24 +101,33 @@ public class DefaultSteps {
         assertThat("Текст в элементе не соответствует ожидаемому", element, hasText(text));
     }
 
-    @Step("Ждём элемент «{0}» максимум «{1}» милисекунд")
+    @Step("Ждём элемент «{0}» максимум «{1}» секунд(ы)")
     public void waitUntilElementReady(HtmlElement element, int timeOut) {
-        int pause = 10; // milliseconds
-        for (int milliSeconds = 0; ; milliSeconds += pause) {
-            try {
-                element.isDisplayed();
-                break;
-            } catch (StaleElementReferenceException e) {
-                if (milliSeconds > timeOut) {
-                    throw e;
-                }
-                try {
-                    Thread.sleep(pause);
-                } catch (InterruptedException e2) {
-                    e.printStackTrace();
-                }
-            }
-        }
+//        int pause = 10; // milliseconds
+//        for (int milliSeconds = 0; ; milliSeconds += pause) {
+//            try {
+//                element.isDisplayed();
+//                System.out.println(element.getText());
+//                break;
+//            } catch (StaleElementReferenceException e) {
+//                if (milliSeconds > timeOut * 1000) {
+//                    System.out.println("Всё пропало!");
+//                    throw e;
+//                }
+//                try {
+//                    System.out.println("Ждём: " + milliSeconds);
+//                    Thread.sleep(pause);
+//                } catch (InterruptedException e2) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+
+        (new WebDriverWait(driver, timeOut)).
+                until(ExpectedConditions.and(
+                        ExpectedConditions.not(ExpectedConditions.stalenessOf(element)),
+                        ExpectedConditions.visibilityOf(element))
+                );
     }
 
     private MainPage onMainPage() {

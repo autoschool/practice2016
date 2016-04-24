@@ -17,6 +17,10 @@ import java.util.List;
  */
 public class MainPage {
 
+    @Name("Тело страницы")
+    @FindBy(tagName = "body")
+    private HtmlElement body;
+
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
     private List<WeatherWidget> weatherWidgets;
@@ -41,4 +45,7 @@ public class MainPage {
         return addWidgetButton;
     }
 
+    public HtmlElement getBody() {
+        return body;
+    }
 }

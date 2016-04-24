@@ -22,8 +22,12 @@ public class WidgetTitle extends HtmlElement {
     @FindBy(css = ".card-title__secondary > div > div")
     private HtmlElement currentTimeAndData;
 
-    @Name("Список предложенных городов")
+    @Name("Блок предложенных городов")
     @FindBy(css = ".city-suggest")
+    private HtmlElement citySuggestBlock;
+
+    @Name("Список предложенных городов")
+    @FindBy(css = ".city")
     private List<CitySuggest> citySuggests;
 
     public Rectangle getRect() {
@@ -44,5 +48,9 @@ public class WidgetTitle extends HtmlElement {
 
     public CitySuggest getFirstSuggest() {
         return getCitySuggests().get(0);
+    }
+
+    public HtmlElement getCitySuggestBlock() {
+        return citySuggestBlock;
     }
 }

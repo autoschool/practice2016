@@ -17,6 +17,10 @@ public class WidgetText extends HtmlElement {
     @FindBy(css = ".weather-image")
     private HtmlElement weatherImage;
 
+    @Name("Температура")
+    @FindBy(css = ".weather-temperature.md-12")
+    private HtmlElement weatherTemperature;
+
     @Name("Цифра градусов")
     @FindBy(css = ".weather-temperature__digit")
     private HtmlElement weatherTemperatureDigit;
@@ -59,6 +63,10 @@ public class WidgetText extends HtmlElement {
 
     public InfoLine getHumidityLine() {
         return getInfoLines().get(3);
+    }
+
+    public HtmlElement getWeatherTemperature() {
+        return weatherTemperature;
     }
 
     public Rectangle getRect() {
