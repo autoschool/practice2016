@@ -24,6 +24,10 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private HtmlElement actions;
 
+    @Name("Кнопка удаления виджета")
+    @FindBy(css = ".remove-card")
+    private HtmlElement removeWidgetButton;
+
     public WidgetText getWidgetText() {
         return widgetText;
     }
@@ -34,6 +38,10 @@ public class WeatherWidget extends HtmlElement {
 
     public HtmlElement getActions() {
         return actions;
+    }
+
+    public HtmlElement getRemoveWidgetButton() {
+        return removeWidgetButton;
     }
 
     public Rectangle getRect() {

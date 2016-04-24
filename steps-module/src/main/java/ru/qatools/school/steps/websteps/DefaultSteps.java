@@ -37,7 +37,7 @@ public class DefaultSteps {
     @Step("Должны видеть в заголовке виджета текст: {0}")
     public void shouldSeeRightCityInWidgetsTitle(String cityName){
         assertThat("Должны видеть текст",
-                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getPrimaryTitle(), hasText(cityName));
+                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName(), hasText(cityName));
     }
 
     @Step("Нажимаем на кнопку добавления виджета")

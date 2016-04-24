@@ -5,17 +5,43 @@ import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
+import java.util.List;
+
 /**
  * Created by kurau.
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Город")
-    @FindBy(css = ".card-title__primary")
-    private HtmlElement primaryTitle;
+    @Name("Название город")
+    @FindBy(css = ".inplace inplace_displayed")
+    private HtmlElement cityName;
 
-    public HtmlElement getPrimaryTitle(){
-        return primaryTitle;
+    @Name("Редактируемое поле города")
+    @FindBy(css = ".inplace inplace_editable")
+    private HtmlElement cityNameEditable;
+
+    @Name("Время")
+    @FindBy(css = ".card-title__secondary")
+    private HtmlElement currentTime;
+
+    @Name("Список автозаполнения")
+    @FindBy(css = ".city__name")
+    private List<HtmlElement> sugesstedCities;
+
+    public HtmlElement getCityName(){
+        return cityName;
+    }
+
+    public HtmlElement getCityNameEditable() {
+        return cityNameEditable;
+    }
+
+    public HtmlElement getCurrentTime() {
+        return currentTime;
+    }
+
+    public List<HtmlElement> getSugesstedCities() {
+        return sugesstedCities;
     }
 
     public Rectangle getRect() {
