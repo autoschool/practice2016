@@ -26,14 +26,14 @@ public class WeatherWebTest {
     @Title("Widget on main page must be seen")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldBeSeen(onMainPage().getWeatherWidgets().get(0));
+        defaultSteps.shouldSeeWidget(onMainPage().getWeatherWidgetList().get(0));
     }
 
     @Test
     @Title("City from widget must match city from URL")
     public void shouldWidgetCityBeLinkCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldBeWeatherOfLinkCity(MOSCOW, onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getWidgetCity());
+        defaultSteps.shouldBeWeatherOfLinkCity(MOSCOW, onMainPage().getWeatherWidgetList().get(0).getWidgetTitle().getWidgetCity());
     }
 
     @Test
@@ -42,8 +42,7 @@ public class WeatherWebTest {
         defaultSteps.openMainPageWithCity(MOSCOW);
         int buttonTimesPushed = 5;
         defaultSteps.pushNewWeatherButtonNTimes(buttonTimesPushed);
-        defaultSteps.shouldExistAsMuchWidgetsAs(buttonTimesPushed + 1, onMainPage().getWeatherWidgets());
-        defaultSteps.shouldBeSeen(onMainPage().getWeatherWidgets());
+        defaultSteps.shouldSeeNumWidgets(buttonTimesPushed + 1, onMainPage().getWeatherWidgetList());
     }
 
     private MainPage onMainPage() {
