@@ -1,5 +1,6 @@
 package ru.qatools.school.tp;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
@@ -17,6 +18,7 @@ public class ConnectedToTPTest {
 
 
     @Test
+    @Ignore
     @TestCaseId("1")
     public void shouldMarkCaseStatusAsPassed() throws IOException, InterruptedException {
         SECONDS.sleep(15);
@@ -24,6 +26,7 @@ public class ConnectedToTPTest {
 
 
     @Test
+    @Ignore
     @TestCaseId("2")
     public void shouldFail() throws IOException, InterruptedException {
         SECONDS.sleep(5);
@@ -31,6 +34,7 @@ public class ConnectedToTPTest {
     }
 
     @Test
+    @Ignore
     @TestCaseId("3")
     public void shouldBroke() throws IOException, InterruptedException {
         SECONDS.sleep(5);
@@ -38,6 +42,7 @@ public class ConnectedToTPTest {
     }
 
     @Test
+    @Ignore
     @TestCaseId("4")
     public void shouldBeSkipped() throws IOException, InterruptedException {
         SECONDS.sleep(5);

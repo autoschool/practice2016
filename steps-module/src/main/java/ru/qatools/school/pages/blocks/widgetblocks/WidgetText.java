@@ -15,8 +15,24 @@ public class WidgetText extends HtmlElement {
     @FindBy(css = ".weather-image")
     private WebElement weatherImage;
 
+    @Name("Числовое значение температуры")
+    @FindBy(css = ".weather-temperature__digit")
+    private WebElement temperatureDigit;
+
+    @Name("Единицы измерения температуры")
+    @FindBy(css = ".weather-temperature__unit")
+    private WebElement temperatureUnit;
+
     public WebElement getWeatherImage() {
         return weatherImage;
+    }
+
+    public WebElement getTemperatureDigit() {
+        return temperatureDigit;
+    }
+
+    public WebElement getTemperatureUnit() {
+        return temperatureUnit;
     }
 
     public Rectangle getRect() {
