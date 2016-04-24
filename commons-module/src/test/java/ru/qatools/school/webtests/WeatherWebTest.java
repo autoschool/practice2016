@@ -10,8 +10,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 
 public class WeatherWebTest {
 
-    public static final String MOSCOW = "Moscow";
-    public static final String SARATOV = "Saratov";
+    private String city = "Moscow";
 
     private DefaultSteps defaultSteps;
 
@@ -26,25 +25,27 @@ public class WeatherWebTest {
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.openMainPageWithCity(city);
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
     }
 
     @Test
     @Title("Проверяем город в погоде")
     public void shouldSeeChosenCity() {
-        defaultSteps.openMainPageWithCity(SARATOV);
-        defaultSteps.shouldSeeCurrentCity(SARATOV);
+        defaultSteps.openMainPageWithCity(city);
+        defaultSteps.shouldSeeCurrentCity(city);
     }
 
     @Test
     @Title("Должны видеть на один виджет больше")
     public void shouldSeeNewWidget() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.openMainPageWithCity(city);
         int countWidgets = defaultSteps.getCountWidgets();
         defaultSteps.addOneWidget();
         defaultSteps.shouldSeeWidgets(countWidgets+1);
     }
+
+
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());

@@ -3,11 +3,7 @@ package ru.qatools.school.steps.websteps;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
-import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.htmlelements.element.HtmlElement;
-
-import java.util.List;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -19,7 +15,8 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
  */
 public class DefaultSteps {
 
-    public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE_WITH_WIDGET = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE = "http://weather.lanwen.ru";
 
     private WebDriver driver;
 
@@ -28,9 +25,14 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
+    @Step("Открываем главную страницу")
+    public void openMainPage() {
+        driver.get(MAIN_PAGE);
+    }
+
     @Step("Открываем главную страницу для города «{0}»")
     public void openMainPageWithCity(String city) {
-        driver.get(format(MAIN_PAGE, city));
+        driver.get(format(MAIN_PAGE_WITH_WIDGET, city));
     }
 
     @Step("Должны видеть на странице «{0}»")
@@ -39,27 +41,43 @@ public class DefaultSteps {
     }
 
     @Step("Добавить виджет на страницу")
-    public void addOneWidget()
-    {
-        onMainPage().getAddWidgetButton().click();
+    public void addOneWidget() {
+        onMainPage().getButtonAddWidget().click();
     }
 
-    @Step("Должны увидеть {0} виджета")
-    public void shouldSeeWidgets(int count){
+    @Step("Должны увидеть n виджетов")
+    public void shouldSeeWidgets(int count) {
         assertThat(onMainPage().getWeatherWidget().size(), is(count));
     }
 
     @Step("Получить количество виджетов на странице")
-    public int getCountWidgets(){
+    public int getCountWidgets() {
         return onMainPage().getWeatherWidget().size();
-    }
-
-    private MainPage onMainPage() {
-        return new MainPage(driver);
     }
 
     @Step("Должны увидеть виджет с городом {0}")
     public void shouldSeeCurrentCity(String city) {
-        assertThat(onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().getText(),is (city));
+        assertThat(onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().getText(), is(city));
+    }
+
+    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
+    @Step("Должны увидеть кнопку добавления виджета")
+    public void shouldSeeButtonAddWidget() {
+        assertThat("Должны увидеть кнопку добавления виджета", onMainPage().getButtonAddWidget(), isDisplayed());
+    }
+
+    @Step("Удаление виджета со страницы")
+    public void deleteWidget() {
+        onMainPage().getWeatherWidget().get(0).getButtonDeleteWidget().click();
+    }
+
+    @Step("Пишем название города в виджете")
+    public void writeCityName(String city) {
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().click();
+        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().sendKeys(city);
+    }
+
+    private MainPage onMainPage() {
+        return new MainPage(driver);
     }
 }

@@ -26,12 +26,11 @@ public class MainPage {
 
     @Name("Кнопка добавления виджета")
     @FindBy(css = "svg[class=new-card__symbol]")
-    private HtmlElement addWidgetButton;
+    private HtmlElement buttonAddWidget;
 
-
-    public HtmlElement getAddWidgetButton()
+    public HtmlElement getButtonAddWidget()
     {
-        return addWidgetButton;
+        return buttonAddWidget;
     }
     public List<WeatherWidget> getWeatherWidget() {
         return weatherWidget;
