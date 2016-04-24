@@ -6,7 +6,6 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 
-
 /**
  * Created by kurau.
  */
@@ -21,12 +20,16 @@ public class TemperatureBlock extends HtmlElement {
     private HtmlElement tempFormat;
 
 
-    public HtmlElement getTemperatureValueBlock(){
+    public HtmlElement getTemperatureValueBlock() {
         return tempVal;
     }
 
-    public HtmlElement getTemperatureFormatBlock(){
+    public HtmlElement getTemperatureFormatBlock() {
         return tempFormat;
+    }
+
+    public String getRepresentation() {
+        return tempVal.getText() + " " + tempFormat.getText();
     }
 
     public Rectangle getRect() {
