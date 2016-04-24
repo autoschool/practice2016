@@ -12,9 +12,10 @@ import ru.yandex.qatools.allure.annotations.Title;
  */
 public class DateTimeTest extends BaseWeatherAppTest {
 
-    @TestCaseId("5")
+
     @Test
     @Title("Дата должна отображаться в соответствии с определенным представлением")
+    @TestCaseId("7")
     public void dateTimeTest() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldBeRepresentedAs(

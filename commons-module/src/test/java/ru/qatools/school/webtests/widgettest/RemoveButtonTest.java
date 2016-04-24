@@ -20,10 +20,11 @@ public class RemoveButtonTest extends BaseWeatherAppTest {
         };
     }
 
-    @TestCaseId("3")
+
     @Test
     @Title("Жмем на кнопку добавления n раз, Затем удаляем средний виджет")
     @UseDataProvider("dataProviderNumber")
+    @TestCaseId("3")
     public void shouldSeeNWidgetsAfterOneClickByRemoveButton(int n) {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.clickAddWidgetButtonNTimes(n);

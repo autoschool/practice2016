@@ -10,9 +10,9 @@ import ru.yandex.qatools.allure.annotations.Title;
  */
 public class WeatherImageTest extends BaseWeatherAppTest {
 
-    @TestCaseId("5")
     @Test
     @Title("Проверяет наличие картинки погоды")
+    @TestCaseId("9")
     public void widgetImageTest() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0).getWidgetText().getWeatherImage());

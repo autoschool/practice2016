@@ -14,7 +14,6 @@ public class TPClient {
     private static final String TOKEN = System.getProperty("tp.api.token", "");
     private static final String RUN = System.getProperty("tp.api.run", "");
 
-
     public static void callUpdate(String project, List<TCaseStatus> statuses) {
         RestAssured.given()
                 .relaxedHTTPSValidation()

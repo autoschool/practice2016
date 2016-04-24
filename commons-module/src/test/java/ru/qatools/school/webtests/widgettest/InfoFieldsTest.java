@@ -12,9 +12,10 @@ import java.util.List;
 
 public class InfoFieldsTest extends BaseWeatherAppTest {
 
-    @TestCaseId("5")
+
     @Test
     @Title("Проверяем, что поля соответствуют паттернам")
+    @TestCaseId("8")
     public void infoFieldsTest() {
         defaultSteps.openMainPageWithCity(CITY);
         List<InfoLine> il = onMainPage().getWeatherWidget().get(0).getWidgetText().getInfoLines();

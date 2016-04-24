@@ -12,9 +12,10 @@ import static org.hamcrest.core.IsNot.not;
 
 public class PageIsNotEmptyTest extends BaseWeatherAppTest {
 
-    @TestCaseId("6")
+
     @Test
     @Title("При открытии страницы с пустым параметром cites на странице должна быть кнопка добавления виджета")
+    @TestCaseId("6")
     public void addWidgetbuttonShouldBeOnPage() {
         defaultSteps.openMainPage();
         System.out.println(onMainPage());

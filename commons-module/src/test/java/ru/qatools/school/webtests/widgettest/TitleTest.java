@@ -24,10 +24,11 @@ public class TitleTest extends BaseWeatherAppTest {
         };
     }
 
-    @TestCaseId("2")
+
     @Test
     @Title("В названии погоды должен быть город «{0}»")
     @UseDataProvider("dataProviderCity")
+    @TestCaseId("2")
     public void titleShouldBeCity(String city) {
         defaultSteps.openMainPageWithCity(city);
         defaultSteps.cityIntitleShouldBe(onMainPage().getWeatherWidget().get(0).getWidgetTitle(), city);

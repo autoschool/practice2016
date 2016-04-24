@@ -13,9 +13,10 @@ import ru.yandex.qatools.allure.annotations.Title;
  */
 public class TemperatureBlockTest extends BaseWeatherAppTest {
 
-    @TestCaseId("5")
+
     @Test
     @Title("Температура должна отображаться в соответствии с определенным представлением")
+    @TestCaseId("5")
     public void temperatureBlockTest() {
         defaultSteps.openMainPageWithCity(CITY);
         TemperatureBlock tb = onMainPage().getWeatherWidget().get(0).getTempBlock();
