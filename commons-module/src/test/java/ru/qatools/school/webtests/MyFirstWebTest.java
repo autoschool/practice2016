@@ -11,7 +11,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 
 public class MyFirstWebTest {
 
-    private static final String LIPETSK_CITY = "Lipetsk";
+    private static final String CITY = "Lipetsk";
     private static final String NEW_WIDGET_TITLE = "What a city?";
 
     private DefaultSteps defaultSteps;
@@ -26,29 +26,25 @@ public class MyFirstWebTest {
 
 
     @Test
-    @Title("Передаём в GET «Lipetsk», должны увидеть виджет с городом «Lipetsk»")
+    @Title("Открываем страницу для города «Lipetsk»")
     public void shouldSeeWidgetWithCityFromGetParameters() {
-        defaultSteps.openMainPageWithCity(LIPETSK_CITY);
-        WeatherWidget firstWidget = getFirstWeatherWidget();
+        defaultSteps.openMainPageWithCity(CITY);
+        WeatherWidget firstWidget = onMainPage().getFirstWeatherWidget();
         defaultSteps.shouldSee(firstWidget);
-        defaultSteps.shouldSeeWidgetWithTitle(firstWidget, LIPETSK_CITY);
+        defaultSteps.shouldSeeWidgetWithTitle(firstWidget, CITY);
     }
 
     @Test
     @Title("Должны добавить и увидеть новый виджет")
     public void shouldSeeAddedWidget() {
-        defaultSteps.openMainPageWithCity(LIPETSK_CITY);
+        defaultSteps.openMainPageWithCity(CITY);
         int widgetsCountBefore = onMainPage().getWeatherWidgets().size();
-        defaultSteps.pressNewWidgetButton();
+        defaultSteps.clickOn(onMainPage().getNewWidgetButton());
         defaultSteps.shouldHaveWidgetsCount(widgetsCountBefore + 1);
-        defaultSteps.shouldSeeWidgetWithTitle(getFirstWeatherWidget(), NEW_WIDGET_TITLE);
+        defaultSteps.shouldSeeWidgetWithTitle(onMainPage().getFirstWeatherWidget(), NEW_WIDGET_TITLE);
     }
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
-    }
-
-    private WeatherWidget getFirstWeatherWidget() {
-        return onMainPage().getWeatherWidgets().get(0);
     }
 }
