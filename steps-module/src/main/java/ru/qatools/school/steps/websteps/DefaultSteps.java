@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -30,7 +31,7 @@ public class DefaultSteps {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Должны видеть на странице «{0}»")
+    @Step("Должны видеть на странице {0}")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
@@ -40,9 +41,9 @@ public class DefaultSteps {
         assertThat(widget.getWidgetTitle().getWeatherTitle(), hasText(cityName));
     }
 
-    @Step("Нажимаем на кнопку добавления виджета")
-    public void pressNewWidgetButton() {
-        onMainPage().getNewWidgetButton().click();
+    @Step("Кликаем на элемент «{0}»")
+    public void clickOn(HtmlElement element) {
+        element.click();
     }
 
     @Step("Количество виджетов должно быть равным {0}")
