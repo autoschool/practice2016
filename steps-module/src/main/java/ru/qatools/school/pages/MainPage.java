@@ -22,14 +22,14 @@ public class MainPage {
 
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
-    private List<WeatherWidget> weatherWidget;
+    private List<WeatherWidget> weatherWidgets;
 
     @Name("Кнопка добавления виджета")
     @FindBy(css = ".new-card")
     private HtmlElement addWidgetButton;
 
-    public List<WeatherWidget> getWeatherWidget() {
-        return weatherWidget;
+    public List<WeatherWidget> getWeatherWidgets() {
+        return weatherWidgets;
     }
 
     public HtmlElement getAddWidgetButton() {

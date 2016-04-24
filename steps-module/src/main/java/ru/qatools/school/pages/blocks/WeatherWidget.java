@@ -3,6 +3,7 @@ package ru.qatools.school.pages.blocks;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.qatools.school.pages.blocks.widgetblocks.WidgetActions;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetText;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.htmlelements.annotations.Name;
@@ -23,17 +24,17 @@ public class WeatherWidget extends HtmlElement {
 
     @Name("Панель управления виджетом")
     @FindBy(css = ".card-actions")
-    private WebElement actions;
+    private WidgetActions actions;
 
-    public WidgetText getWidgetText() {
+    public WidgetText WidgetText() {
         return widgetText;
     }
 
-    public WidgetTitle getWidgetTitle() {
+    public WidgetTitle WidgetTitle() {
         return widgetTitle;
     }
 
-    public WebElement getActions() {
+    public WidgetActions getActions() {
         return actions;
     }
 
