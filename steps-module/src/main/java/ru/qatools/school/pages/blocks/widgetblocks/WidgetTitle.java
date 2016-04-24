@@ -13,11 +13,11 @@ import java.util.List;
 public class WidgetTitle extends HtmlElement {
 
     @Name("Название город")
-    @FindBy(css = ".inplace inplace_displayed")
+    @FindBy(css = ".inplace.inplace_displayed")
     private HtmlElement cityName;
 
     @Name("Редактируемое поле города")
-    @FindBy(css = ".inplace inplace_editable")
+    @FindBy(css = ".inplace.inplace_editable")
     private HtmlElement cityNameEditable;
 
     @Name("Время")
