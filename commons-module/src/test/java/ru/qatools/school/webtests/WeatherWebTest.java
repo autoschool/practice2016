@@ -6,8 +6,9 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
-import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 public class WeatherWebTest {
 
@@ -17,6 +18,9 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
+
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("kormyshov");
 
     @Before
     public void initSteps() {
