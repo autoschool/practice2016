@@ -12,11 +12,12 @@ public class WidgetTitle extends HtmlElement {
 
     @Name("Город заголовка")
     @FindBy(css = ".inplace.inplace_displayed")
-    private HtmlElement city;
+    private HtmlElement cityElement;
 
-    public String getCity(){
-        return city.getText();
+    public HtmlElement getTitleCityElement() {
+        return cityElement;
     }
+
 
     public Rectangle getRect() {
         return null;

@@ -16,12 +16,12 @@ import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 
 @RunWith(DataProviderRunner.class)
-public class AddWidgetButtonTest {
+public class RemoveButtonTest {
 
     @DataProvider
     public static Object[][] dataProviderNumber() {
         return new Object[][]{
-                {1},{2}
+                {0},{1}
         };
     }
 
@@ -31,7 +31,6 @@ public class AddWidgetButtonTest {
 
     @Rule
     public TPInformerRule tms = new TPInformerRule("vananos");
-
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
 
@@ -40,14 +39,15 @@ public class AddWidgetButtonTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
-    @TestCaseId("1")
+    @TestCaseId("3")
     @Test
-    @Title("Жмем на кнопку n раз, должно быть n+1 виджетов")
+    @Title("Жмем на кнопку добавления n раз, Затем удаляем средний виджет")
     @UseDataProvider("dataProviderNumber")
-    public void shouldSeeNPlusOneWidgetsAfterNClickByAddButton(int n) {
+    public void shouldSeeNWidgetsAfterOneClickByRemoveButton(int n) {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.clickAddWidgetButtonNTimes(n);
-        defaultSteps.widgetsAmountShouldBe(n+1);
+        defaultSteps.clickRemoveWidgetButton(n/2);
+        defaultSteps.widgetsAmountShouldBe(n);
     }
 
 

@@ -66,6 +66,11 @@
                 <artifactId>htmlelements-matchers</artifactId>
                 <version>1.12</version>
             </dependency>
+            <dependency>
+                <groupId>com.jayway.restassured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>2.9.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

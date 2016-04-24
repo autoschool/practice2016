@@ -3,27 +3,17 @@ package ru.qatools.school.webtests;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 
-@RunWith(DataProviderRunner.class)
-public class AddWidgetButtonTest {
+public class TemperatureBlockTest {
 
-    @DataProvider
-    public static Object[][] dataProviderNumber() {
-        return new Object[][]{
-                {1},{2}
-        };
-    }
 
     public static final String CITY = "Moscow";
 
@@ -40,14 +30,18 @@ public class AddWidgetButtonTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
-    @TestCaseId("1")
+    @TestCaseId("5")
     @Test
-    @Title("Жмем на кнопку n раз, должно быть n+1 виджетов")
+    @Title("Жмем на блок температуры, проверяем что значение и формат температуры были изменены")
     @UseDataProvider("dataProviderNumber")
-    public void shouldSeeNPlusOneWidgetsAfterNClickByAddButton(int n) {
+    public void temperatureBlockShouldChanges() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.clickAddWidgetButtonNTimes(n);
-        defaultSteps.widgetsAmountShouldBe(n+1);
+        defaultSteps.saveTemperatureState(0);
+        defaultSteps.clickTemperatureBlock(0);
+        defaultSteps.checkThatTemperatureStateWasChanged();
+        defaultSteps.saveTemperatureState(0);
+        defaultSteps.clickTemperatureBlock(0);
+        defaultSteps.checkThatTemperatureStateWasChanged();
     }
 
 

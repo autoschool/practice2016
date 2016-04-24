@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.tp.TPInformerRule;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
@@ -30,6 +32,8 @@ public class TitleTest {
     private DefaultSteps defaultSteps;
 
     @Rule
+    public TPInformerRule tms = new TPInformerRule("vananos");
+    @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
 
     @Before
@@ -37,6 +41,7 @@ public class TitleTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
+    @TestCaseId("2")
     @Test
     @Title("В названии погоды должен быть город «{0}»")
     @UseDataProvider("dataProviderCity")

@@ -6,7 +6,10 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
+import ru.qatools.school.tp.TPInformerRule;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
+
 
 
 public class WeatherWebTest {
@@ -16,6 +19,8 @@ public class WeatherWebTest {
     private DefaultSteps defaultSteps;
 
     @Rule
+    public TPInformerRule tms = new TPInformerRule("vananos");
+    @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
 
     @Before
@@ -23,6 +28,7 @@ public class WeatherWebTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
+    @TestCaseId("4")
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
