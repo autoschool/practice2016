@@ -18,6 +18,7 @@ public class WeatherWebTest {
 
     private static final String CITY = "Saint Petersburg";
     private static final String CITY2 = "Moscow";
+    private static final String CITY2_BEGIN = "Mosc";
 
     private DefaultSteps defaultSteps;
 
@@ -185,12 +186,10 @@ public class WeatherWebTest {
     @Title("Должны видеть саджест после ввода начала названия города")
     @TestCaseId("13")
     public void shouldSeeSuggestAfterEnterCityNameBegin() {
-        String cityNameBegin = CITY2.substring(0, (CITY2.length() > 4 ? 4 : CITY2.length()));
-
         defaultSteps.openMainPageWithCities(CITY);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameBegin);
+        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2_BEGIN);
         defaultSteps.waitUntilElementReady(onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest(), 2);
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCitySuggests());
     }
@@ -199,12 +198,10 @@ public class WeatherWebTest {
     @Title("Должен измениться город в виджете после выбора города в саджесте (на выбранный)")
     @TestCaseId("15")
     public void shouldSeeCityInWidgetChosenInSuggest() {
-        String cityNameBegin = CITY2.substring(0, (CITY2.length() > 4 ? 4 : CITY2.length()));
-
         defaultSteps.openMainPageWithCities(CITY);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameBegin);
+        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2_BEGIN);
 
         String cityNameInSuggest = onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest().getCityName().getText();
 
@@ -218,12 +215,10 @@ public class WeatherWebTest {
     @Title("Должен исчезнуть саджест после выбора города в нём")
     @TestCaseId("24")
     public void shouldSeeNoSuggestAfterChooseCityInIt() {
-        String cityNameBegin = CITY2.substring(0, (CITY2.length() > 4 ? 4 : CITY2.length()));
-
         defaultSteps.openMainPageWithCities(CITY);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameBegin);
+        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2_BEGIN);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getFirstSuggest());
         defaultSteps.shouldNotSee(onMainPage().getFirstWidget().getWidgetTitle().getCitySuggestBlock());
     }
@@ -232,12 +227,10 @@ public class WeatherWebTest {
     @Title("Должен исчезнуть саджест при клике мимо него")
     @TestCaseId("25")
     public void shouldSeeNoSuggestAfterClickNotOnIt() {
-        String cityNameBegin = CITY2.substring(0, (CITY2.length() > 4 ? 4 : CITY2.length()));
-
         defaultSteps.openMainPageWithCities(CITY);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), cityNameBegin);
+        defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2_BEGIN);
         defaultSteps.clickOn(onMainPage().getBody());
         defaultSteps.shouldNotSee(onMainPage().getFirstWidget().getWidgetTitle().getCitySuggestBlock());
 
