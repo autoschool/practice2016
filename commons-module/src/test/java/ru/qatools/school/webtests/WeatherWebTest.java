@@ -3,6 +3,7 @@ package ru.qatools.school.webtests;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import ru.qatools.school.data.ElementColors;
 import ru.qatools.school.data.RegexPattern;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
@@ -40,8 +41,8 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны видеть виджет на главной странице")
     @TestCaseId("1")
+    @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         openPageWithDefaultCity();
         defaultSteps.shouldSee(onMainPage().getFirstWeatherWidget());
@@ -192,7 +193,7 @@ public class WeatherWebTest {
     @Test
     @TestCaseId("26")
     @Title("Должны видеть температуру в градусах Цельсия после четырех кликов на температуру в градусах Цельсия")
-    public void shouldReturnToCelsiusTemperature(){
+    public void shouldReturnToCelsiusTemperature() {
         openPageWithDefaultCity();
         defaultSteps.click(onMainPage().getFirstWeatherWidget().getWidgetText().getTemperature());
         defaultSteps.click(onMainPage().getFirstWeatherWidget().getWidgetText().getTemperature());
@@ -202,6 +203,42 @@ public class WeatherWebTest {
                 RegexPattern.CELSIUS.getRegexPattern());
     }
 
+    @Test
+    @TestCaseId("19")
+    @Title("Цвет кнопки добавления виджета должен быть темно-серым")
+    public void shouldSeeAddWidgetButtonColor() {
+        openPageWithDefaultCity();
+        defaultSteps.shouldSeeColor(onMainPage().getAddWidgetButton(), ElementColors.NEW_WIDGET_BUTTON.getRgbaColor());
+    }
+
+    @Test
+    @TestCaseId("12")
+    @Title("При наведении курсора на кнопку добавления виджета она должна становиться светлее")
+    public void shouldSeeAddWidgetButtonChangeColor() {
+        openPageWithDefaultCity();
+        defaultSteps.hover(onMainPage().getAddWidgetButton());
+        defaultSteps.shouldSeeColor(onMainPage().getAddWidgetButton(),
+                ElementColors.NEW_WIDGET_BUTTON_HOVER.getRgbaColor());
+    }
+
+    @Test
+    @TestCaseId("20")
+    @Title("Цвет кнопки удаления виджета должен быть белым")
+    public void shouldSeeDeleteWidgetButtonColor() {
+        openPageWithDefaultCity();
+        defaultSteps.shouldSeeColor(onMainPage().getFirstWeatherWidget().getWidgetActions()
+                .getWidgetDeleteButton(), ElementColors.DELETE_WIDGET_BUTTON.getRgbaColor());
+    }
+
+    @Test
+    @TestCaseId("14")
+    @Title("При наведении курсора на кнопку удаления виджета она должна становиться темнее")
+    public void shouldSeeDeleteWidgetButtonChangeColor() {
+        openPageWithDefaultCity();
+        defaultSteps.hover(onMainPage().getFirstWeatherWidget().getWidgetActions().getWidgetDeleteButton());
+        defaultSteps.shouldSeeColor(onMainPage().getFirstWeatherWidget().getWidgetActions()
+                .getWidgetDeleteButton(), ElementColors.DELETE_WIDGET_BUTTON_HOVER.getRgbaColor());
+    }
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
