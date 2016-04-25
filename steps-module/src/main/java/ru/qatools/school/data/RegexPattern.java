@@ -4,8 +4,8 @@ package ru.qatools.school.data;
  * Created by @totallynotkate (Kate Kocijevska).
  */
 public enum RegexPattern {
-    TIME_AND_DATE("\\d{1,2} (A|P)M, \\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{2} " +
-            "\\((00:00|(\\+|\\-)\\d{2}:00)\\)"),
+    TIME_AND_DATE("\\d{1,2} (P|A)M, \\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{2} " +
+            "\\((?!((\\+|\\-)00:00))(00:00|(\\+|\\-)\\d{2}:\\d{2})\\)"),
     CELSIUS("\\-?\\d+\\.\\d °C"),
     KELVIN("\\d{3}\\.\\d °K"),
     FAHRENHEIT("\\-?\\d{1,3}\\.\\d °F"),
