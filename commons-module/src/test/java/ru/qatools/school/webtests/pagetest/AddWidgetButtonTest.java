@@ -27,7 +27,7 @@ public class AddWidgetButtonTest extends BaseWeatherAppTest {
     @TestCaseId("1")
     public void shouldSeeNPlusOneWidgetsAfterNClickByAddButton(int n) {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.clickAddWidgetButtonNTimes(n);
+        defaultSteps.clickNTimes(onMainPage().getNewWidgetButton(),n);
         defaultSteps.widgetsAmountShouldBe(n + 1);
     }
 

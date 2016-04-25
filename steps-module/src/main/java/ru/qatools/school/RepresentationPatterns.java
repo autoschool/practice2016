@@ -18,8 +18,8 @@ public enum RepresentationPatterns {
 
     private final String pattern;
 
-    RepresentationPatterns(String s) {
-        pattern = s;
+    RepresentationPatterns(String pattern) {
+        this.pattern = pattern;
     }
 
     public String getPattern() {

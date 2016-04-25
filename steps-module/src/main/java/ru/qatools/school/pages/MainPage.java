@@ -27,7 +27,7 @@ public class MainPage {
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
 
-    public List<WeatherWidget> getWeatherWidget() {
+    public List<WeatherWidget> getWeatherWidgetList() {
         return weatherWidget;
     }
 

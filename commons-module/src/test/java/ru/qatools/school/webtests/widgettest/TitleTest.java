@@ -31,7 +31,7 @@ public class TitleTest extends BaseWeatherAppTest {
     @TestCaseId("2")
     public void titleShouldBeCity(String city) {
         defaultSteps.openMainPageWithCity(city);
-        defaultSteps.cityIntitleShouldBe(onMainPage().getWeatherWidget().get(0).getWidgetTitle(), city);
+        defaultSteps.cityIntitleShouldBe(onMainPage().getWeatherWidgetList().get(0).getWidgetTitle(), city);
     }
 
 }

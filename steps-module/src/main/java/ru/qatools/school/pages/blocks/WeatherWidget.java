@@ -3,6 +3,7 @@ package ru.qatools.school.pages.blocks;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.support.FindBy;
 import ru.qatools.school.pages.blocks.widgetblocks.ActionBlock;
+import ru.qatools.school.pages.blocks.widgetblocks.TemperatureBlock;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetText;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.htmlelements.annotations.Name;
@@ -26,9 +27,7 @@ public class WeatherWidget extends HtmlElement {
     private ActionBlock actions;
 
 
-    @Name("Блок температуры")
-    @FindBy(css = ".weather-temperature")
-    private TemperatureBlock tempBlock;
+
 
 
     public WidgetText getWidgetText() {
@@ -43,10 +42,6 @@ public class WeatherWidget extends HtmlElement {
         return actions;
     }
 
-
-    public TemperatureBlock getTempBlock() {
-        return tempBlock;
-    }
 
 
     public Rectangle getRect() {

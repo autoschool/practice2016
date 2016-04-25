@@ -19,7 +19,7 @@ public class DateTimeTest extends BaseWeatherAppTest {
     public void dateTimeTest() {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldBeRepresentedAs(
-                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getDateTime().getText()
+                onMainPage().getWeatherWidgetList().get(0).getWidgetTitle().getDateTime().getText()
                 , RepresentationPatterns.DATE_TIME
         );
     }

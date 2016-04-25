@@ -7,7 +7,6 @@ import ru.qatools.school.RepresentationPatterns;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -53,23 +52,25 @@ public class DefaultSteps {
 
     @Step("Количество виджетов должно быть «{0}»")
     public void widgetsAmountShouldBe(int n) {
-        assertThat("Количество виджетов должно быть", onMainPage().getWeatherWidget().size(), is(n));
+        assertThat("Количество виджетов должно быть", onMainPage().getWeatherWidgetList().size(), is(n));
     }
 
-    @Step("Жмем кнопку добавить виджет «{0}» раз")
-    public void clickAddWidgetButtonNTimes(int n) {
-        while (n-- > 0) {
-            onMainPage().getNewWidgetButton().click();
-        }
-    }
 
     @Step("Жмем на элемент")
-    public void click(HtmlElement el) {
+    public void click(WebElement el) {
         el.click();
     }
 
+    @Step("Жмем на элемент n раз")
+    public void clickNTimes(WebElement el, int n) {
+        while(n-- > 0) {
+            el.click();
+        }
+    }
 
-    @Step("Проверяем что представление элемента соответствует паттерну {1}")
+
+
+    @Step("Проверяем что представление элемента {0} соответствует паттерну {1}")
     public void shouldBeRepresentedAs(String representation, RepresentationPatterns pattern) {
         assertThat("Представление должно соответствовать регулярному выражение",
                 representation, RegexMatchers.containsPattern(pattern.getPattern()));

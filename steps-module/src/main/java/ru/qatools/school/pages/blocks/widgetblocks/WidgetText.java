@@ -21,12 +21,20 @@ public class WidgetText extends HtmlElement {
     @FindBy(css = ".info-line")
     private List<InfoLine> infoLines;
 
+    @Name("Блок температуры")
+    @FindBy(css = ".weather-temperature")
+    private TemperatureBlock tempBlock;
+
     public WebElement getWeatherImage() {
         return weatherImage;
     }
 
     public List<InfoLine> getInfoLines() {
         return infoLines;
+    }
+
+    public TemperatureBlock getTempBlock() {
+        return tempBlock;
     }
 
     public Rectangle getRect() {

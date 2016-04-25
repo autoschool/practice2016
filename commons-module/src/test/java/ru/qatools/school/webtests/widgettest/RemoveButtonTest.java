@@ -16,7 +16,7 @@ public class RemoveButtonTest extends BaseWeatherAppTest {
     @DataProvider
     public static Object[][] dataProviderNumber() {
         return new Object[][]{
-                {0}, {1}
+                {0}, {3}
         };
     }
 
@@ -27,8 +27,8 @@ public class RemoveButtonTest extends BaseWeatherAppTest {
     @TestCaseId("3")
     public void shouldSeeNWidgetsAfterOneClickByRemoveButton(int n) {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.clickAddWidgetButtonNTimes(n);
-        defaultSteps.click(onMainPage().getWeatherWidget().get(n / 2).getActionBlock().getRemoveButton());
+        defaultSteps.clickNTimes(onMainPage().getNewWidgetButton(), n);
+        defaultSteps.click(onMainPage().getWeatherWidgetList().get(n / 2).getActionBlock().getRemoveButton());
         defaultSteps.widgetsAmountShouldBe(n);
     }
 

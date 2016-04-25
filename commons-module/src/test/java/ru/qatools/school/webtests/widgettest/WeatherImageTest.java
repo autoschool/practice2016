@@ -15,6 +15,6 @@ public class WeatherImageTest extends BaseWeatherAppTest {
     @TestCaseId("9")
     public void widgetImageTest() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0).getWidgetText().getWeatherImage());
+        defaultSteps.shouldSee(onMainPage().getWeatherWidgetList().get(0).getWidgetText().getWeatherImage());
     }
 }

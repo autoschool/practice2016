@@ -14,7 +14,7 @@ public class WeatherWebTest extends BaseWeatherAppTest {
     @TestCaseId("4")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.shouldSee(onMainPage().getWeatherWidgetList().get(0));
     }
 
 }
