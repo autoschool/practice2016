@@ -6,6 +6,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -22,16 +23,31 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
+
     @Step("Открываем главную страницу для города «{0}»")
     public void openMainPageWithCity(String city) {
         driver.get(format(MAIN_PAGE, city));
     }
+
 
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
+    @Step("Создаем виджит")
+    public void addWidgit() {
+        onMainPage().getAddWidgitButton().click();
+    }
+    @Step("Желаемый город должен совпасть с действительным")
+    public void shouldSeeCorrectCityName(String city) {
+        assertEquals(onMainPage().getWeatherWidgetList().get(0).getWidgetTitle().getCity().getText(), city);
+    }
+
+    @Step("Количество виджетов должно быть {0}")
+    public void widgetCountShouldBe(int new_count) {
+        assertEquals("Неправильное количество", onMainPage().getWeatherWidgetList().size(), new_count);
+    }
     private MainPage onMainPage() {
         return new MainPage(driver);
     }
