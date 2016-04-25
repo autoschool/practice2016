@@ -87,10 +87,11 @@ public class DefaultSteps {
 
     @Step("Меняем текст в поле названия города кликом по нему, удалением старого текста и вводом нового текста")
     public void changeCityNameWithEnterKey(WeatherWidget widget, String cityName) {
-        click(widget.getWidgetTitle().getCity());
-        widget.getWidgetTitle().getCity().clear();
-        widget.getWidgetTitle().getCity().sendKeys(cityName);
-        widget.getWidgetTitle().getCity().sendKeys(Keys.ENTER);
-        wait.until(ExpectedConditions.not(ExpectedConditions.stalenessOf(widget.getWidgetTitle().getCity())));
+        WebElement city = widget.getWidgetTitle().getCity();
+        click(city);
+        city.clear();
+        city.sendKeys(cityName);
+        city.sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.stalenessOf(city));
     }
 }

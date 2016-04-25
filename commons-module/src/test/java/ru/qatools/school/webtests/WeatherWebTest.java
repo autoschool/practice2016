@@ -16,7 +16,7 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WeatherWebTest {
 
     private static final String DEFAULT_CITY_NAME = "Moscow";
-    private static final String ANOTHER_VALID_CITY_NAME = "Chita";
+    private static final String ANOTHER_VALID_CITY_NAME = "Saint Petersburg";
 
     private DefaultSteps defaultSteps;
 
