@@ -8,6 +8,7 @@ import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 public class SmokeTests {
     private String city = "Moscow";
@@ -26,7 +27,7 @@ public class SmokeTests {
 
     @Test
     @Title("Должны видеть виджет на главной странице")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
+    @TestCaseId("9")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity("Moscow");
         defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
@@ -34,7 +35,7 @@ public class SmokeTests {
 
     @Test
     @Title("При открытии главной страницы должна отображаться кнопка добавления виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
+    @TestCaseId("10")
     public void shouldSeeNewWidgetButton(){
         defaultSteps.openMainPage();
         defaultSteps.shouldSeeButtonAddWidget();
@@ -42,7 +43,7 @@ public class SmokeTests {
 
     @Test
     @Title("Должен добавиться один виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("11")
+    @TestCaseId("11")
     public void shouldBeAddedOneWidget(){
         defaultSteps.openMainPage();
         defaultSteps.addOneWidget();
@@ -51,7 +52,7 @@ public class SmokeTests {
 
     @Test
     @Title("Должны видеть на один виджет больше")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("15")
+    @TestCaseId("15")
     public void shouldSeeNewWidget() {
         defaultSteps.openMainPageWithCity("Moscow");
         int countWidgets = defaultSteps.getCountWidgets();
@@ -61,7 +62,7 @@ public class SmokeTests {
 
     @Test
     @Title("Удаление виджета со страницы")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("12")
+    @TestCaseId("12")
     public void shouldCanBeDeleted(){
         defaultSteps.openMainPageWithCity("Saratov");
         int count = defaultSteps.getCountWidgets();
@@ -71,7 +72,7 @@ public class SmokeTests {
     
     @Test
     @Title("Изменение названия города в виджете")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("13")
+   // @ru.yandex.qatools.allure.annotations.TestCaseId("13")
     public void shouldSeeChangedCity(){
         defaultSteps.openMainPageWithCity(city);
         defaultSteps.writeCityName("Saratov");
@@ -80,7 +81,7 @@ public class SmokeTests {
 
     @Test
     @Title("Проверяем город в виджете погоды")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("26")
+    @TestCaseId("26")
     public void shouldSeeChosenCity() {
         defaultSteps.openMainPageWithCity(city);
         defaultSteps.shouldSeeCurrentCity(city);
@@ -88,7 +89,7 @@ public class SmokeTests {
 
     @Test
     @Title("У виджета должна быть заполнена информация о погоде")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("18")
+    @TestCaseId("18")
     public void shouldBeWeatherInfo(){
         defaultSteps.openMainPageWithCity(city);
 
@@ -96,12 +97,19 @@ public class SmokeTests {
 
     @Test
     @Title("Должно отображаться несколько городов")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("20")
+    @TestCaseId("20")
     public void shouldSeeSeveralCities(){
         String inputString = "Moscow,Omsk,Saratov";
 
         defaultSteps.openMainPageWithCity(inputString);
         defaultSteps.shouldSeeWidgets(inputString.split(",").length);
+    }
+
+    @Test
+    @Title("Должно отображаться значение температуры")
+    @TestCaseId("")
+    public void shouldSeeTemperature(){
+        defaultSteps.shouldSeeCurrentTemperature();
     }
 
 
