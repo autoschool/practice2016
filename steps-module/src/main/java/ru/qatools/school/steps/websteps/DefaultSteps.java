@@ -10,10 +10,10 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import java.util.List;
 
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.both;
+import static java.lang.Comparable.*;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Every.everyItem;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.exists;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
@@ -56,15 +56,19 @@ public class DefaultSteps {
         assertThat("Видим не все элементы", (List<WebElement>)wwList, everyItem(both(exists()).and(isDisplayed())));
     }
 
-
     @Step("Текст «{0}» элемента должен быть «{1}»")
     public void shouldSeeElementTextIsSameToText(WebElement webElement, String text) {
         assertThat("Текст элемента и ожидаемый не совпадают", webElement, hasText(text));
     }
 
+    @Step("Значение «{0}» элемента должно быть числом с плавающей точкой")
+    public void shouldTemperatureTypeIsDouble(Double temperature) {
+        assertThat("Температура не типа double", temperature, instanceOf(new Double(1.1).getClass()));
+    }
+
     @Step("Должен кликнуться элемент «{0}»")
-    public void clickButton(Button button) {
-        button.click();
+    public void onClick(WebElement element) {
+        element.click();
     }
 
     @Step("Количество виджетов на странице должно быть «{0}»")
