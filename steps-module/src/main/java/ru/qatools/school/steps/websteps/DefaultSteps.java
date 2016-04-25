@@ -61,13 +61,13 @@ public class DefaultSteps {
         assertThat("Текст элемента и ожидаемый не совпадают", webElement, hasText(text));
     }
 
-    @Step("Значение «{0}» элемента должно быть числом с плавающей точкой")
-    public void shouldTemperatureTypeIsDouble(Double temperature) {
-        assertThat("Температура не типа double", temperature, instanceOf(new Double(1.1).getClass()));
+    @Step("Должен кликнуться элемент «{0}»")
+    public void onClickElement(WebElement element) {
+        element.click();
     }
 
-    @Step("Должен кликнуться элемент «{0}»")
-    public void onClick(WebElement element) {
+    @Step("Должна кликнуться кнопка «{0}»")
+    public void onClickButton(Button element) {
         element.click();
     }
 
@@ -80,7 +80,7 @@ public class DefaultSteps {
         return onMainPage().getWeatherWidgetList().get(0);
     }
 
-    public Button getNewCardButton() {
+    public WebElement getNewCardButton() {
         return onMainPage().getNewCardButton();
     }
 
