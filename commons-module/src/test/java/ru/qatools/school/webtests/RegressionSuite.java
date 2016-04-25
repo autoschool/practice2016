@@ -50,7 +50,7 @@ public class RegressionSuite {
     @TestCaseId("20")
     public void shouldSeeKelvinInWidgetAfterOneClick() {
         defaultSteps.openMainPageWithCities(CITY);
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature(), 1);
         defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit(), "°K");
     }
 
@@ -59,8 +59,7 @@ public class RegressionSuite {
     @TestCaseId("21")
     public void shouldSeeFahrenheitInWidgetAfterTwoClick() {
         defaultSteps.openMainPageWithCities(CITY);
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature(), 2);
         defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit(), "°F");
     }
 
@@ -69,9 +68,7 @@ public class RegressionSuite {
     @TestCaseId("22")
     public void shouldSeeKaifInWidgetAfterThreeClick() {
         defaultSteps.openMainPageWithCities(CITY);
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature(), 3);
         defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit(), "°Kaif");
     }
 
@@ -80,10 +77,7 @@ public class RegressionSuite {
     @TestCaseId("23")
     public void shouldSeeCelsiusInWidgetAfterFourClick() {
         defaultSteps.openMainPageWithCities(CITY);
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
-        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature());
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperature(), 4);
         defaultSteps.shouldHaveText(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit(), "°C");
     }
 

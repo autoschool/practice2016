@@ -88,6 +88,13 @@ public class DefaultSteps {
         element.click();
     }
 
+    @Step("Кликаем по элементу {0} {1} раз")
+    public void clickOn(HtmlElement element, int n) {
+        for (int i = 0; i < n; i++) {
+            element.click();
+        }
+    }
+
     @Step("Удаляем текст в элементе «{0}»")
     public void eraseText(WebElement element) {
         element.clear();
