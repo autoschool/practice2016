@@ -110,7 +110,7 @@ public class WeatherWebTest {
     public void shouldSeeScreenshot(){
         defaultSteps.openMainPageWithCity(MOSCOW.getName());
         defaultSteps.takeScreenshot();
-        defaultSteps.shouldSeeEqualsImage();
+        defaultSteps.shouldSeeEqualsScreenShots();
     }
 
     private MainPage onMainPage() {

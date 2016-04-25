@@ -81,8 +81,8 @@ public class DefaultSteps {
         }
     }
 
-    @Step("")
-    public void shouldSeeEqualsImage(){
+    @Step("Должны увидить соответствие скриншотов")
+    public void shouldSeeEqualsScreenShots(){
         int[][] expectedScreen = getArrayRGB(getImage(new File("etalon_screen.jpg")));
         int[][] actualScreen = getArrayRGB(getImage(screenShot));
 
