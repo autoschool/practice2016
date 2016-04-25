@@ -24,6 +24,9 @@
         <selenium.version>2.53.0</selenium.version>
         <htmlelements.version>1.15</htmlelements.version>
         <aspectj.version>1.8.5</aspectj.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
 
     <dependencies>
