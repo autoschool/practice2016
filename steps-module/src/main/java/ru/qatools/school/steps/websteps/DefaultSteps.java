@@ -71,6 +71,13 @@ public class DefaultSteps {
         }
     }
 
+    @Step("Должны не видеть на странице элементы «{0}»")
+    public void shouldNotSee(List<? extends WebElement> elements) {
+        for (WebElement element : elements) {
+            assertThat("Должны не видеть элемент", element, isDisplayed());
+        }
+    }
+
     @Step("Должны увидеть «{1}» элементов(ов) в списке «{0}»")
     public void shouldBeThisNumberOfElements(List elements, int count) {
         assertThat("Количество элементов не соответствует ожидаемому", elements.size(), is(count));
@@ -99,6 +106,19 @@ public class DefaultSteps {
     @Step("Элемент «{0}» должен содержать текст «{1}»")
     public void shouldHaveText(HtmlElement element, String text) {
         assertThat("Текст в элементе не соответствует ожидаемому", element, hasText(text));
+    }
+
+    @Step("Элемент «{0}» не должен содержать текст «{1}»")
+    public void shouldNotHaveText(HtmlElement element, String text) {
+        assertThat("Текст в элементе должен быть другим", element, not(hasText(text)));
+    }
+
+    @Step("Элементы в «{0}» не должны содержать текст «{1}»")
+    public void shouldNotHaveText(List<? extends WebElement> elements, String text) {
+        for (WebElement element : elements) {
+            assertThat("Текст в элементе должен быть другим", element, not(hasText(text)));
+        }
+
     }
 
     @Step("Ждём элемент «{0}» максимум «{1}» секунд(ы)")
