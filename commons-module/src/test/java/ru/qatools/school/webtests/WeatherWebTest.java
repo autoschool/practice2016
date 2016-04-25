@@ -13,6 +13,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import static ru.qatools.school.data.City.*;
@@ -44,7 +45,7 @@ public class WeatherWebTest {
     }
 
     @Test
-//    @TestCaseId("1")
+    @TestCaseId("1")
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW.getName());
@@ -52,7 +53,7 @@ public class WeatherWebTest {
     }
 
     @Test
-//    @TestCaseId("5")
+    @TestCaseId("5")
     @UseDataProvider("getCities")
     @Title("Должный видеть виджет с указанным городом")
     public void shouldSeeWidgetWithCurrentCity(City city){
@@ -61,7 +62,7 @@ public class WeatherWebTest {
     }
 
     @Test
-//    @TestCaseId("4")
+    @TestCaseId("4")
     @Title("Должны видеть виджетов на один больше")
     public void shouldSeeWidgetIncrement(){
         defaultSteps.openMainPageWithCity(MOSCOW.getName());
@@ -73,7 +74,7 @@ public class WeatherWebTest {
     }
 
     @Test
-//    @TestCaseId("6")
+    @TestCaseId("6")
     @Title("Должны видеть виджетов на один меньше")
     public void shouldSeeWidgetDecrement(){
         defaultSteps.openMainPageWithCity(MOSCOW.getName());
@@ -85,7 +86,7 @@ public class WeatherWebTest {
     }
 
     @Test
-//    @TestCaseId("7")
+    @TestCaseId("7")
     @Title("Должный видеть смену единиц измерения температуры")
     public void shouldSeeChangeTemperatureUnits(){
         defaultSteps.openMainPageWithCity(MOSCOW.getName());
@@ -96,7 +97,7 @@ public class WeatherWebTest {
     }
 
     @Test
-//    @TestCaseId("8")
+    @TestCaseId("8")
     @Title("Должны увидеть смену города в виджете")
     public void shouldSeeChangeCityInWidget(){
         defaultSteps.openMainPageWithCity(MOSCOW.getName());

@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertTrue;
@@ -75,7 +74,7 @@ public class DefaultSteps {
     public void takeScreenshot(){
         screenShot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(screenShot, new File("screen.jpg"));
+            FileUtils.copyFile(screenShot, new File("screen.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,7 +82,7 @@ public class DefaultSteps {
 
     @Step("Должны увидить соответствие скриншотов")
     public void shouldSeeEqualsScreenShots(){
-        int[][] expectedScreen = getArrayRGB(getImage(new File("etalon_screen.jpg")));
+        int[][] expectedScreen = getArrayRGB(getImage(new File("etalon_screen.png")));
         int[][] actualScreen = getArrayRGB(getImage(screenShot));
 
         assertTrue("Скриншоты должны быть идентичны", Arrays.deepEquals(actualScreen, expectedScreen));
