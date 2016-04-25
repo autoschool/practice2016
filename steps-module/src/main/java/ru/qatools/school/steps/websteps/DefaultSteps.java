@@ -59,8 +59,7 @@ public class DefaultSteps {
     public void shouldSeeCurrentCity(String city) {
         assertThat(onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().getText(), is(city));
     }
-
-    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
+    
     @Step("Должны увидеть кнопку добавления виджета")
     public void shouldSeeButtonAddWidget() {
         assertThat("Должны увидеть кнопку добавления виджета", onMainPage().getButtonAddWidget(), isDisplayed());
@@ -73,8 +72,18 @@ public class DefaultSteps {
 
     @Step("Пишем название города в виджете")
     public void writeCityName(String city) {
-        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().click();
+        //onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().click();
         onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName().sendKeys(city);
+    }
+    
+    @Step("Должны видеть время рассвета")
+    public void shouldSunriseTime(){
+
+    }
+    
+    @Step("Должны видеть картинку погоды")
+    public void shouldSeeWeatherImage(){
+        assertThat("Должна отображаться картинка погоды",onMainPage().getWeatherWidget().get(0).getWidgetText().getWeatherImage(), isDisplayed());
     }
 
     private MainPage onMainPage() {

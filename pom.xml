@@ -66,6 +66,7 @@
                 <artifactId>htmlelements-matchers</artifactId>
                 <version>1.12</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

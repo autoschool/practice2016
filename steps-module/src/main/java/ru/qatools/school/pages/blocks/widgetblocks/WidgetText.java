@@ -15,9 +15,15 @@ public class WidgetText extends HtmlElement {
     @FindBy(css = ".weather-image")
     private WebElement weatherImage;
 
+    @Name("Надпись sunrise")
+    @FindBy(xpath = "")
+    private WebElement sunriseText;
+
     public WebElement getWeatherImage() {
         return weatherImage;
     }
+
+    public WebElement getSunriseText(){return sunriseText;}
 
     public Rectangle getRect() {
         return null;

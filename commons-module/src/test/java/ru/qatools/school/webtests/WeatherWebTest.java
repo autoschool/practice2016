@@ -22,28 +22,9 @@ public class WeatherWebTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
-    @Test
-    @Title("Должны видеть виджет на главной странице")
-    public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(city);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
-    }
 
-    @Test
-    @Title("Проверяем город в погоде")
-    public void shouldSeeChosenCity() {
-        defaultSteps.openMainPageWithCity(city);
-        defaultSteps.shouldSeeCurrentCity(city);
-    }
 
-    @Test
-    @Title("Должны видеть на один виджет больше")
-    public void shouldSeeNewWidget() {
-        defaultSteps.openMainPageWithCity(city);
-        int countWidgets = defaultSteps.getCountWidgets();
-        defaultSteps.addOneWidget();
-        defaultSteps.shouldSeeWidgets(countWidgets+1);
-    }
+
 
 
 
