@@ -54,7 +54,7 @@ public class SmokeSuite {
     }
 
     @Test
-    @Title("Должны видеть кнопку '+' на странице, открытой с указанием города в в параметрах")
+    @Title("Должны видеть кнопку '+' на странице, открытой с указанием города в параметрах")
     @TestCaseId("7")
     public void shouldSeeAddWidgetButtonOnPageWithQuery() {
         defaultSteps.openMainPageWithCities(CITY);
@@ -76,7 +76,7 @@ public class SmokeSuite {
         defaultSteps.openMainPageWithCities(CITY);
 
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCurrentTimeAndData());
+        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCurrentTimeAndDate());
 
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherImage());
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureDigit());

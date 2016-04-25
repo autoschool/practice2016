@@ -20,7 +20,7 @@ public class WidgetTitle extends HtmlElement {
 
     @Name("Текущее время и дата")
     @FindBy(css = ".card-title__secondary > div > div")
-    private HtmlElement currentTimeAndData;
+    private HtmlElement currentTimeAndDate;
 
     @Name("Блок предложенных городов")
     @FindBy(css = ".city-suggest")
@@ -42,8 +42,8 @@ public class WidgetTitle extends HtmlElement {
         return citySuggests;
     }
 
-    public HtmlElement getCurrentTimeAndData() {
-        return currentTimeAndData;
+    public HtmlElement getCurrentTimeAndDate() {
+        return currentTimeAndDate;
     }
 
     public CitySuggest getFirstSuggest() {

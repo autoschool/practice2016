@@ -143,8 +143,8 @@ public class DefaultSteps {
 //            }
 //        }
 
-        (new WebDriverWait(driver, timeOut)).
-                until(ExpectedConditions.and(
+        (new WebDriverWait(driver, timeOut))
+                .until(ExpectedConditions.and(
                         ExpectedConditions.not(ExpectedConditions.stalenessOf(element)),
                         ExpectedConditions.visibilityOf(element))
                 );
