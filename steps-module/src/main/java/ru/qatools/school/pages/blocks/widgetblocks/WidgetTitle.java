@@ -11,11 +11,27 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WidgetTitle extends HtmlElement {
 
     @Name("Поле с названием города")
-    @FindBy(css = ".card-title__primary")
+    @FindBy(css = ".inplace")
     private HtmlElement cityName;
+
+    @Name("Дата")
+    @FindBy(css = ".card-title__secondary")
+    private HtmlElement date;
+
+    @Name("Блок предлагаемых городов")
+    @FindBy(css = ".city-suggest")
+    private WidgetSuggestCities citySuggest;
 
     public HtmlElement getCityName() {
         return cityName;
+    }
+
+    public HtmlElement getDate(){
+        return date;
+    }
+
+    public WidgetSuggestCities getCitySuggest(){
+        return citySuggest;
     }
 
     public Rectangle getRect() {
