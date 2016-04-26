@@ -23,12 +23,6 @@ public class MainPageMethods {
         element.click();
     }
 
-    public void sendChars(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-        element.sendKeys(Keys.RETURN);
-    }
-
     public void addWidget() {
         mainPage.getAddWidget().click();
     }
@@ -43,9 +37,10 @@ public class MainPageMethods {
     }
 
     public void renameWidget(String oldName, String newName) {
-        WebElement element = findElement(getAllPlaces(), oldName);
-        clickOnElement(element);
-        sendChars(mainPage.getEditPlace(), newName);
+        findElement(getAllPlaces(), oldName).click();
+        mainPage.getEditPlace().clear();
+        mainPage.getEditPlace().sendKeys(newName);
+        mainPage.getEditPlace().sendKeys(Keys.RETURN);
     }
 
     public int countWidgets() {

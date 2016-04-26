@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.MainPageMethods;
 import ru.yandex.qatools.allure.annotations.Step;
+
+import java.util.Collections;
+
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -39,7 +42,9 @@ public class DefaultSteps {
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement...elements) {
         for (WebElement element : elements) {
-            assertThat("Не отображается элемент " + element.getText(), element, isDisplayed());
+            assertThat("Не отображается элемент: " + element.getAttribute("class") +
+                    " and value: " + element.getAttribute("value"),
+                    element, isDisplayed());
         }
     }
 
@@ -75,8 +80,8 @@ public class DefaultSteps {
     public void shouldSeeRenameWidget(String oldName, String newName) {
         mainPageMethods().renameWidget(oldName, newName);
         shouldSee(mainPageMethods().findElement(mainPageMethods().getAllPlaces(), newName));
-        assertThat("Новый виджет в списке виджетов не найден", newName,
-                equalTo(mainPageMethods().findElement(onMainPage().getPlaces(), newName)));
+        assertThat("Новое название в списке названий виджетов не найдено", newName,
+                equalTo(mainPageMethods().getAllPlaces().get(0).getText()));
     }
 
     @Step("На главной странице виджеты добавляются")
