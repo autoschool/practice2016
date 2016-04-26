@@ -19,8 +19,8 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
-    @Rule
-    public TPInformerRule tms = new TPInformerRule("merkushevio");
+    //@Rule
+    //public TPInformerRule tms = new TPInformerRule("merkushevio");
 
 
     @Before
