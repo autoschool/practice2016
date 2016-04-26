@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class WidgetTitle extends HtmlElement {
 
-    @Name("Название город")
+    @Name("Название города")
     @FindBy(css = ".inplace.inplace_displayed")
     private HtmlElement cityName;
 
@@ -20,11 +20,15 @@ public class WidgetTitle extends HtmlElement {
     @FindBy(css = ".inplace.inplace_editable")
     private HtmlElement cityNameEditable;
 
-    @Name("Время")
+    @Name("Время и дата")
     @FindBy(css = ".card-title__secondary")
     private HtmlElement currentTime;
 
     @Name("Список автозаполнения")
+    @FindBy(css = ".city-suggest")
+    private HtmlElement suggestedCitiesList;
+
+    @Name("Элементы списка автозаполнения")
     @FindBy(css = ".city__name")
     private List<HtmlElement> sugesstedCities;
 
@@ -38,6 +42,10 @@ public class WidgetTitle extends HtmlElement {
 
     public HtmlElement getCurrentTime() {
         return currentTime;
+    }
+
+    public HtmlElement getSuggestedCitiesList() {
+        return suggestedCitiesList;
     }
 
     public List<HtmlElement> getSugesstedCities() {
