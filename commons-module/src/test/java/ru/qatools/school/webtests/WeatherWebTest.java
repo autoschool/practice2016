@@ -19,8 +19,8 @@ public class WeatherWebTest {
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
-    @Rule
-    public TPInformerRule tms = new TPInformerRule("merkushevio");
+    //@Rule
+    //public TPInformerRule tms = new TPInformerRule("merkushevio");
 
 
     @Before
@@ -45,7 +45,7 @@ public class WeatherWebTest {
     @Title("Должны увидеть элементы виджета")
     @ru.yandex.qatools.allure.annotations.TestCaseId("1")
     public void shouldSeeElements() {
-        defaultSteps.openMainPageWithCity(SPB);
+        defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeWidgetElements();
     }
 
