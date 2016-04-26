@@ -29,15 +29,6 @@ public class WidgetText extends HtmlElement {
         return temperature;
     }
 
-
-    /*@Name("Восход")
-    @FindBy(css = ".info-line")
-    private WebElement sunrise;
-
-    public WebElement getSunrise() {
-        return sunrise;
-    }*/
-
     @Name("Список info-line элементов")
     @FindBy(css = ".line.info-line")
     private List<HtmlElement> infoLineList;
@@ -57,14 +48,6 @@ public class WidgetText extends HtmlElement {
     public HtmlElement getHumidityInfoLine() {
         return infoLineList.get(3);
     }
-
-    /*@Name("Кнопка удаления виджета")
-    @FindBy(name = "remove-card btn btn-default")
-    private WebElement removeButton;
-
-    public WebElement getRemoveButton() {
-        return removeButton;
-    }*/
 
     public Rectangle getRect() {
         return null;

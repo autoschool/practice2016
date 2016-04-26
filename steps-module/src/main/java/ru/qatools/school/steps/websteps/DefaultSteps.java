@@ -40,11 +40,6 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
-    @Step("Не должны видеть на странице «{0}»")
-    public void shouldNotSee(WebElement element) {
-        assertThat("Элемента не должно быть!", element, isDisplayed());
-    }
-
     @Step("В виджете «{0}» должны видеть город «{1}»")
     public void shouldSeeCityInWidget(WebElement element, String city) {
         assertThat("В виджете отбражается не тот город!", element.getText(), is(city));
