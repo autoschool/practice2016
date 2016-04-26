@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>ru.qatools.school</groupId>
     <artifactId>school-2016</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -100,6 +101,8 @@
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                         </argLine>
+                        <argLine>-Xmx2048m</argLine>
+                        <argLine>-Xss4m</argLine>
                         <properties>
                             <property>
                                 <name>listener</name>

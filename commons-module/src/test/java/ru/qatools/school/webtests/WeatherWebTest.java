@@ -46,7 +46,7 @@ public class WeatherWebTest {
     @Title("Should see widget on the main page")
     @TestCaseId("7")
     public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(null);
+        defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget());
     }
 
@@ -81,13 +81,13 @@ public class WeatherWebTest {
         defaultSteps.shouldSeeAllElementFromList(onMainPage().getWeatherWidgetList());
     }
 
-    @Ignore
+    //@Ignore
     @Test
     @Title("Should see widget title")
     @TestCaseId("12")
     public void shouldSeeWidgetTitle() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget());
+        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget().getWidgetTitle());
     }
 
     @Test
