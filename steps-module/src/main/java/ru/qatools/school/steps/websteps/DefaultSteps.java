@@ -5,7 +5,10 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.util.List;
+
 import static java.lang.String.format;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
@@ -22,6 +25,11 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
+    @Step("Открываем главную страницу без заданного города")
+    public void openMainPage() {
+        driver.get(MAIN_PAGE);
+    }
+
     @Step("Открываем главную страницу для города «{0}»")
     public void openMainPageWithCity(String city) {
         driver.get(format(MAIN_PAGE, city));
@@ -30,6 +38,26 @@ public class DefaultSteps {
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(WebElement element) {
         assertThat("Должны видеть элемент", element, isDisplayed());
+    }
+
+    @Step("Не должны видеть на странице «{0}»")
+    public void shouldNotSee(WebElement element) {
+        assertThat("Элемента не должно быть!", element, isDisplayed());
+    }
+
+    @Step("В виджете «{0}» должны видеть город «{1}»")
+    public void shouldSeeCityInWidget(WebElement element, String city) {
+        assertThat("В виджете отбражается не тот город!", element.getText(), is(city));
+    }
+
+    @Step("Кликаем по «{0}»")
+    public void clickElement(WebElement element) {
+        element.click();
+    }
+
+    @Step("Должны увидеть «{1}» элементов(ов) в списке «{0}»")
+    public void shouldBeThisNumberOfElements(List elements, int count) {
+        assertThat("Количество элементов не соответствует ожидаемому!", elements.size(), is(count));
     }
 
     private MainPage onMainPage() {
