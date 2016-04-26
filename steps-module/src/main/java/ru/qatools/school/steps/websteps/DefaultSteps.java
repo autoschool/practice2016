@@ -20,11 +20,17 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
 public class DefaultSteps {
 
     public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    public static final String EMPTY_MAIN_PAGE = "http://weather.lanwen.ru/";
 
     private WebDriver driver;
 
     public DefaultSteps(WebDriver driver) {
         this.driver = driver;
+    }
+
+    @Step("Открываем главную страницу")
+    public void openMainPage() {
+        driver.get(EMPTY_MAIN_PAGE);
     }
 
     @Step("Открываем главную страницу для города «{0}»")
@@ -66,7 +72,8 @@ public class DefaultSteps {
 
     @Step("Значение элемента «{0}» должно принадлежать интервалу «{1}» и «{2}»")
     public void shouldBeBetweenMinAndMax(WebElement currElement, int d1, int d2){
-        int max, min;
+        int max;
+        int min;
         if (d1<d2){min = d1; max = d2;}
         else {min = d2; max = d2;}
         assertThat(Integer.valueOf(currElement.getText()),greaterThanOrEqualTo(min));

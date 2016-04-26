@@ -12,7 +12,7 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WidgetActions  extends HtmlElement {
 
     @Name("Кнопка удаления виджета")
-    @FindBy(css = ".remove-card .btn")
+    @FindBy(css = ".remove-card.btn")
     private WebElement removeBtn;
 
     public WebElement removeBtn(){
