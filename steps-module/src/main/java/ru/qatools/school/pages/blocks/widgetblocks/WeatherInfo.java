@@ -12,26 +12,26 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class WeatherInfo extends HtmlElement {
     @Name("Параметр")
     @FindBy(css = ".info-line__title")
-    private WebElement labelWidget;
+    private WebElement label;
 
     @Name("Иконка")
     @FindBy(css = ".info-line__image")
-    private WebElement imageWidget;
+    private WebElement image;
 
     @Name("Значение")
     @FindBy(css = ".info-line__value")
-    private WebElement valueWidget;
+    private WebElement value;
 
-    public WebElement getValueWidget() {
-        return valueWidget;
+    public WebElement getValue() {
+        return value;
     }
 
-    public WebElement getImageWidget() {
-        return imageWidget;
+    public WebElement getImage() {
+        return image;
     }
 
-    public WebElement getLabelWidget() {
-        return labelWidget;
+    public WebElement getLabel() {
+        return label;
     }
 
     @Override

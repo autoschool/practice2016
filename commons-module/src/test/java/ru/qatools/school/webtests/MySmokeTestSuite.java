@@ -1,12 +1,18 @@
 package ru.qatools.school.webtests;
 
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.DataProviders;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.data.WeatherCharacteristics;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
+import ru.qatools.school.pages.blocks.widgetblocks.WeatherInfo;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTemperature;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
@@ -19,6 +25,7 @@ import static ru.qatools.school.data.TemperatureRepresentation.*;
 /**
  * @author raipc
  */
+@RunWith(DataProviderRunner.class)
 public class MySmokeTestSuite {
     private static final String CITY = "Lipetsk";
     private static final String NEW_WIDGET_TITLE = "What a city?";
@@ -41,13 +48,14 @@ public class MySmokeTestSuite {
     @Title("Должны открыть пустую главную страницу и увидеть кнопку добавления виджета")
     public void shouldSeeEmptyPageWithNewWidgetButton() {
         defaultSteps.openMainPage();
+        defaultSteps.shouldHaveWidgetsCount(0);
         defaultSteps.shouldSee(onMainPage().getNewWidgetButton());
     }
 
     @Test
     @TestCaseId("5")
     @Title("Открываем страницу для города «Lipetsk»")
-    public void shouldSeeWidgetWithCityFromGetParameters() {
+    public void shouldSeeWidgetWithCityFromUrl() {
         defaultSteps.openMainPageWithCity(CITY);
         WeatherWidget firstWidget = onMainPage().getFirstWeatherWidget();
         defaultSteps.shouldSee(firstWidget);
@@ -56,13 +64,21 @@ public class MySmokeTestSuite {
 
     @Test
     @TestCaseId("6")
-    @Title("Должны добавить и увидеть новый виджет")
+    @Title("Должны добавить и увидеть новый виджет с заголовком " + NEW_WIDGET_TITLE)
     public void shouldSeeAddedWidget() {
+        defaultSteps.openMainPageWithCity(CITY);
+        defaultSteps.clickOn(onMainPage().getNewWidgetButton());
+        defaultSteps.shouldSeeWidgetWithTitle(onMainPage().getFirstWeatherWidget(), NEW_WIDGET_TITLE);
+    }
+
+    @Test
+    @TestCaseId("21")
+    @Title("После добавления виджета их количество должно увеличиться на единицу")
+    public void shouldIncreaseNumberOfWidgetsByOne() {
         defaultSteps.openMainPageWithCity(CITY);
         int widgetsCountBefore = onMainPage().getWeatherWidgets().size();
         defaultSteps.clickOn(onMainPage().getNewWidgetButton());
         defaultSteps.shouldHaveWidgetsCount(widgetsCountBefore + 1);
-        defaultSteps.shouldSeeWidgetWithTitle(onMainPage().getFirstWeatherWidget(), NEW_WIDGET_TITLE);
     }
 
     @Test
@@ -71,12 +87,16 @@ public class MySmokeTestSuite {
     public void shouldRemoveWidget() {
         defaultSteps.openMainPageWithCity(CITY);
         int widgetsCountBefore = onMainPage().getWeatherWidgets().size();
-        WebElement first = onMainPage().getFirstWeatherWidget();
-        defaultSteps.shouldSee(first);
-        WebElement next = onMainPage().getFirstWeatherWidget().getActions();
-        defaultSteps.shouldSee(next);
-        WebElement more = onMainPage().getFirstWeatherWidget().getActions().getRemovingWidgetButton();
-        defaultSteps.shouldSee(more);
+        defaultSteps.clickOn(onMainPage().getFirstWeatherWidget().getActions().getRemovingWidgetButton());
+        defaultSteps.shouldHaveWidgetsCount(widgetsCountBefore - 1);
+    }
+
+    @Test
+    @TestCaseId("007")
+    @Title("Должны увидеть дату")
+    public void shouldContainDate() {
+        defaultSteps.openMainPageWithCity(CITY);
+        int widgetsCountBefore = onMainPage().getWeatherWidgets().size();
         defaultSteps.clickOn(onMainPage().getFirstWeatherWidget().getActions().getRemovingWidgetButton());
         defaultSteps.shouldHaveWidgetsCount(widgetsCountBefore - 1);
     }
@@ -92,41 +112,60 @@ public class MySmokeTestSuite {
                 HUMAN_READABLE_DIGITS_PATTERN.toString());
     }
 
+
+    @DataProvider
+    public static Object[][] temperature() {
+        return new Object[][]{
+                {0, CELSIUS.toString()},
+                {1, KELVIN.toString()},
+                {2, FAHRENHEIT.toString()},
+                {3, KAIF.toString()},
+                {4, CELSIUS.toString()}};
+    }
+
     @Test
     @TestCaseId("9")
-    @Title("При клике на температуру меняются единицы измерения")
-    public void shouldSwitchMeasureUnits() {
+    @UseDataProvider("temperature")
+    @Title("Должны кликнуть на температуру {0} раз и получить температуру в {1}")
+    public void shouldSwitchMeasureUnits(int numberOfClicks, String representation) {
         defaultSteps.openMainPageWithCity(CITY);
-        WidgetTemperature temperatureWidget = getTemperatureWidget();
-        defaultSteps.shouldSee(temperatureWidget);
-        defaultSteps.shouldMatchRepresentation(temperatureWidget.getWeatherTemperatureUnit(), CELSIUS.toString(), CELSIUS.toString());
-        defaultSteps.clickOn(temperatureWidget);
-        defaultSteps.shouldMatchRepresentation(temperatureWidget.getWeatherTemperatureUnit(), KELVIN.toString(), KELVIN.toString());
-        defaultSteps.clickOn(temperatureWidget);
-        defaultSteps.shouldMatchRepresentation(temperatureWidget.getWeatherTemperatureUnit(), FAHRENHEIT.toString(), FAHRENHEIT.toString());
-        defaultSteps.clickOn(temperatureWidget);
-        defaultSteps.shouldMatchRepresentation(temperatureWidget.getWeatherTemperatureUnit(), KAIF.toString(), KAIF.toString());
-        defaultSteps.clickOn(temperatureWidget);
-        defaultSteps.shouldMatchRepresentation(temperatureWidget.getWeatherTemperatureUnit(), CELSIUS.toString(), CELSIUS.toString());
+        defaultSteps.shouldSee(getTemperatureWidget());
+        defaultSteps.clickNTimesOn(getTemperatureWidget(), numberOfClicks);
+        defaultSteps.shouldMatchRepresentation(getTemperatureWidget().getWeatherTemperatureUnit(), representation);
+    }
+
+    @DataProvider
+    public static Object[][] weatherInfo() {
+        return DataProviders.testForEach(WeatherCharacteristics.class);
     }
 
     @Test
     @TestCaseId("12")
-    @Title("Видна информация о погоде")
-    public void shouldSeeAdditionalWeatherInformation() {
+    @UseDataProvider("weatherInfo")
+    @Title("Видны названия погодных характеристик")
+    public void shouldSeeAdditionalWeatherInformation(WeatherCharacteristics characteristic) {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldHaveWeatherInfo(
-                onMainPage().getFirstWeatherWidget().getWidgetText().getSunriseInfo(),
-                WeatherCharacteristics.SUNRISE.toString());
-        defaultSteps.shouldHaveWeatherInfo(
-                onMainPage().getFirstWeatherWidget().getWidgetText().getSunsetInfo(),
-                WeatherCharacteristics.SUNSET.toString());
-        defaultSteps.shouldHaveWeatherInfo(
-                onMainPage().getFirstWeatherWidget().getWidgetText().getWindInfo(),
-                WeatherCharacteristics.WIND.toString());
-        defaultSteps.shouldHaveWeatherInfo(
-                onMainPage().getFirstWeatherWidget().getWidgetText().getHumidityInfo(),
-                WeatherCharacteristics.HUMIDITY.toString());
+        WebElement weatherInfo = getWeatherCharacteristicsWidget(characteristic).getLabel();
+        defaultSteps.shouldSee(weatherInfo);
+        defaultSteps.shouldMatchRepresentation(weatherInfo, characteristic.toString());
+    }
+
+    @Test
+    @TestCaseId("22")
+    @UseDataProvider("weatherInfo")
+    @Title("Видны иконки погодных характеристик")
+    public void shouldSeeAdditionalWeatherInformationIcon(WeatherCharacteristics characteristic) {
+        defaultSteps.openMainPageWithCity(CITY);
+        defaultSteps.shouldSee(getWeatherCharacteristicsWidget(characteristic).getImage());
+    }
+
+    @Test
+    @TestCaseId("23")
+    @UseDataProvider("weatherInfo")
+    @Title("Видны значения погодных характеристик")
+    public void shouldSeeAdditionalWeatherInformationValue(WeatherCharacteristics characteristic) {
+        defaultSteps.openMainPageWithCity(CITY);
+        defaultSteps.shouldSee(getWeatherCharacteristicsWidget(characteristic).getValue());
     }
 
     @Test
@@ -147,6 +186,10 @@ public class MySmokeTestSuite {
 
     private WidgetTemperature getTemperatureWidget() {
         return onMainPage().getFirstWeatherWidget().getWidgetText().getWeatherTemperatureWidget();
+    }
+
+    private WeatherInfo getWeatherCharacteristicsWidget(WeatherCharacteristics characteristic) {
+        return onMainPage().getFirstWeatherWidget().getWidgetText().getInfo(characteristic);
     }
 
 }

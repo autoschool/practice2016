@@ -3,6 +3,7 @@ package ru.qatools.school.pages.blocks.widgetblocks;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.qatools.school.data.WeatherCharacteristics;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
@@ -57,6 +58,16 @@ public class WidgetText extends HtmlElement {
 
     public WeatherInfo getHumidityInfo() {
         return humidityInfo;
+    }
+
+    public WeatherInfo getInfo(WeatherCharacteristics characteristic) {
+        switch(characteristic) {
+            case SUNRISE: return getSunriseInfo();
+            case SUNSET: return getSunsetInfo();
+            case WIND: return getWindInfo();
+            case HUMIDITY: return getHumidityInfo();
+            default: return null;
+        }
     }
 
     public Rectangle getRect() {

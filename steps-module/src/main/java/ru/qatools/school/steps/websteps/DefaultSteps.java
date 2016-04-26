@@ -2,11 +2,8 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.qatools.school.data.TemperatureRepresentation;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
-import ru.qatools.school.pages.blocks.widgetblocks.WeatherInfo;
-import ru.qatools.school.pages.blocks.widgetblocks.WidgetTemperature;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static java.lang.String.format;
@@ -55,6 +52,13 @@ public class DefaultSteps {
         element.click();
     }
 
+    @Step("Кликаем на элемент «{0}» {1} раз")
+    public void clickNTimesOn(WebElement element, int numberOfClicks) {
+        for (int i = 0; i != numberOfClicks; ++i){
+            element.click();
+        }
+    }
+
     @Step("Количество виджетов должно быть равным {0}")
     public void shouldHaveWidgetsCount(int widgetsCount) {
         assertThat("Количество виджетов должно быть", onMainPage().getWeatherWidgets().size(), is(widgetsCount));
@@ -62,22 +66,11 @@ public class DefaultSteps {
 
     @Step("Элемент «{0}» должен выглядеть по шаблону {2}")
     public void shouldMatchRepresentation(WebElement element, String regex, String explaination) {
-        assertThat("Элемент должен следовать шаблону", element.getText(), matchesPattern(regex));
+        assertThat("Элемент должен соответствовать шаблону", element.getText(), matchesPattern(regex));
     }
 
-    public void shouldHaveTemperatureRepresentation(WidgetTemperature temperatureWidget, String updatedMeasureUnit) {
-        shouldMatchRepresentation(
-                temperatureWidget.getWeatherTemperatureDigit(),
-                TemperatureRepresentation.DIGITS_PATTERN.toString(),
-                TemperatureRepresentation.HUMAN_READABLE_DIGITS_PATTERN.toString());
-        shouldMatchRepresentation(temperatureWidget.getWeatherTemperatureUnit(), updatedMeasureUnit, updatedMeasureUnit);
-    }
-
-    @Step("Элемент «{1}» должен показывать информацию")
-    public void shouldHaveWeatherInfo(WeatherInfo weatherInfo, String weatherInfoName) {
-        assertThat("Имя параметра не совпадает с ожидаемым", weatherInfo.getLabelWidget().getText(), is(weatherInfoName));
-        assertThat("Иконка не видна", weatherInfo.getImageWidget(), isDisplayed());
-        assertThat("Значение не видно", weatherInfo.getValueWidget(), isDisplayed());
+    public void shouldMatchRepresentation(WebElement element, String regex) {
+        shouldMatchRepresentation(element, regex, regex);
     }
 
     private MainPage onMainPage() {
