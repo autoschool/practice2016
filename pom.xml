@@ -15,6 +15,7 @@
     <modules>
         <module>steps-module</module>
         <module>commons-module</module>
+        <module>api-tests-module</module>
     </modules>
 
     <properties>
