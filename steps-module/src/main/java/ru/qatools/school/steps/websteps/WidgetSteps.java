@@ -8,7 +8,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by merkushev.io on 22.04.2016.
+ * Created by merkushevio on 22.04.2016.
  */
 public class WidgetSteps {
     private WebDriver driver;
@@ -19,7 +19,7 @@ public class WidgetSteps {
     private static final String KAIF = "°Kaif";
     private static final String SUNRISE_TIME = "^[0-2][0-9]:[0-5][0-9]$";
     private static final String SUNSET_TIME = "^[0-2][0-9]:[0-5][0-9]$";
-    private static final String WIND_SPEED = "^[0-9]+.?[0-9]+ m/s";
+    private static final String WIND_SPEED = "^\\d m/s";
     private static final String HUMIDITY_VALUE = "^[0-9]+ %";
 
     public WidgetSteps(WebDriver driver) {
