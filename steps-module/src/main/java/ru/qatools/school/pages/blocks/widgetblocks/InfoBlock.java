@@ -19,7 +19,7 @@ public class InfoBlock  extends HtmlElement {
     private HtmlElement infoValue;
 
     @Name("Картинка информационной строчки")
-    @FindBy(css  = "info-line__image")
+    @FindBy(css  = ".info-line__image")
     private HtmlElement infoImage;
 
     public HtmlElement getInfoTitle(){ return infoTitle; }

@@ -29,9 +29,41 @@ public class RegressionTests {
     @Test
     @Title("Должна отображаться картинка с погодой")
     @TestCaseId("17")
-    public void shouldBeWeatherImage(){
+    public void shouldSeeWeatherImage(){
         defaultSteps.openMainPageWithCity(city1);
         defaultSteps.shouldSeeWeatherImage();
+    }
+
+    @Test
+    @Title("Должна отображаться информация о рассвете")
+    @TestCaseId("23")
+    public void shouldSeeSunriseInfo(){
+        defaultSteps.openMainPageWithCity(city1);
+        defaultSteps.shouldSeeSunriseInfo();
+    }
+
+    @Test
+    @Title("Должна отображаться информация о закате")
+    @TestCaseId("42")
+    public void shouldSeeSunsetInfo(){
+        defaultSteps.openMainPageWithCity(city1);
+        defaultSteps.shouldSeeSunsetInfo();
+    }
+
+    @Test
+    @Title("Должна отобржааться информация о ветре")
+    @TestCaseId("24")
+    public void shouldSeeWindInfo(){
+        defaultSteps.openMainPageWithCity(city1);
+        defaultSteps.shouldSeeWindInfo();
+    }
+
+    @Test
+    @Title("Должна отображаться информация о влажности")
+    @TestCaseId("25")
+    public void shouldSeeHumidityInfo(){
+        defaultSteps.openMainPageWithCity(city1);
+        defaultSteps.shouldSeeHumidityInfo();
     }
 
     @Test
@@ -51,6 +83,7 @@ public class RegressionTests {
 
     @Test
     @Title("Название города должно прописаться в параметры URL")
+    @TestCaseId("39")
     public void shouldBeAddedOneCityInURLParameters(){
         defaultSteps.openMainPage();
         defaultSteps.addOneWidget();
@@ -60,6 +93,7 @@ public class RegressionTests {
 
     @Test
     @Title("Должны видеть два города в URL")
+    @TestCaseId("40")
     public void shouldSeeTwoCitiesInURL(){
         defaultSteps.openMainPageWithCity(city1);
         defaultSteps.addOneWidget();
@@ -67,6 +101,23 @@ public class RegressionTests {
         defaultSteps.shouldSeeURLParameterValue(city2 + "," +city1);
     }
 
+    @Test
+    @Title("Должны увидеть название города по умолчанию, если вбить пустую строку")
+    @TestCaseId("41")
+    public void shouldSeeDefaultCityIfSendEmptyName(){
+        defaultSteps.openMainPageWithCity(city1);
+        defaultSteps.writeCityName("");
+        defaultSteps.shouldSeeCurrentCity("What a city?");
+    }
+
+    @Test
+    @Title("Должны видеть измененный город в URL")
+    @TestCaseId("38")
+    public void shouldSeeChangedCityInURL(){
+        defaultSteps.openMainPageWithCity(city1);
+        defaultSteps.writeCityName(city2);
+        defaultSteps.shouldSeeURLWithThisCity(city2);
+    }
 
 
     private MainPage onMainPage() {

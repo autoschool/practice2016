@@ -72,7 +72,7 @@ public class SmokeTests {
     
     @Test
     @Title("Изменение названия города в виджете")
-   // @ru.yandex.qatools.allure.annotations.TestCaseId("13")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("13")
     public void shouldSeeChangedCity(){
         defaultSteps.openMainPageWithCity(city);
         defaultSteps.writeCityName("Saratov");
@@ -90,9 +90,12 @@ public class SmokeTests {
     @Test
     @Title("У виджета должна быть заполнена информация о погоде")
     @TestCaseId("18")
-    public void shouldBeWeatherInfo(){
+    public void shouldSeeWeatherInfo(){
         defaultSteps.openMainPageWithCity(city);
-
+        defaultSteps.shouldSeeSunriseInfo();
+        defaultSteps.shouldSeeSunsetInfo();
+        defaultSteps.shouldSeeHumidityInfo();
+        defaultSteps.shouldSeeWindInfo();
     }
 
     @Test
@@ -109,6 +112,7 @@ public class SmokeTests {
     @Title("Должно отображаться значение температуры")
     @TestCaseId("")
     public void shouldSeeTemperature(){
+        defaultSteps.openMainPageWithCity(city);
         defaultSteps.shouldSeeCurrentTemperature();
     }
 
