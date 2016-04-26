@@ -19,9 +19,9 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
  */
 public class DefaultSteps {
 
-    private static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
-    private static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru/";
-
+    public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    public static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru/";
+    private static final String NEW_WIDGET = "What a city?";
 
     private WebDriver driver;
 
@@ -54,6 +54,11 @@ public class DefaultSteps {
                 onMainPage().getPlaces().get(0).getText(), equalTo(city));
     }
 
+    public void addWidgetOnMainPage(String city) {
+        mainPageMethods().addWidget();
+        mainPageMethods().renameWidget(NEW_WIDGET, city);
+    }
+
     @Step("На главной странице без виджетов отображается кнопка добавить виджет")
     public void shouldSeeButtonAddWidgetOnMainPage() {
         shouldSee(mainPageMethods().getMainPage().getAddWidget());
@@ -80,16 +85,17 @@ public class DefaultSteps {
     }
 
     @Step("На главной странице виджеты добавляются")
-    public void shouldSeeWidgetAdd() {
+    public void shouldSeeWidgetAdd(String city) {
         int count = mainPageMethods().countWidgets();
-        mainPageMethods().addWidget();
-        assertThat("Количество виджетов не увеличилось", mainPageMethods().getAllPlaces().size(), is(count + 1));
+        addWidgetOnMainPage(city);
+        assertThat("Widget has", city, is(mainPageMethods().hasItem(mainPageMethods().getAllPlaces())));
+        assertThat("Количество виджетов не увеличилось", mainPageMethods().getAllWidgets().size(), is(count + 1));
     }
 
     @Step("На главной странице виджет можно удалить")
     public void shouldSeeWidgetRemove() {
         int count = mainPageMethods().countWidgets();
-        onMainPage().getWeatherWidgets().get(0).getRemoveBtn().click();
+        mainPageMethods().clickOnElement(mainPageMethods().getAllWidgets().get(0).getRemoveBtn());
         assertThat("Количество виджетов не уменьшилось после удаления одного виджета",
                 mainPageMethods().countWidgets(), is(count - 1));
     }
@@ -111,9 +117,10 @@ public class DefaultSteps {
 
     public void shouldSeeWidgetElements() {
         shouldSee(onMainPage().getTitleValues().toArray(new WebElement[onMainPage().getTitleValues().size()]));
-        shouldSee(onMainPage().getHumidity(), onMainPage().getSunrise(),
-                onMainPage().getSunset(), onMainPage().getWind());
-
+        shouldSee(onMainPage().getHumidity());
+        shouldSee(onMainPage().getSunrise());
+        shouldSee(onMainPage().getSunset());
+        shouldSee(onMainPage().getWind());
         widgetSteps().shouldSeeFormatTimeSunrise();
         widgetSteps().shouldSeeFormatTimeSunset();
         widgetSteps().shouldSeeFormatSpeedWind();
