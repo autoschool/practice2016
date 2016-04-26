@@ -36,44 +36,39 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
-    @Step("Открываем главную страницу для города «{0}»")
+    @Step("Open main page with city «{0}»")
     public void openMainPageWithCity(String city) {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Открываем главную страницу как обычный пользователь")
+    @Step("Open main page as a user")
     public void openMainPageWithoutParams() {
         driver.get(MAIN_PAGE_WOUTPARS);
     }
 
-    @Step("Должны видеть на странице «{0}»")
+    @Step("Shoul see on the page «{0}»")
     public void shouldSeeElement(WebElement element) {
-        assertThat("Должны видеть элемент", element, both(exists()).and(isDisplayed()));
+        assertThat("Don't see element", element, both(exists()).and(isDisplayed()));
     }
 
-    @Step("Должны видеть на странице все элементы списка «{0}»")
+    @Step("Should see all list elements on the page «{0}»")
     public void shouldSeeAllElementFromList(List<? extends WebElement> wwList) {
-        assertThat("Видим не все элементы", (List<WebElement>)wwList, everyItem(both(exists()).and(isDisplayed())));
+        assertThat("Don't see all elements", (List<WebElement>)wwList, everyItem(both(exists()).and(isDisplayed())));
     }
 
-    @Step("Текст «{0}» элемента должен быть «{1}»")
+    @Step("Text «{0}» should be «{1}»")
     public void shouldSeeElementTextIsSameToText(WebElement webElement, String text) {
-        assertThat("Текст элемента и ожидаемый не совпадают", webElement, hasText(text));
+        assertThat("Expected and actual texts don't match", webElement, hasText(text));
     }
 
-    @Step("Должен кликнуться элемент «{0}»")
+    @Step("Clicking element «{0}»")
     public void onClickElement(WebElement element) {
         element.click();
     }
 
-    @Step("Должна кликнуться кнопка «{0}»")
-    public void onClickButton(Button element) {
-        element.click();
-    }
-
-    @Step("Количество виджетов на странице должно быть «{0}»")
+    @Step("Number of widgets on the page should be «{0}»")
     public void shouldBeWidgetsQuantityOnPage(List<WeatherWidget> wwList, int widgetsQuantity) {
-        assertThat("Количество виджетов на странице не равно ожидаемому", wwList, hasSize(widgetsQuantity));
+        assertThat("Number of widgets on the page and expected don't match", wwList, hasSize(widgetsQuantity));
     }
 
     public WeatherWidget getFirstWidget() {
