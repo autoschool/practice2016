@@ -10,14 +10,16 @@ import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.*;
 
 /**
  * Created by kurau.
@@ -25,8 +27,8 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
  */
 public class DefaultSteps {
 
-    private static final String MAIN_PAGE = "http://weather.lanwen.ru/";
-    private static final String QUERY = "#?cities=%s";
+    public static final String MAIN_PAGE = "http://weather.lanwen.ru/";
+    public static final String QUERY = "#?cities=%s";
 
     private WebDriver driver;
 
@@ -56,26 +58,17 @@ public class DefaultSteps {
 
     @Step("Должны видеть на странице элемент «{0}»")
     public void shouldSee(WebElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat("Должны видеть элемент", element, allOf(exists(), isDisplayed()));
+    }
+
+    @Step("Должны видеть на странице элементы «{0}»")
+    public void shouldSee(List<? extends WebElement> elements) {
+        assertThat("Должны видеть элемент", elements, everyItem(allOf(exists(), isDisplayed())));
     }
 
     @Step("Должны не видеть на странице элемент «{0}»")
     public void shouldNotSee(WebElement element) {
         assertThat("Должны не видеть элемент", element, not(isDisplayed()));
-    }
-
-    @Step("Должны видеть на странице элементы «{0}»")
-    public void shouldSee(List<? extends WebElement> elements) {
-        for (WebElement element : elements) {
-            assertThat("Должны видеть элемент", element, isDisplayed());
-        }
-    }
-
-    @Step("Должны не видеть на странице элементы «{0}»")
-    public void shouldNotSee(List<? extends WebElement> elements) {
-        for (WebElement element : elements) {
-            assertThat("Должны не видеть элемент", element, isDisplayed());
-        }
     }
 
     @Step("Должны увидеть «{1}» элементов(ов) в списке «{0}»")
@@ -122,34 +115,12 @@ public class DefaultSteps {
 
     @Step("Элементы в «{0}» не должны содержать текст «{1}»")
     public void shouldNotHaveText(List<? extends WebElement> elements, String text) {
-        for (WebElement element : elements) {
-            assertThat("Текст в элементе должен быть другим", element, not(hasText(text)));
-        }
+        assertThat("Текст в элементе должен быть другим", new ArrayList<>(elements), everyItem(not(hasText(text))));
 
     }
 
     @Step("Ждём элемент «{0}» максимум «{1}» секунд(ы)")
     public void waitUntilElementReady(HtmlElement element, int timeOut) {
-//        int pause = 10; // milliseconds
-//        for (int milliSeconds = 0; ; milliSeconds += pause) {
-//            try {
-//                element.isDisplayed();
-//                System.out.println(element.getText());
-//                break;
-//            } catch (StaleElementReferenceException e) {
-//                if (milliSeconds > timeOut * 1000) {
-//                    System.out.println("Всё пропало!");
-//                    throw e;
-//                }
-//                try {
-//                    System.out.println("Ждём: " + milliSeconds);
-//                    Thread.sleep(pause);
-//                } catch (InterruptedException e2) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-
         (new WebDriverWait(driver, timeOut))
                 .until(ExpectedConditions.and(
                         ExpectedConditions.not(ExpectedConditions.stalenessOf(element)),

@@ -10,6 +10,11 @@ import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import static java.lang.String.format;
+
 /**
  * Created by onegines (Eugene Kirienko)
  */
@@ -94,24 +99,27 @@ public class RegressionSuite {
     @Test
     @Title("После изменения города в виджете должен поменяться URL")
     @TestCaseId("17")
-    public void shouldChangeUrlAfterWidgetRename() {
+    public void shouldChangeUrlAfterWidgetRename() throws UnsupportedEncodingException {
+        String city2UrlEncode = URLEncoder.encode(CITY2, "UTF-8");
+
         defaultSteps.openMainPageWithCities(CITY);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.enterText(onMainPage().getFirstWidget().getWidgetTitle().getCityName(), CITY2);
         defaultSteps.confirmText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.shouldBeUrl("http://weather.lanwen.ru/#?cities=" + CITY2);
+        defaultSteps.shouldBeUrl(DefaultSteps.MAIN_PAGE + format(DefaultSteps.QUERY, city2UrlEncode));
     }
 
     @Test
     @Title("После удаления виджета должен поменяться URL")
     @TestCaseId("18")
-    public void shouldChangeUrlAfterWidgetRemove() {
-        String city2UrlEncode = CITY2.replace(" ", "%20");
+    public void shouldChangeUrlAfterWidgetRemove() throws UnsupportedEncodingException {
+        String city2UrlEncode = URLEncoder.encode(CITY2, "UTF-8");
 
         defaultSteps.openMainPageWithCities(CITY, CITY2);
         defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
         defaultSteps.shouldBeUrl("http://weather.lanwen.ru/#?cities=" + city2UrlEncode);
+        defaultSteps.shouldBeUrl(DefaultSteps.MAIN_PAGE + format(DefaultSteps.QUERY, city2UrlEncode));
     }
 
     @Test

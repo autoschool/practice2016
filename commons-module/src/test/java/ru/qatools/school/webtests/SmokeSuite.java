@@ -9,6 +9,11 @@ import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
+
+import java.util.List;
+
+import static java.util.Arrays.asList;
 
 /**
  * Created by onegines (Eugene Kirienko)
@@ -17,7 +22,7 @@ public class SmokeSuite {
 
     private static final String CITY = "Saint Petersburg";
     private static final String CITY2 = "Moscow";
-    private static final String CITY2_BEGIN = "Mosc";
+    private static final String TITLE = "Weather";
 
     private DefaultSteps defaultSteps;
 
@@ -41,8 +46,8 @@ public class SmokeSuite {
     @TestCaseId("6")
     public void shouldBeOnCorrectPage() {
         defaultSteps.openMainPage();
-        defaultSteps.shouldBeUrl("http://weather.lanwen.ru/");
-        defaultSteps.shouldBeTitle("Weather");
+        defaultSteps.shouldBeUrl(DefaultSteps.MAIN_PAGE);
+        defaultSteps.shouldBeTitle(TITLE);
     }
 
     @Test
@@ -75,32 +80,34 @@ public class SmokeSuite {
     public void shouldSeeAllWidgetBlocks() {
         defaultSteps.openMainPageWithCities(CITY);
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCurrentTimeAndDate());
+        List<HtmlElement> allWidgetBlocks = asList(
+                onMainPage().getFirstWidget().getWidgetTitle().getCityName(),
+                onMainPage().getFirstWidget().getWidgetTitle().getCurrentTimeAndDate(),
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherImage());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureDigit());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit());
+                onMainPage().getFirstWidget().getWidgetText().getWeatherImage(),
+                onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureDigit(),
+                onMainPage().getFirstWidget().getWidgetText().getWeatherTemperatureUnit(),
 
-        defaultSteps.shouldBeThisNumberOfElements(onMainPage().getFirstWidget().getWidgetText().getInfoLines(), 4);
+                onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getTitle(),
+                onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getImage(),
+                onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getValue(),
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getTitle());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getImage());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunriseLine().getValue());
+                onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getTitle(),
+                onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getImage(),
+                onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getValue(),
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getTitle());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getImage());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getSunsetLine().getValue());
+                onMainPage().getFirstWidget().getWidgetText().getWindLine().getTitle(),
+                onMainPage().getFirstWidget().getWidgetText().getWindLine().getImage(),
+                onMainPage().getFirstWidget().getWidgetText().getWindLine().getValue(),
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWindLine().getTitle());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWindLine().getImage());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getWindLine().getValue());
+                onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getTitle(),
+                onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getImage(),
+                onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getValue(),
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getTitle());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getImage());
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetText().getHumidityLine().getValue());
+                onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton()
+        );
 
-        defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetActions().getRemoveWidgetButton());
+        defaultSteps.shouldSee(allWidgetBlocks);
     }
 
     @Test
