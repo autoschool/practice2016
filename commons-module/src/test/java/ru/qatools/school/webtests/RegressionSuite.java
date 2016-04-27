@@ -1,5 +1,6 @@
 package ru.qatools.school.webtests;
 
+import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,10 +11,15 @@ import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import static java.lang.String.format;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by onegines (Eugene Kirienko)
@@ -212,5 +218,28 @@ public class RegressionSuite {
         defaultSteps.eraseText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.confirmText(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
         defaultSteps.shouldSee(onMainPage().getFirstWidget().getWidgetTitle().getCityName());
+    }
+
+    /**
+     * Created by onegines (Eugene Kirienko)
+     */
+    public static class RetrofitTests {
+
+        @Test
+        public void simpleTest() throws IOException {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://weather.lanwen.ru")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            MyService service = retrofit.create(MyService.class);
+            Call<PingResp> req = service.weather("Moscow");
+            Response <PingResp> resp = req.execute();
+            assertThat(resp.code(), is(HttpStatus.SC_OK));
+            assertThat(resp.body().getCity(), equalTo("Moscow"));
+            assertThat(resp.body().getTemperatures(), hasSize(4));
+            assertThat(resp.body().getTemperatures().get(0).getValue(),
+                    equalTo(9.0));
+        }
+
     }
 }

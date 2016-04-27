@@ -50,5 +50,4 @@
             <artifactId>rest-assured</artifactId>
         </dependency>
     </dependencies>
-
 </project>

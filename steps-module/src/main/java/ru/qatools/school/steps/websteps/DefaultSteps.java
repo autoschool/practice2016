@@ -15,6 +15,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -116,7 +117,6 @@ public class DefaultSteps {
     @Step("Элементы в «{0}» не должны содержать текст «{1}»")
     public void shouldNotHaveText(List<? extends WebElement> elements, String text) {
         assertThat("Текст в элементе должен быть другим", new ArrayList<>(elements), everyItem(not(hasText(text))));
-
     }
 
     @Step("Ждём элемент «{0}» максимум «{1}» секунд(ы)")
