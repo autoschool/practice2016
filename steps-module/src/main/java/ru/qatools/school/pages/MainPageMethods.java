@@ -19,10 +19,6 @@ public class MainPageMethods {
         mainPage = new MainPage(driver);
     }
 
-    public void clickOnElement(WebElement element) {
-        element.click();
-    }
-
     public void addWidget() {
         mainPage.getAddWidget().click();
     }

@@ -14,6 +14,7 @@ public class WeatherWebTest {
 
     private static final String MOSCOW = "Moscow";
     private static final String SPB = "Saint Petersburg";
+    private static final String NEW_WIDGET = "What a city?";
 
     private DefaultSteps defaultSteps;
 
@@ -39,19 +40,12 @@ public class WeatherWebTest {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSee(onMainPage().getWeatherWidgets().get(0));
         defaultSteps.shouldSeeTitleWidgetEqualCity(MOSCOW);
-    }
-
-    @Test
-    @Title("Должны увидеть элементы виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
-    public void shouldSeeElements() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeWidgetElements();
     }
 
     @Test
     @Title("Должны увидеть главную страницу только с кнопокой добавить виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
     public void shouldSeeButtonOnMainPage() {
         defaultSteps.openMainPageWithCity("");
         defaultSteps.shouldSeeButtonAddWidgetOnMainPage();
@@ -60,7 +54,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны увидеть главную страницу только с кнопкой добавить виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("3")
     public void shouldSeeButtonAddWidgetOnMainPageWithoutParameter() {
         defaultSteps.shouldSeeButtonOnlyAddWidgetOnMainPageWithoutParameter();
         defaultSteps.shouldSeeOnlyButtonAddWidget();
@@ -68,24 +62,32 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем добавлять виджет на главной странице")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
     public void shouldSeeAddWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeWidgetAdd(SPB);
+        defaultSteps.shouldSeeWidgetAdd();
     }
 
     @Test
-    @Title("Может удалить виджет на главной странице")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("3")
-    public void shouldSeeRemoveWidgetOnMainPage() {
+    @Title("Можем удалить второй виджет на главной странице")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
+    public void shouldSeeRemoveSecondWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(SPB);
-        defaultSteps.addWidgetOnMainPage(MOSCOW);
+        defaultSteps.shouldSeeWidgetAdd();
+        defaultSteps.shouldSeeWidgetRemove();
+    }
+
+    @Test
+    @Title("Может удалить последний виджет на главной странице")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
+    public void shouldSeeRemoveLastWidgetOnMainPage() {
+        defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeWidgetRemove();
     }
 
     @Test
     @Title("Должны увидеть автозаполнение при не полном наборе названия виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("12")
     public void shouldAutoCompleteCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldAutocompliteCity(SPB);
@@ -93,7 +95,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем переименовать виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("11")
     public void shouldSeeRenameWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB);
@@ -101,7 +103,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем очистить название, после чего назначить нове имя")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("13")
     public void shouldSeeClearWidgetName() {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeRenameWidget(SPB, "");
@@ -110,7 +112,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем написать не не полное имя виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("14")
     public void shouldSeeNotFullNameWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB.substring(0, SPB.length() / 3));
