@@ -2,22 +2,17 @@ package ru.qatools.school.steps.websteps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.htmlelements.element.Button;
 
 import java.util.List;
 
 import static java.lang.String.format;
-import static java.lang.Comparable.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.both;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.exists;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.*;
 
 /**
  * Created by kurau.
@@ -28,7 +23,7 @@ public class DefaultSteps {
 
     private static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
 
-    private static final String MAIN_PAGE_WOUTPARS = "http://weather.lanwen.ru/";
+    private static final String MAIN_PAGE_WITHOUTPARAMETERS = "http://weather.lanwen.ru/";
 
     private WebDriver driver;
 
@@ -41,12 +36,12 @@ public class DefaultSteps {
         driver.get(format(MAIN_PAGE, city));
     }
 
-    @Step("Open main page as a user")
+    @Step("Open main page without parameters")
     public void openMainPageWithoutParams() {
-        driver.get(MAIN_PAGE_WOUTPARS);
+        driver.get(MAIN_PAGE_WITHOUTPARAMETERS);
     }
 
-    @Step("Shoul see on the page «{0}»")
+    @Step("Should see on the page «{0}»")
     public void shouldSeeElement(WebElement element) {
         assertThat("Don't see element", element, both(exists()).and(isDisplayed()));
     }
@@ -57,29 +52,29 @@ public class DefaultSteps {
     }
 
     @Step("Text «{0}» should be «{1}»")
-    public void shouldSeeElementTextIsSameToText(WebElement webElement, String text) {
+    public void shouldSeeTextInElement(WebElement webElement, String text) {
         assertThat("Expected and actual texts don't match", webElement, hasText(text));
     }
 
     @Step("Clicking element «{0}»")
-    public void onClickElement(WebElement element) {
+    public void clickOn(WebElement element) {
         element.click();
     }
 
     @Step("Number of widgets on the page should be «{0}»")
-    public void shouldBeWidgetsQuantityOnPage(List<WeatherWidget> wwList, int widgetsQuantity) {
+    public void shouldBeWidgetsQuantity(List<WeatherWidget> wwList, int widgetsQuantity) {
         assertThat("Number of widgets on the page and expected don't match", wwList, hasSize(widgetsQuantity));
     }
 
-    public WeatherWidget getFirstWidget() {
-        return onMainPage().getWeatherWidgetList().get(0);
+    @Step("Clear element «{0}»")
+    public void clearIt(WebElement element) {
+        element.clear();
     }
 
-    public WebElement getNewCardButton() {
-        return onMainPage().getNewCardButton();
+    @Step("Send keys to element «{0}»")
+    public void sendKeysToElement(WebElement element, CharSequence ... keys) {
+        element.sendKeys(keys);
     }
 
-    private MainPage onMainPage() {
-        return new MainPage(driver);
-    }
+
 }

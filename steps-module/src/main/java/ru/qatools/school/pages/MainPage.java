@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.htmlelements.annotations.Name;
-import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
@@ -36,4 +35,9 @@ public class MainPage {
     public WebElement getNewCardButton() {
         return newCardButton;
     }
+
+    public WeatherWidget getFirstWidget() {
+        return getWeatherWidgetList().get(0);
+    }
+
 }

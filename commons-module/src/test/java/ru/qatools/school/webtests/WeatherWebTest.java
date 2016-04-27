@@ -3,19 +3,15 @@ package ru.qatools.school.webtests;
 /* @author arrumm (Arkhipov Roman) */
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
-import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
-
-import java.util.List;
+import ru.yandex.qatools.allure.annotations.Title;
 
 public class WeatherWebTest {
 
@@ -39,7 +35,7 @@ public class WeatherWebTest {
     @TestCaseId("6")
     public void shouldSeeAddWidgetButtonOnMainPageWithoutParams() {
         defaultSteps.openMainPageWithoutParams();
-        defaultSteps.shouldSeeElement(defaultSteps.getNewCardButton());
+        defaultSteps.shouldSeeElement(onMainPage().getNewCardButton());
     }
 
     @Test
@@ -47,69 +43,66 @@ public class WeatherWebTest {
     @TestCaseId("7")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget());
+        defaultSteps.shouldSeeElement(onMainPage().getFirstWidget());
     }
 
     @Test
     @Title("Should see picture on widget shows weather")
     @TestCaseId("11")
-    public void shouldSeeWeatherPictOnMainPage() {
+    public void shouldSeeWeatherPict() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget().getWidgetText().getWeatherImage());
+        defaultSteps.shouldSeeElement(onMainPage().getFirstWidget().getWidgetText().getWeatherImage());
     }
 
-
-
     @Test
-    @Title("Should see city name at widget title like in URL on the main page")
+    @Title("City name at widget title match city in URL")
     @TestCaseId("1")
     public void shouldSeeWidgetWithCityInURLOnMainPage() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElementTextIsSameToText(
-                defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement(),
+        defaultSteps.shouldSeeTextInElement(
+                onMainPage().getFirstWidget().getWidgetTitle().getCityNameElement(),
                 CITY);
     }
 
     @Test
-    @Title("Should see +1 widget on da main page after adding")
+    @Title("Should see once more widget on the main page after adding")
     @TestCaseId("8")
     public void shouldDetectOnceMoreWidgetOnThePage() {
         defaultSteps.openMainPageWithCity(CITY);
         int widgetsQ = onMainPage().getWeatherWidgetList().size();
-        defaultSteps.onClickElement(onMainPage().getNewCardButton());
-        defaultSteps.shouldBeWidgetsQuantityOnPage(onMainPage().getWeatherWidgetList(), widgetsQ + 1);
+        defaultSteps.clickOn(onMainPage().getNewCardButton());
+        defaultSteps.shouldBeWidgetsQuantity(onMainPage().getWeatherWidgetList(), widgetsQ + 1);
         defaultSteps.shouldSeeAllElementFromList(onMainPage().getWeatherWidgetList());
     }
 
-    //@Ignore
     @Test
     @Title("Should see widget title")
     @TestCaseId("12")
     public void shouldSeeWidgetTitle() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget().getWidgetTitle());
+        defaultSteps.shouldSeeElement(onMainPage().getFirstWidget().getWidgetTitle());
     }
 
     @Test
-    @Title("Should see field on the widget shows temperature")
+    @Title("Should see temperature on the widget")
     @TestCaseId("10")
-    public void shouldSeeTemperatureOnMainPage() {
+    public void shouldSeeTemperatureOnWidget() {
         defaultSteps.openMainPageWithCity(CITY);
-        defaultSteps.shouldSeeElement(defaultSteps.getFirstWidget().getWidgetText().getTemperature());
+        defaultSteps.shouldSeeElement(onMainPage().getFirstWidget().getWidgetText().getTemperature());
     }
 
     @Test
-    @Title("Should see same city in the title as entered by kboard")
+    @Title("Should see city in the widget entered by keyboard")
     @TestCaseId("9")
-    public void shouldSeeWidgetWithCityWhichEnter() {
+    public void shouldSeeCityInputFromKeyboard() {
         defaultSteps.openMainPageWithCity(null);
-        defaultSteps.onClickElement(onMainPage().getNewCardButton());
-        defaultSteps.onClickElement(defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement());
-        defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement().clear();
-        defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement().sendKeys(CITY);
-        defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement().sendKeys(Keys.ENTER);
-        defaultSteps.shouldSeeElementTextIsSameToText(
-                defaultSteps.getFirstWidget().getWidgetTitle().getCityNameElement(),
+        defaultSteps.clickOn(onMainPage().getNewCardButton());
+        defaultSteps.clickOn(onMainPage().getFirstWidget().getWidgetTitle().getCityNameElement());
+        defaultSteps.clearIt(onMainPage().getFirstWidget().getWidgetTitle().getCityNameElement());
+        defaultSteps.sendKeysToElement(onMainPage().getFirstWidget().getWidgetTitle().getCityNameElement(), CITY);
+        defaultSteps.sendKeysToElement(onMainPage().getFirstWidget().getWidgetTitle().getCityNameElement(), Keys.ENTER);
+        defaultSteps.shouldSeeTextInElement(
+                onMainPage().getFirstWidget().getWidgetTitle().getCityNameElement(),
                 CITY);
     }
 
