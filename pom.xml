@@ -28,7 +28,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--https://github.com/jayway/rest-assured/wiki/GettingStarted-->
             <dependency>
                 <groupId>com.jayway.restassured</groupId>
                 <artifactId>rest-assured</artifactId>
@@ -39,24 +38,6 @@
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
             </dependency>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-    </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-
-            <!--https://github.com/jayway/rest-assured/wiki/GettingStarted-->
-            <dependency>
-                <groupId>com.jayway.restassured</groupId>
-                <artifactId>rest-assured</artifactId>
-                <version>2.9.0</version>
-            </dependency>
-
             <dependency>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-junit-adaptor</artifactId>

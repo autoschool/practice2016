@@ -6,10 +6,8 @@ import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
-import ru.qatools.school.tp.TPInformerRule;
-import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
-
+import ru.yandex.qatools.allure.annotations.Title;
 
 
 public class WeatherWidgetSmokeTest {
@@ -22,8 +20,8 @@ public class WeatherWidgetSmokeTest {
 
     private DefaultSteps defaultSteps;
 
-    @Rule
-    public TPInformerRule tms = new TPInformerRule("thebaldsoprano");
+    //@Rule
+    //public TPInformerRule tms = new TPInformerRule("thebaldsoprano");
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
