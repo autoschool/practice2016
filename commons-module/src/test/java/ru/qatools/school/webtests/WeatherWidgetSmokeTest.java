@@ -27,7 +27,7 @@ public class WeatherWidgetSmokeTest {
     public WebDriverRule webDriverRule = new WebDriverRule();
 
     @Before
-    public void initSteps() { defaultSteps = new DefaultSteps(webDriverRule.getDriver());}
+    public void initSteps() { defaultSteps = new DefaultSteps(webDriverRule.getDriver());} //добавить асюм для проверки урлы на 200
 
     @Test
     @Title("Should open main page with widget")
