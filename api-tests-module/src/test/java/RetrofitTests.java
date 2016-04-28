@@ -18,15 +18,20 @@ import static org.hamcrest.Matchers.is;
  */
 public class RetrofitTests {
 
+    private static final String BASE_URL = "http://weather.lanwen.ru";
+    private static final String NEGATIVE_LIMIT = "-1";
+    private static final long MAX_INT_PLUS_ONE_LIMIT = (long) Integer.MAX_VALUE + 1;
+    private static final int CITIES_LIST_SIZE = 272;
+
     private Retrofit citiesRetrofit = new Retrofit.Builder()
-            .baseUrl("http://weather.lanwen.ru")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
     @Test
     public void shouldGetErrorWhenRequestNegativeCitiesLimit() throws IOException {
         Cities cities = citiesRetrofit.create(Cities.class);
-        Call<List<CityJSON>> request = cities.cities("-1");
+        Call<List<CityJSON>> request = cities.cities(NEGATIVE_LIMIT);
         Response<List<CityJSON>> response = request.execute();
         assertThat(response.code(), is(HttpStatus.SC_BAD_REQUEST));
     }
@@ -34,9 +39,9 @@ public class RetrofitTests {
     @Test
     public void shouldGetCitiesListWhenRequestMaxIntegerPlusOneCities() throws IOException {
         Cities cities = citiesRetrofit.create(Cities.class);
-        Call<List<CityJSON>> request = cities.cities(String.valueOf((long)Integer.MAX_VALUE + 1));
+        Call<List<CityJSON>> request = cities.cities(String.valueOf(MAX_INT_PLUS_ONE_LIMIT));
         Response<List<CityJSON>> response = request.execute();
         assertThat(response.code(), is(HttpStatus.SC_OK));
-        assertThat(response.body().size(), is(272));
+        assertThat(response.body().size(), is(CITIES_LIST_SIZE));
     }
 }
