@@ -32,6 +32,11 @@ public class DefaultSteps {
         assertThat("Должны видеть элемент", element, isDisplayed());
     }
 
+    @Step("Выводим что-тоиз базы")
+    public void dbString(String str){
+        System.out.println("Printed str = " + str);
+    }
+
     private MainPage onMainPage() {
         return new MainPage(driver);
     }
