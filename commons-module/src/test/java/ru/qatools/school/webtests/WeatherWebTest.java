@@ -111,7 +111,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Можем написать не не полное имя виджета")
+    @Title("Можем написать не полное имя виджета")
     @ru.yandex.qatools.allure.annotations.TestCaseId("14")
     public void shouldSeeNotFullNameWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -121,7 +121,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем менять форматы вывода градусов")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
+    @ru.yandex.qatools.allure.annotations.TestCaseId("15")
     public void shouldSeeChangeFormatDegree() {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeChangeFormatTemperature();
