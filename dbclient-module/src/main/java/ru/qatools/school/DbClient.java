@@ -14,9 +14,10 @@ import static org.jooq.impl.DSL.table;
  * Created by omaz on 27.04.16.
  */
 public class DbClient {
-    private static final String CONNECTION_STRING = "jdbc:mysql://db.host.ru:3310/db_name";
-    private static final String USER = "user";
-    private static final String PASSWORD = "password";
+    private static final String CONNECTION_STRING =
+            System.getProperty("db.url", "jdbc:mysql://db.host.ru:3310/db_name");
+    private static final String USER = System.getProperty("db.user", "user");
+    private static final String PASSWORD = System.getProperty("db.password", "password");;
 
     private Connection connection;
     private DSLContext create;
