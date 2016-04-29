@@ -1,10 +1,12 @@
 package ru.qatools.school.pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
@@ -21,10 +23,21 @@ public class MainPage {
 
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
-    private List<WeatherWidget> weatherWidget;
+    private List<WeatherWidget> weatherWidgetList;
 
-    public List<WeatherWidget> getWeatherWidget() {
-        return weatherWidget;
+    @Name("Кнопка добавления виджета")
+    @FindBy(css = ".new-card")
+    private WebElement newWidgetButton;
+
+    public List<WeatherWidget> getWeatherWidgetList() {
+        return weatherWidgetList;
     }
 
+    public WebElement getAddWidgetButton() {
+        return newWidgetButton;
+    }
+
+    public WeatherWidget getFirstWeatherWidget() {
+        return weatherWidgetList.get(0);
+    }
 }
