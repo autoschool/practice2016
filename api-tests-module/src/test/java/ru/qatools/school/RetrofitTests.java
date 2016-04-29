@@ -1,3 +1,5 @@
+package ru.qatools.school;
+
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 import retrofit2.Call;

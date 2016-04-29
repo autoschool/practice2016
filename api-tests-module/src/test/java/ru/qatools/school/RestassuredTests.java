@@ -1,3 +1,5 @@
+package ru.qatools.school;
+
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
@@ -5,7 +7,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 /**
- * Created by totallynotkate (Kate Kocijevska).
+ * @author totallynotkate (Kate Kocijevska)
  */
 public class RestassuredTests {
 

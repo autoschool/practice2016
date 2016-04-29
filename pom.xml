@@ -16,11 +16,11 @@
         <module>steps-module</module>
         <module>commons-module</module>
         <module>api-tests-module</module>
+        <module>api-data-module</module>
     </modules>
 
     <properties>
         <compiler.version>1.8</compiler.version>
-
         <allure.version>1.4.23</allure.version>
         <selenium.version>2.53.0</selenium.version>
         <htmlelements.version>1.15</htmlelements.version>
