@@ -13,12 +13,8 @@ import java.util.List;
 public class WidgetTitle extends HtmlElement {
 
     @Name("Название города")
-    @FindBy(css = ".inplace.inplace_displayed")
+    @FindBy(css = ".inplace")
     private HtmlElement cityName;
-
-    @Name("Редактируемое поле города")
-    @FindBy(css = ".inplace.inplace_editable")
-    private HtmlElement cityNameEditable;
 
     @Name("Время и дата")
     @FindBy(css = ".card-title__secondary")
@@ -30,14 +26,10 @@ public class WidgetTitle extends HtmlElement {
 
     @Name("Элементы списка автозаполнения")
     @FindBy(css = ".city__name")
-    private List<HtmlElement> sugesstedCities;
+    private List<HtmlElement> suggestedCities;
 
     public HtmlElement getCityName(){
         return cityName;
-    }
-
-    public HtmlElement getCityNameEditable() {
-        return cityNameEditable;
     }
 
     public HtmlElement getCurrentTime() {
@@ -48,8 +40,8 @@ public class WidgetTitle extends HtmlElement {
         return suggestedCitiesList;
     }
 
-    public List<HtmlElement> getSugesstedCities() {
-        return sugesstedCities;
+    public List<HtmlElement> getSuggestedCities() {
+        return suggestedCities;
     }
 
     public Rectangle getRect() {

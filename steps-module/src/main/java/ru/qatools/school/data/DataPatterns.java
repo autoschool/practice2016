@@ -1,7 +1,7 @@
 package ru.qatools.school.data;
 
 /**
- * Created by sergey.petrov on 25.04.2016.
+ * @author ava1on
  */
 public enum DataPatterns {
     CELSIUS("^-?\\d{1,2}\\.\\d °C$"),
@@ -10,8 +10,9 @@ public enum DataPatterns {
     KAIF("^-?\\d{1,2}\\.\\d °Kaif$"),
     SUNRISE("^Sunrise\\s[0-2][0-9]:[0-5][0-9]$"),
     SUNSET("^Sunset\\s[0-2][0-9]:[0-5][0-9]$"),
-    WIND("^Wind\\s\\d{1,} m\\/s$"),
-    HUMIDITY("^Humidity\\s[0-9]{1,} %$");
+    WIND("^Wind\\s\\d{1,}\\.?\\d{0,2}? m\\/s$"),
+    HUMIDITY("^Humidity\\s[0-9]{1,} %$"),
+    TIME_DATE("^1?\\d [A|P]M, [1-3]?\\d \\w{3} \\d{2}");
 
     private final String pattern;
 
@@ -20,7 +21,7 @@ public enum DataPatterns {
     }
 
     public String getPattern(){
-        return pattern.toString();
+        return pattern;
     }
 
     @Override

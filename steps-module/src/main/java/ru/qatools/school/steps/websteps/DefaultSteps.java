@@ -1,20 +1,26 @@
 package ru.qatools.school.steps.websteps;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.qatools.school.data.DataPatterns;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.pages.PageMethods;
 import ru.qatools.school.pages.blocks.WeatherWidget;
+import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
+import java.util.ArrayList;
+
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.everyItem;
+import static org.cthul.matchers.CthulMatchers.containsPattern;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
+import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.*;
+import static ru.yandex.qatools.matchers.webdriver.TextMatcher.text;
 
 /**
  * Created by kurau.
@@ -46,62 +52,46 @@ public class DefaultSteps {
 
     @Step("Должны видеть на странице «{0}»")
     public void shouldSee(HtmlElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+        assertThat("Должны видеть элемент", element, allOf(exists(),isDisplayed()));
     }
 
     @Step("Должны видеть в заголовке виджета текст: {0}")
-    public void shouldSeeRightCityInWidgetsTitle(String city){
+    public void shouldSeeCityInWidgetsTitle(String city){
         assertThat("Должны видеть текст",
-                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName(), hasText(city));
+                onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getCityName(), hasText(city));
     }
 
     @Step("Число виджетов на странице должно быть равно: {0}")
     public void shouldHaveWidgetNumberOnMainPage(int numberOfWidgets){
-        assertThat("Должны видеть виджетов", onMainPage().getWeatherWidget().size(), is(numberOfWidgets));
+        assertThat("Должны видеть виджетов", onMainPage().getWeatherWidgets(), hasSize(numberOfWidgets));
     }
 
-    @Step("Должны видеть дату соответствующую системной")
-    public void shouldSeeDateEqualToSystemDate() {
-        assertThat("Время или дата не соответствую установленным в системе",
-                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCurrentTime(), hasText(pageMethods.getCurrentDate()));
+    @Step("Изменяем город в заголовке")
+    public void changeWidgetTitle(WeatherWidget weatherWidget, String newCity){
+        pageMethods.clickOn(weatherWidget.getWidgetTitle().getCityName());
+        pageMethods.enterText(newCity, weatherWidget.getWidgetTitle().getCityName());
+        weatherWidget.getWidgetTitle().getCityName().sendKeys(Keys.RETURN);
     }
 
-    @Step("Должны изменить город в заголовке")
-    public void changeWidgetTitle(String oldCity, String newCity){
-        WeatherWidget element = pageMethods.findWidgetByName(oldCity);
-        pageMethods.clickOn(element.getWidgetTitle().getCityName());
-        pageMethods.enterText(newCity, element.getWidgetTitle().getCityNameEditable());
+    @Step("Ввод текста в заголовок и ожидание появления списка автозаполнения")
+    public void suggestList(String part, WidgetTitle widgetTitle){
+        pageMethods.clickOn(widgetTitle.getCityName());
+        pageMethods.enterText(part, widgetTitle.getCityName());
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(widgetTitle.getSuggestedCitiesList()));
     }
 
-    @Step("Должны увидеть список автозаполнения")
-    public void suggestList(String part){
-        pageMethods.clickOn(onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityName());
-        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameEditable().clear();
-        onMainPage().getWeatherWidget().get(0).getWidgetTitle().getCityNameEditable().sendKeys(part);
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(onMainPage().getWeatherWidget().get(0)
-                .getWidgetTitle().getSuggestedCitiesList()));
+    @Step("В списке должны быть только города, содержащие {0}")
+    public void shouldOnlySeeCitiesContaining(String part){
+        assertThat("", new ArrayList<>(onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getSuggestedCities()),
+                everyItem(text(containsString(part))));
     }
 
-    @Step("В списке должны быть только города, соответствующие введенному значению")
-    public void suggestedCitiesListItems(String part){
-        assertThat("В списке отображается неподходящий элемент",
-                onMainPage().getWeatherWidget().get(0).getWidgetTitle().getSugesstedCities(),
-                everyItem(pageMethods.regexMatcher(part)));
+    @Step("Данные в {0} отображаются в формате {1}")
+    public void shouldMatchPattern(HtmlElement element, DataPatterns pattern){
+        assertThat("Данные отображаются в неверном формате", element.getText(), containsPattern(pattern.toString()));
     }
 
-    @Step("Температура должна отображаться в правильном формате")
-    public void shouldSeeMatchingValueForTemperature(String pattern){
-        assertThat("Температура отображается в неверном формате", onMainPage().getWeatherWidget().get(0).getWidgetText().getTemperature(),
-                pageMethods.regexMatcher(pattern));
-    }
-
-    @Step("Погодные данные должны отображаться в правильном формате")
-    public void shouldSeeMatchingValueForWeatherData(int index, String pattern){
-        assertThat("Погодные данные отображается в неверном формате", onMainPage().getWeatherWidget().get(0).getWidgetText()
-                .getWeatherData().get(index), pageMethods.regexMatcher(pattern));
-    }
-
-    @Step("Должны видеть правильный текст в заголовке страницы")
+    @Step("Должны видеть в заголовке страницы {0}")
     public void shouldSeeTitle(String text){
         assertThat("Неверный заголовок страницы", driver.getTitle(), is(text));
     }

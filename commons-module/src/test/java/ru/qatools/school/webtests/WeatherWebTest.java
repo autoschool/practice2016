@@ -13,6 +13,7 @@ import ru.qatools.school.pages.PageMethods;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
 @RunWith(DataProviderRunner.class)
@@ -40,7 +41,8 @@ public class WeatherWebTest {
                 {0, DataPatterns.CELSIUS},
                 {1, DataPatterns.KELVIN},
                 {2, DataPatterns.FAHRENHEIT},
-                {3, DataPatterns.KAIF}
+                {3, DataPatterns.KAIF},
+                {4, DataPatterns.CELSIUS}
         };
     }
 
@@ -60,7 +62,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("6")
+    @TestCaseId("6")
     @Title("Должны видеть только кнопку [+] ")
     public void shouldSeeOnlyAddWidgetButton(){
         defaultSteps.openMainPageWithoutParameters();
@@ -69,119 +71,127 @@ public class WeatherWebTest {
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
+    @TestCaseId("2")
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.shouldSee(onMainPage().getWeatherWidgets().get(0));
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("8")
+    @TestCaseId("8")
     @Title("В заголовке виджета должны видеть город, указанный в запросе")
     public void shouldSeeSelectedCityOnWidgetTitle() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeRightCityInWidgetsTitle(MOSCOW);
+        defaultSteps.shouldSeeCityInWidgetsTitle(MOSCOW);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("16")
+    @TestCaseId("16")
     @Title("Должны видеть новый виджет при открытии страницы без параметров")
     public void shouldSeeNewWidgetOnMainPageWithoutParameters() {
         defaultSteps.openMainPageWithCity("");
-        defaultSteps.shouldSeeRightCityInWidgetsTitle(NEW_WIDGET);
+        defaultSteps.shouldSeeCityInWidgetsTitle(NEW_WIDGET);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("3")
+    @TestCaseId("3")
     @Title("Должны видеть на один виджет больше после нажатия на кнопку [+]")
     public void shouldSeeOneMoreWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        int numberOfWidgets = onMainPage().getWeatherWidget().size();
+        int numberOfWidgets = onMainPage().getWeatherWidgets().size();
         pageMethods.clickOn(onMainPage().getAddNewWidgetButton());
         defaultSteps.shouldHaveWidgetNumberOnMainPage(numberOfWidgets+1);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("5")
+    @TestCaseId("5")
     @Title("Должны видеть на один виджет меньше после нажатия на кнопку [-]")
     public void shouldSeeLessWidgets(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        int numberOfWidgets = onMainPage().getWeatherWidget().size();
-        pageMethods.clickOn(onMainPage().getWeatherWidget().get(0).getRemoveWidgetButton());
+        int numberOfWidgets = onMainPage().getWeatherWidgets().size();
+        pageMethods.clickOn(onMainPage().getWeatherWidgets().get(0).getRemoveWidgetButton());
         defaultSteps.shouldHaveWidgetNumberOnMainPage(numberOfWidgets-1);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
-    @Title("Должны видеть время и дату в установленном в системе формате")
+    @TestCaseId("9")
+    @Title("Должны видеть время и дату в формате \"Ч AM/PM, дд ммм гг\"")
     public void shouldSeeDateAndTime(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeDateEqualToSystemDate();
+        defaultSteps.shouldMatchPattern(onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getCurrentTime(), DataPatterns.TIME_DATE);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("11")
+    @TestCaseId("11")
     @Title("Должны видеть новое название города после изменения")
     public void shouldSeeNewCityAfterChangeUsingEnterKey(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.changeWidgetTitle(MOSCOW,SPB);
-        defaultSteps.shouldSeeRightCityInWidgetsTitle(SPB);
+        defaultSteps.changeWidgetTitle(onMainPage().getWeatherWidgets().get(0), SPB);
+        defaultSteps.shouldSeeCityInWidgetsTitle(SPB);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("12")
+    @TestCaseId("12")
     @Title("Должны видеть список автозаполнения")
     public void shouldSeeSuggestCitiesList(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.suggestList(PART_OF_CITYNAME);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0).getWidgetTitle().getSuggestedCitiesList());
+        defaultSteps.suggestList(PART_OF_CITYNAME, onMainPage().getWeatherWidgets().get(0).getWidgetTitle());
+        defaultSteps.shouldSee(onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getSuggestedCitiesList());
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("13")
-    @Title("В списке автозаполнения должны отображаться только подходящие введенному значению города")
+    @TestCaseId("13")
+    @Title("В списке автозаполнения должны отображаться только города, содержащие введенную строку")
     public void shouldSeeSuitableSuggestedCities(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.suggestList(PART_OF_CITYNAME);
-        defaultSteps.suggestedCitiesListItems(PART_OF_CITYNAME);
+        defaultSteps.suggestList(PART_OF_CITYNAME, onMainPage().getWeatherWidgets().get(0).getWidgetTitle());
+        defaultSteps.shouldOnlySeeCitiesContaining(PART_OF_CITYNAME);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("14")
+    @TestCaseId("14")
     @Title("Должны изменить город используя список автозаполения")
     public void shouldSeeNewCityAfterChangeUsingSuggestedList(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.suggestList(PART_OF_CITYNAME);
-        pageMethods.selectElementFromSuggestedList(SPB);
-        defaultSteps.shouldSeeRightCityInWidgetsTitle(SPB);
+        defaultSteps.suggestList(PART_OF_CITYNAME, onMainPage().getWeatherWidgets().get(0).getWidgetTitle());
+        pageMethods.selectItemFromSuggestedList(SPB);
+        defaultSteps.shouldSeeCityInWidgetsTitle(SPB);
     }
 
     @Test
     @UseDataProvider("temperatureFormat")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
-    @Title("Погодные данные должны отображаться в правильном формате")
-    public void shouldSeeTemperatureInCorrectFormat(int id, DataPatterns pattern) {
+    @TestCaseId("4")
+    @Title("Температура должна отображатся в правильном формате")
+    public void shouldSeeTemperature(int numberOfClicks, DataPatterns pattern) {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        pageMethods.clickOnSeveralTimes(onMainPage().getWeatherWidget().get(0).getWidgetText().getTemperature(), id);
-        defaultSteps.shouldSeeMatchingValueForTemperature(pattern.toString());
+        pageMethods.clickOnSeveralTimes(onMainPage().getWeatherWidgets().get(0).getWidgetText().getTemperature(), numberOfClicks);
+        defaultSteps.shouldMatchPattern(onMainPage().getWeatherWidgets().get(0).getWidgetText().getTemperature(), pattern);
     }
 
     @Test
     @UseDataProvider("weatherDataFormat")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("7")
+    @TestCaseId("7")
     @Title("Погодные данные должны отображаться в правильном формате")
-    public void shouldSeeWeatherDataInCorrectFormat(int id, DataPatterns pattern) {
+    public void shouldSeeWeatherData(int id, DataPatterns pattern) {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSeeMatchingValueForWeatherData(id, pattern.toString());
+        defaultSteps.shouldMatchPattern(onMainPage().getWeatherWidgets().get(0).getWidgetText().getWeatherData().get(id), pattern);
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
-    @Title("Должеы видеть правильны заголовок страницы")
+    @TestCaseId("10")
+    @Title("Должны видеть заголовок страницы")
     public void shouldSeePageTitle(){
         defaultSteps.openMainPageWithoutParameters();
         defaultSteps.shouldSeeTitle(PAGE_TITLE);
+    }
+
+    @Test
+    @TestCaseId("23")
+    @Title("Должны видеть иконку погоды")
+    public void shouldSeeWeatherImage(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldSee(onMainPage().getWeatherWidgets().get(0).getWidgetText().getWeatherImage());
     }
 
     private MainPage onMainPage() {
