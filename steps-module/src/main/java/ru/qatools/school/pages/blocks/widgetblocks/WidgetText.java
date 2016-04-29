@@ -1,7 +1,6 @@
 package ru.qatools.school.pages.blocks.widgetblocks;
 
 import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
@@ -13,9 +12,9 @@ public class WidgetText extends HtmlElement {
 
     @Name("Картинка текущей погоды")
     @FindBy(css = ".weather-image")
-    private WebElement weatherImage;
+    private HtmlElement weatherImage;
 
-    public WebElement getWeatherImage() {
+    public HtmlElement getWeatherImage() {
         return weatherImage;
     }
 
