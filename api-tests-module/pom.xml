@@ -2,16 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+
     <parent>
         <artifactId>school-2016</artifactId>
         <groupId>ru.qatools.school</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
-
 
     <artifactId>api-tests-module</artifactId>
+
+    <properties>
+        <compiler.version>1.8</compiler.version>
+
+        <dataprovider.version>1.10.4</dataprovider.version>
+        <retrofit.version>2.0.2</retrofit.version>
+        <lombok.version>1.16.6</lombok.version>
+    </properties>
+
 
     <dependencies>
         <dependency>
@@ -20,44 +29,30 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>dbclient-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.tngtech.java</groupId>
             <artifactId>junit-dataprovider</artifactId>
-            <version>1.10.4</version>
+            <version>${dataprovider.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.squareup.retrofit</groupId>
+            <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
-            <version>2.0.0-beta2</version>
-            <scope>test</scope>
+            <version>${retrofit.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.jayway.restassured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>2.9.0</version>
-            <scope>test</scope>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+            <version>${retrofit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
-    <reporting>
-        <excludeDefaults>true</excludeDefaults>
-        <plugins>
-            <plugin>
-                <groupId>ru.yandex.qatools.allure</groupId>
-                <artifactId>allure-maven-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-        </plugins>
-    </reporting>
-
 </project>

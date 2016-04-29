@@ -15,9 +15,9 @@ import static org.jooq.impl.DSL.table;
  */
 public class DbClient {
     private static final String CONNECTION_STRING =
-            System.getProperty("db.url", "jdbc:mysql://db.host.ru:3310/db_name");
-    private static final String USER = System.getProperty("db.user", "user");
-    private static final String PASSWORD = System.getProperty("db.password", "password");;
+            System.getProperty("db.url", "jdbc:mysql://db.weather.lanwen.ru:3306/weather");
+    private static final String USER = System.getProperty("db.user", "autoschool");
+    private static final String PASSWORD = System.getProperty("db.password", "ya2016");
 
     private Connection connection;
     private DSLContext create;
@@ -33,7 +33,7 @@ public class DbClient {
 
     public String getCityById(Integer id) {
         Record1 result = create.select(field("name"))
-                .from(table("table_name"))
+                .from(table("City"))
                 .where(field("id").equal(id))
                 .fetchOne();
          return result.getValue(0, String.class);

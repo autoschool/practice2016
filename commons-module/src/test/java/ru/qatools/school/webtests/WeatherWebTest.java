@@ -7,6 +7,7 @@ import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
 
@@ -14,7 +15,6 @@ public class WeatherWebTest {
 
     private static final String MOSCOW = "Moscow";
     private static final String SPB = "Saint Petersburg";
-    private static final String NEW_WIDGET = "What a city?";
 
     private DefaultSteps defaultSteps;
 
@@ -34,7 +34,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    @ru.yandex.qatools.allure.annotations.TestCaseId("1")
+    @TestCaseId("1")
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -45,7 +45,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны увидеть главную страницу только с кнопокой добавить виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("2")
+    @TestCaseId("2")
     public void shouldSeeButtonOnMainPage() {
         defaultSteps.openMainPageWithCity("");
         defaultSteps.shouldSeeButtonAddWidgetOnMainPage();
@@ -54,7 +54,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Должны увидеть главную страницу только с кнопкой добавить виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("3")
+    @TestCaseId("3")
     public void shouldSeeButtonAddWidgetOnMainPageWithoutParameter() {
         defaultSteps.shouldSeeButtonOnlyAddWidgetOnMainPageWithoutParameter();
         defaultSteps.shouldSeeOnlyButtonAddWidget();
@@ -62,7 +62,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем добавлять виджет на главной странице")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("4")
+    @TestCaseId("4")
     public void shouldSeeAddWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeWidgetAdd();
@@ -70,7 +70,7 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем удалить второй виджет на главной странице")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("9")
+    @TestCaseId("9")
     public void shouldSeeRemoveSecondWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeWidgetAdd();
@@ -79,15 +79,15 @@ public class WeatherWebTest {
 
     @Test
     @Title("Может удалить последний виджет на главной странице")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("10")
+    @TestCaseId("10")
     public void shouldSeeRemoveLastWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeWidgetRemove();
     }
 
     @Test
-    @Title("Должны увидеть автозаполнение при не полном наборе названия виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("12")
+    @Title("Должны увидеть автозаполнение при не полном наборе названия")
+    @TestCaseId("12")
     public void shouldAutoCompleteCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldAutocompliteCity(SPB);
@@ -95,15 +95,15 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем переименовать виджет")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("11")
+    @TestCaseId("11")
     public void shouldSeeRenameWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB);
     }
 
     @Test
-    @Title("Можем очистить название, после чего назначить нове имя")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("13")
+    @Title("Можем очистить название виджета, после чего назначить новое имя")
+    @TestCaseId("13")
     public void shouldSeeClearWidgetName() {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeRenameWidget(SPB, "");
@@ -112,88 +112,10 @@ public class WeatherWebTest {
 
     @Test
     @Title("Можем написать не полное имя виджета")
-    @ru.yandex.qatools.allure.annotations.TestCaseId("14")
+    @TestCaseId("14")
     public void shouldSeeNotFullNameWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.shouldSeeRenameWidget(MOSCOW, SPB.substring(0, SPB.length() / 3));
-    }
-
-    @Test
-    @Title("Должны увидеть надпись показателя рассвета")
-    public void shouldSeeTitleSunrise() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть надпись показателя заката")
-    public void shouldSeeTitleSunset() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть надпись показателя скорости ветра")
-    public void shouldSeeTitleWind() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть надпись показателя влажности")
-    public void shouldSeeTitleHumidity() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть картинку для показателя рассвета")
-    public void shouldSeeImageSunrise() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть картинку для показателя рассвета")
-    public void shouldSeeImageSunset() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть картинку для показателя рассвета")
-    public void shouldSeeImageWind() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть картинку для показателя рассвета")
-    public void shouldSeeImageHumidity() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть основную картинку виджета")
-    public void shouldSeeMainImage() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть формат времени для значения поля рассвет")
-    public void shouldSeeFormatTimeSunrise() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть формат времени для значения поля закат")
-    public void shouldSeeFormatTimeSunset() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть формат скорости для значения поля скорость ветра")
-    public void shouldSeeFormatSpeedWind() {
-
-    }
-
-    @Test
-    @Title("Должны увидеть формат времени для значения поля влажность")
-    public void shouldSeeFormatHumidity() {
-
     }
 
     @Test
@@ -203,8 +125,6 @@ public class WeatherWebTest {
         defaultSteps.openMainPageWithCity(SPB);
         defaultSteps.shouldSeeChangeFormatTemperature();
     }
-
-
 }
 
 

@@ -1,5 +1,6 @@
 package ru.qatools.school.pages;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,15 +15,19 @@ import java.util.List;
 /**
  * Created by kurau.
  */
+
+@Getter
 public class MainPage {
 
     public MainPage(WebDriver driver) {
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
 
+    private MainPage mainPage = this;
+
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
-    private List<WeatherWidget> weatherWidget;
+    private List<WeatherWidget> weatherWidgets;
 
     @Name("Список городов")
     @FindBy(css = ".inplace.inplace_displayed")
@@ -76,61 +81,5 @@ public class MainPage {
     @Name("Основное изображение на виджете")
     @FindBy(css = ".wi.weather-image")
     private WebElement mainImage;
-
-    public List<WeatherWidget> getWeatherWidgets() {
-        return weatherWidget;
-    }
-
-    public List<WebElement> getPlaces() {
-        return places;
-    }
-
-    public WebElement getEditPlace() {
-        return editPlace;
-    }
-
-    public WebElement getAddWidget() {
-        return addWidget;
-    }
-
-    public List<WebElement> getAutoCompleteValues() {
-        return autoCompleteValues;
-    }
-
-    public List<WebElement> getTitleValues() {
-        return titleValues;
-    }
-
-    public List<WebElement> getTimeOnWidget() {
-        return timeOnWidget;
-    }
-
-    public List<WebElement> getInfoValues() {
-        return infoValues;
-    }
-
-    public List<WebElement> getListTemperatures() {
-        return listTemperatures;
-    }
-
-    public WebElement getSunrise() {
-        return sunrise;
-    }
-
-    public WebElement getSunset() {
-        return sunset;
-    }
-
-    public WebElement getWind() {
-        return wind;
-    }
-
-    public WebElement getHumidity() {
-        return humidity;
-    }
-
-    public WebElement getMainImage() {
-        return mainImage;
-    }
 
 }
