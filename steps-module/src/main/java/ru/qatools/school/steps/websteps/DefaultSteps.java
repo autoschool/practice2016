@@ -3,10 +3,7 @@ package ru.qatools.school.steps.websteps;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
-import ru.qatools.school.pages.MainPageMethods;
 import ru.yandex.qatools.allure.annotations.Step;
-
-import java.util.Collections;
 
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
@@ -19,9 +16,9 @@ import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDispl
  */
 public class DefaultSteps {
 
-    public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
-    public static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru/";
-    private static final String NEW_WIDGET = "What a city?";
+    private static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru/";
+
 
     private WebDriver driver;
 
@@ -39,11 +36,11 @@ public class DefaultSteps {
         driver.get(MAIN_PAGE_WITHOUT_PARAMETERS);
     }
 
-    @Step("Должны видеть на странице «{0}»")
-    public void shouldSee(WebElement...elements) {
+    @Step("Должны видеть на странице элементы")
+    public void shouldSee(WebElement... elements) {
         for (WebElement element : elements) {
             assertThat("Не отображается элемент: " + element.getAttribute("class") +
-                    " and value: " + element.getAttribute("value"),
+                            " and value: " + element.getAttribute("value"),
                     element, isDisplayed());
         }
     }
@@ -54,20 +51,16 @@ public class DefaultSteps {
                 onMainPage().getPlaces().get(0).getText(), equalTo(city));
     }
 
-    public void addWidgetOnMainPage(String city) {
-        mainPageMethods().addWidget();
-        mainPageMethods().renameWidget(NEW_WIDGET, city);
-    }
-
     @Step("На главной странице без виджетов отображается кнопка добавить виджет")
     public void shouldSeeButtonAddWidgetOnMainPage() {
-        shouldSee(mainPageMethods().getMainPage().getAddWidget());
+        shouldSee(onMainPage().getAddWidget());
     }
 
     @Step("На главной странице должна быть только кнопка добавления города")
     public void shouldSeeOnlyButtonAddWidget() {
+        shouldSee(onMainPage().getAddWidget());
         assertThat("На главной странице есть виджеты",
-                mainPageMethods().getAllWidgets().size(), is(0));
+                widgetSteps().getAllWidgets().size(), is(0));
     }
 
     @Step("Должны увидеть главную страницу с кнопкой добавить виджет")
@@ -78,33 +71,33 @@ public class DefaultSteps {
 
     @Step("На главной странице переименование название виджета")
     public void shouldSeeRenameWidget(String oldName, String newName) {
-        mainPageMethods().renameWidget(oldName, newName);
-        shouldSee(mainPageMethods().findElement(mainPageMethods().getAllPlaces(), newName));
+        widgetSteps().renameWidget(oldName, newName);
+        shouldSee(widgetSteps().findElement(widgetSteps().getAllPlaces(), newName));
         assertThat("Новое название в списке названий виджетов не найдено", newName,
-                equalTo(mainPageMethods().getAllPlaces().get(0).getText()));
+                equalTo(widgetSteps().getAllPlaces().get(0).getText()));
     }
 
     @Step("На главной странице виджеты добавляются")
-    public void shouldSeeWidgetAdd(String city) {
-        int count = mainPageMethods().countWidgets();
-        addWidgetOnMainPage(city);
-        assertThat("Widget has", city, is(mainPageMethods().hasItem(mainPageMethods().getAllPlaces())));
-        assertThat("Количество виджетов не увеличилось", mainPageMethods().getAllWidgets().size(), is(count + 1));
+    public void shouldSeeWidgetAdd() {
+        int count = widgetSteps().countWidgets();
+        widgetSteps().addWidget();
+        assertThat("Количество виджетов не увеличилось",
+                widgetSteps().getAllPlaces().size(), is(count + 1));
     }
 
     @Step("На главной странице виджет можно удалить")
     public void shouldSeeWidgetRemove() {
-        int count = mainPageMethods().countWidgets();
-        mainPageMethods().clickOnElement(mainPageMethods().getAllWidgets().get(0).getRemoveBtn());
+        int count = widgetSteps().countWidgets();
+        onMainPage().getWeatherWidgets().get(0).getRemoveBtn().click();
         assertThat("Количество виджетов не уменьшилось после удаления одного виджета",
-                mainPageMethods().countWidgets(), is(count - 1));
+                widgetSteps().countWidgets(), is(count - 1));
     }
 
     @Step("На ввод не полного названия города должно срабатывать автозаполнение")
     public void shouldAutocompliteCity(String city) {
-        mainPageMethods().autoComplete(city);
+        widgetSteps().autoComplete(city);
         assertThat("Заголовок города равен названию набираемого города",
-                mainPageMethods().getAllPlaces().get(0).getText(), equalTo(city));
+                widgetSteps().getAllPlaces().get(0).getText(), equalTo(city));
     }
 
     @Step("На главной странице меняется формат градусов")
@@ -116,11 +109,12 @@ public class DefaultSteps {
     }
 
     public void shouldSeeWidgetElements() {
-        shouldSee(onMainPage().getTitleValues().toArray(new WebElement[onMainPage().getTitleValues().size()]));
-        shouldSee(onMainPage().getHumidity());
-        shouldSee(onMainPage().getSunrise());
-        shouldSee(onMainPage().getSunset());
-        shouldSee(onMainPage().getWind());
+        shouldSee(onMainPage().getTitleValues().
+                toArray(new WebElement[onMainPage().getTitleValues().size()]));
+
+        shouldSee(onMainPage().getHumidity(), onMainPage().getSunrise(),
+                onMainPage().getSunset(), onMainPage().getWind());
+
         widgetSteps().shouldSeeFormatTimeSunrise();
         widgetSteps().shouldSeeFormatTimeSunset();
         widgetSteps().shouldSeeFormatSpeedWind();
@@ -129,10 +123,6 @@ public class DefaultSteps {
 
     private MainPage onMainPage() {
         return new MainPage(driver);
-    }
-
-    private MainPageMethods mainPageMethods() {
-        return new MainPageMethods(driver);
     }
 
     private WidgetSteps widgetSteps() {
