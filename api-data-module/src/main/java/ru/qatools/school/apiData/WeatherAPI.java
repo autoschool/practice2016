@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by totallynotkate (Kate Kocijevska).
  */
-public interface Cities {
+public interface WeatherAPI {
     @GET("api/cities")
     Call<List<CityJSON>> cities(@Query("limit") String limit);
 }
