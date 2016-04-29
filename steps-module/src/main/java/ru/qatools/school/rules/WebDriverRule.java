@@ -4,15 +4,19 @@ import org.junit.rules.ExternalResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by kurau.
  */
 public class WebDriverRule extends ExternalResource {
 
+    private static final int TIMEOUT = 5;
     private WebDriver driver;
 
     protected void before() throws Throwable {
         this.driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
     }
 
     protected void after() {

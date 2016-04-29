@@ -32,6 +32,10 @@
             <version>1.10.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -53,5 +57,4 @@
             </plugin>
         </plugins>
     </reporting>
-
 </project>
