@@ -7,6 +7,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.qatools.school.apiData.CityJSON;
+import ru.qatools.school.apiData.URI;
 import ru.qatools.school.apiData.WeatherAPI;
 
 import java.io.IOException;
@@ -20,13 +21,11 @@ import static org.hamcrest.Matchers.is;
  */
 public class RetrofitTests {
 
-    private static final String BASE_URL = "http://weather.lanwen.ru";
     private static final String NEGATIVE_LIMIT = "-1";
     private static final long MAX_INT_PLUS_ONE_LIMIT = (long) Integer.MAX_VALUE + 1;
-    private static final int CITIES_LIST_SIZE = 272;
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(URI.BASE_PATH.getValue())
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

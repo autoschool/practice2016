@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 import java.util.List;
 
 /**
- * Created by totallynotkate (Kate Kocijevska).
+ * @author totallynotkate (Kate Kocijevska).
  */
 public interface WeatherAPI {
     @GET("api/cities")
