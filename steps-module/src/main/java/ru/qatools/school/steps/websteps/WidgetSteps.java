@@ -20,13 +20,10 @@ public class WidgetSteps {
 
     public WidgetSteps(WebDriver driver) {
         this.driver = driver;
+        mainPage = new MainPage(driver);
     }
 
-    private MainPage mainPage = new MainPage(driver);
-
-    private MainPageMethods mainPageMethods() {
-        return new MainPageMethods(driver);
-    }
+    private MainPage mainPage;
 
     @Step("Должны увидеть изменение формата вывода градусов")
     public void shouldSeeChangeFormatDegreeCelciumToKelvin() {
@@ -62,7 +59,7 @@ public class WidgetSteps {
     @Step("Формат времени для значения поля рассвет должен быть 'xx:xx'")
     public void shouldSeeFormatTimeSunrise() {
         assertThat("Формат времени для значения поля рассвет не 'xx:xx'",
-                mainPageMethods().getMainPage().getInfoValues().get(0).getText(),
+                mainPage.getInfoValues().get(0).getText(),
                 WebDriverMatchers.stringMatcher(EXPECT_STRING.SUNRISE_TIME.toString()));
     }
 
