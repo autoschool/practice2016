@@ -13,7 +13,6 @@ public enum EXPECT_STRING {
         this.value = value;
     }
 
-
     @Override
     public String toString() {
         return value;
