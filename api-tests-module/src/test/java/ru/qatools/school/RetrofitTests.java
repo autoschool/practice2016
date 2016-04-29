@@ -38,11 +38,9 @@ public class RetrofitTests {
     }
 
     @Test
-    public void shouldGetCitiesListWhenRequestMaxIntegerPlusOneCities() throws IOException {
-        WeatherAPI cities = retrofit.create(WeatherAPI.class);
-        Call<List<CityJSON>> request = cities.cities(String.valueOf(MAX_INT_PLUS_ONE_LIMIT));
-        Response<List<CityJSON>> response = request.execute();
-        assertThat(response.code(), is(HttpStatus.SC_OK));
-        assertThat(response.body().size(), is(CITIES_LIST_SIZE));
+    public void shouldGetErrorWhenRequestMaxIntegerPlusOneCities() throws IOException {
+        WeatherAPI weather = retrofit.create(WeatherAPI.class);
+        Response<List<CityJSON>> response = weather.cities(String.valueOf(MAX_INT_PLUS_ONE_LIMIT)).execute();
+        assertThat(response.code(), is(HttpStatus.SC_BAD_REQUEST));
     }
 }

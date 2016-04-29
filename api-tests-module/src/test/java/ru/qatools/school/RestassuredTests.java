@@ -4,7 +4,6 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import static com.jayway.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
 
 /**
  * @author totallynotkate (Kate Kocijevska)
@@ -30,15 +29,13 @@ public class RestassuredTests {
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
     @Test
-    public void shouldGetCitiesListWhenRequestMaxIntegerPlusOneCities(){
+    public void shouldGetErrorWhenRequestMaxIntegerPlusOneCities(){
         given().baseUri(BASE_URI)
                 .basePath(BASE_PATH)
                 .param(LIMIT_PARAMETER, MAX_INT_PLUS_ONE_LIMIT)
                 .get(CITIES_RESOURCE)
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .and()
-                .body("toSet.size()", is(CITIES_LIST_SIZE));
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 }
