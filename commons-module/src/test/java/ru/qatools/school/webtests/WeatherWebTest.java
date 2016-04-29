@@ -23,10 +23,26 @@ public class WeatherWebTest {
     }
 
     @Test
-    @Title("Должны видеть виджет на главной странице")
+    @Title("Widget on main page must be seen")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.shouldSeeWidget(onMainPage().getWeatherWidgetList().get(0));
+    }
+
+    @Test
+    @Title("City from widget must match city from URL")
+    public void shouldWidgetCityBeLinkCity() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldBeWeatherOfLinkCity(MOSCOW, onMainPage().getWeatherWidgetList().get(0).getWidgetTitle().getWidgetCity());
+    }
+
+    @Test
+    @Title("Widget must be added after pushing \"add new widget\" button")
+    public void shouldWidgetBeAdded() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        int buttonTimesPushed = 5;
+        defaultSteps.pushNewWeatherButtonNTimes(buttonTimesPushed);
+        defaultSteps.shouldSeeNumWidgets(buttonTimesPushed + 1, onMainPage().getWeatherWidgetList());
     }
 
     private MainPage onMainPage() {
