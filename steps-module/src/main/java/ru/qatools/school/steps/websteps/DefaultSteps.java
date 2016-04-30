@@ -6,13 +6,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.qatools.school.data.DataPatterns;
 import ru.qatools.school.pages.MainPage;
-import ru.qatools.school.pages.PageMethods;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.String.format;
 import static org.cthul.matchers.CthulMatchers.containsPattern;
@@ -27,17 +27,15 @@ import static ru.yandex.qatools.matchers.webdriver.TextMatcher.text;
  */
 public class DefaultSteps {
 
-    public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
-    public static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru";
+    private static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
+    private static final String MAIN_PAGE_WITHOUT_PARAMETERS = "http://weather.lanwen.ru";
 
     private WebDriver driver;
     private WebDriverWait webDriverWait;
-    private PageMethods pageMethods;
 
     public DefaultSteps(WebDriver driver) {
         this.driver = driver;
         webDriverWait = new WebDriverWait(driver, 5);
-        pageMethods = new PageMethods(driver);
     }
 
     @Step("Открываем главную страницу для города «{0}»")
@@ -68,15 +66,15 @@ public class DefaultSteps {
 
     @Step("Изменяем город в заголовке")
     public void changeWidgetTitle(WeatherWidget weatherWidget, String newCity){
-        pageMethods.clickOn(weatherWidget.getWidgetTitle().getCityName());
-        pageMethods.enterText(newCity, weatherWidget.getWidgetTitle().getCityName());
+        clickOn(weatherWidget.getWidgetTitle().getCityName());
+        enterText(newCity, weatherWidget.getWidgetTitle().getCityName());
         weatherWidget.getWidgetTitle().getCityName().sendKeys(Keys.RETURN);
     }
 
     @Step("Ввод текста в заголовок и ожидание появления списка автозаполнения")
     public void suggestList(String part, WidgetTitle widgetTitle){
-        pageMethods.clickOn(widgetTitle.getCityName());
-        pageMethods.enterText(part, widgetTitle.getCityName());
+        clickOn(widgetTitle.getCityName());
+        enterText(part, widgetTitle.getCityName());
         webDriverWait.until(ExpectedConditions.elementToBeClickable(widgetTitle.getSuggestedCitiesList()));
     }
 
@@ -96,7 +94,34 @@ public class DefaultSteps {
         assertThat("Неверный заголовок страницы", driver.getTitle(), is(text));
     }
 
+    @Step("Выбираем город из списка автозаполнения")
+    public void selectItemFromSuggestedList(String city){
+        clickOn(findElementByName(city, onMainPage().getWeatherWidgets().get(0).getWidgetTitle().getSuggestedCities()));
+        webDriverWait.until(ExpectedConditions.not(ExpectedConditions.stalenessOf(onMainPage().getWeatherWidgets().get(0))));
+    }
+
     private MainPage onMainPage() {
         return new MainPage(driver);
+    }
+
+    private void enterText(String text, HtmlElement field){
+        field.clear();
+        field.sendKeys(text);
+    }
+
+    public void clickOn(HtmlElement element){
+        element.click();
+    }
+
+    public void clickOnSeveralTimes(HtmlElement element, int times){
+        while(times-- > 0)
+            element.click();
+    }
+
+    private HtmlElement findElementByName(String item, List<HtmlElement> list){
+        for(HtmlElement elem : list)
+            if(elem.getText().equals(item))
+                return elem;
+        return null;
     }
 }

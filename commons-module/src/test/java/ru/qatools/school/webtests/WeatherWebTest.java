@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.qatools.school.data.DataPatterns;
 import ru.qatools.school.pages.MainPage;
-import ru.qatools.school.pages.PageMethods;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
@@ -19,11 +18,11 @@ import ru.yandex.qatools.allure.annotations.Title;
 @RunWith(DataProviderRunner.class)
 public class WeatherWebTest {
 
-    public static final String MOSCOW = "Moscow";
-    public static final String SPB = "Saint Petersburg";
-    public static final String PART_OF_CITYNAME = "Saint P";
-    public static final String PAGE_TITLE = "Weather";
-    public static final String NEW_WIDGET = "What a city?";
+    private static final String MOSCOW = "Moscow";
+    private static final String SPB = "Saint Petersburg";
+    private static final String PART_OF_CITYNAME = "Saint P";
+    private static final String PAGE_TITLE = "Weather";
+    private static final String NEW_WIDGET = "What a city?";
 
     @DataProvider
     public static Object[][] weatherDataFormat() {
@@ -47,7 +46,6 @@ public class WeatherWebTest {
     }
 
     private DefaultSteps defaultSteps;
-    private PageMethods pageMethods;
 
     @Rule
     public WebDriverRule webDriverRule = new WebDriverRule();
@@ -58,7 +56,6 @@ public class WeatherWebTest {
     @Before
     public void initSteps() {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
-        pageMethods = new PageMethods(webDriverRule.getDriver());
     }
 
     @Test
@@ -100,7 +97,7 @@ public class WeatherWebTest {
     public void shouldSeeOneMoreWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
         int numberOfWidgets = onMainPage().getWeatherWidgets().size();
-        pageMethods.clickOn(onMainPage().getAddNewWidgetButton());
+        defaultSteps.clickOn(onMainPage().getAddNewWidgetButton());
         defaultSteps.shouldHaveWidgetNumberOnMainPage(numberOfWidgets+1);
     }
 
@@ -110,7 +107,7 @@ public class WeatherWebTest {
     public void shouldSeeLessWidgets(){
         defaultSteps.openMainPageWithCity(MOSCOW);
         int numberOfWidgets = onMainPage().getWeatherWidgets().size();
-        pageMethods.clickOn(onMainPage().getWeatherWidgets().get(0).getRemoveWidgetButton());
+        defaultSteps.clickOn(onMainPage().getWeatherWidgets().get(0).getRemoveWidgetButton());
         defaultSteps.shouldHaveWidgetNumberOnMainPage(numberOfWidgets-1);
     }
 
@@ -155,7 +152,7 @@ public class WeatherWebTest {
     public void shouldSeeNewCityAfterChangeUsingSuggestedList(){
         defaultSteps.openMainPageWithCity(MOSCOW);
         defaultSteps.suggestList(PART_OF_CITYNAME, onMainPage().getWeatherWidgets().get(0).getWidgetTitle());
-        pageMethods.selectItemFromSuggestedList(SPB);
+        defaultSteps.selectItemFromSuggestedList(SPB);
         defaultSteps.shouldSeeCityInWidgetsTitle(SPB);
     }
 
@@ -165,7 +162,7 @@ public class WeatherWebTest {
     @Title("Температура должна отображатся в правильном формате")
     public void shouldSeeTemperature(int numberOfClicks, DataPatterns pattern) {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        pageMethods.clickOnSeveralTimes(onMainPage().getWeatherWidgets().get(0).getWidgetText().getTemperature(), numberOfClicks);
+        defaultSteps.clickOnSeveralTimes(onMainPage().getWeatherWidgets().get(0).getWidgetText().getTemperature(), numberOfClicks);
         defaultSteps.shouldMatchPattern(onMainPage().getWeatherWidgets().get(0).getWidgetText().getTemperature(), pattern);
     }
 
