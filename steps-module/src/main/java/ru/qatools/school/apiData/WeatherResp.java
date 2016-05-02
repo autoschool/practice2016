@@ -1,4 +1,4 @@
-package ru.qatools.school.apiData;
+package ru.qatools.school.apidata;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import java.util.List;
  */
 public class WeatherResp {
 
-    public String city;
+    private String city;
 
-    public List<Temperature> temperatures;
+    private List<Temperature> temperatures;
 
     public String getCity() {
         return city;

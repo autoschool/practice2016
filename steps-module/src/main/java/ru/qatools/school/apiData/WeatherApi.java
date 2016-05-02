@@ -1,4 +1,4 @@
-package ru.qatools.school.apiData;
+package ru.qatools.school.apidata;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

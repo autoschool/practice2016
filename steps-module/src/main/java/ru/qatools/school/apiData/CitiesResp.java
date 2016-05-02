@@ -1,4 +1,4 @@
-package ru.qatools.school.apiData;
+package ru.qatools.school.apidata;
 
 /**
  * @author onegines (Eugene Kirienko)

@@ -1,12 +1,12 @@
-package ru.qatools.school.apiData;
+package ru.qatools.school.apidata;
 
 /**
  * @author onegines
  */
 public class Temperature {
 
-    public float value;
-    public String unit;
+    private float value;
+    private String unit;
 
     public float getValue() {
         return value;

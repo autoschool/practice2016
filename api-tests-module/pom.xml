@@ -21,5 +21,10 @@
             <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>dbclient-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
