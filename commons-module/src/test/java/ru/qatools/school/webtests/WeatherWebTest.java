@@ -37,7 +37,7 @@ public class WeatherWebTest {
     public WebDriverRule webDriverRule = new WebDriverRule();
 
     @Rule
-    public TPInformerRule tms = new TPInformerRule("OnoDee87");
+    public TPInformerRule tms = new TPInformerRule("onodee87");
 
     @Before
     public void initSteps() {
@@ -107,6 +107,7 @@ public class WeatherWebTest {
     }
 
     @Test
+    @TestCaseId("9")
     @Title("")
     public void shouldSeeScreenshot(){
         defaultSteps.openMainPageWithCity(MOSCOW.getName());

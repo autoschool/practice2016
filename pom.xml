@@ -16,6 +16,7 @@
         <module>steps-module</module>
         <module>commons-module</module>
         <module>api-tests-module</module>
+        <module>dbclient-module</module>
     </modules>
 
     <properties>

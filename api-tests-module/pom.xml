@@ -15,6 +15,7 @@
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.jayway.restassured</groupId>
@@ -24,6 +25,12 @@
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>steps-module</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
