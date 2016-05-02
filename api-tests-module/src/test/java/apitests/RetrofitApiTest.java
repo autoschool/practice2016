@@ -10,6 +10,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofits.APITestService;
 import retrofits.City;
+import ru.qatools.school.tp.TPInformerRule;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import java.io.IOException;
@@ -27,6 +29,9 @@ public class RetrofitApiTest {
 
     private APITestService service;
 
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("arrumm");
+
     @Before
     public void initService() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -37,8 +42,9 @@ public class RetrofitApiTest {
     }
 
     @Test
-    @Title("Should get error 400 with 'limit' parameter illegal type")
-    public void ShouldGetCityWeatherData() throws IOException {
+    @Title("Should get error 400 with 'limit' parameter String type")
+    @TestCaseId("14")
+    public void ShouldGetErrorLimitIsString() throws IOException {
 
         Call<List<City>> request = service.cities("DD");
         Response<List<City>> response = request.execute();
@@ -48,6 +54,7 @@ public class RetrofitApiTest {
 
     @Test
     @Title("Should get all cities with 'bu' or 'Bu'")
+    @TestCaseId("15")
     public void ShouldGetCitiesWithBu() throws IOException {
 
         Call<List<City>> request = service.suggest("bu");

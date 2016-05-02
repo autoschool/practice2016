@@ -5,9 +5,9 @@ package retrofits;
  */
 public class City {
 
-    private int uid;
+    public int uid;
 
-    private String name;
+    public String name;
 
     public String getName() {
         return name;
