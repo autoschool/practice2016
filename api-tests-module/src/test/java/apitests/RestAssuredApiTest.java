@@ -22,12 +22,22 @@ public class RestAssuredApiTest {
     @Before
     public void initService() {
         RestAssured RA = new RestAssured();
+<<<<<<< HEAD
         requestSpecs = RA.given().baseUri(BASE_URL).basePath(BASE_PATH);
+=======
+        requestSpecs = RA.given();
+        requestSpecs.baseUri(BASE_URL);
+        requestSpecs.basePath(BASE_PATH);
+>>>>>>> 6774fddb9726b65f1b142e2db635462f2fc75246
     }
 
     @Test
     @Title("Should get error 400 with 'limit' parameter illegal type")
+<<<<<<< HEAD
     public void shouldGetBadRequestCitiesIncorrectParType() throws IOException {
+=======
+    public void ShouldGetBadRequestCitiesIncorrectParType() throws IOException {
+>>>>>>> 6774fddb9726b65f1b142e2db635462f2fc75246
         requestSpecs.param(LIMIT_PARAM, "DD")
                 .expect().statusCode(HttpStatus.SC_BAD_REQUEST)
                 .when().get(CITIES_METHOD);
@@ -35,7 +45,11 @@ public class RestAssuredApiTest {
 
     @Test
     @Title("Should get all cities with 'bu' or 'Bu'")
+<<<<<<< HEAD
     public void shouldGetCitiesWithBu() throws IOException {
+=======
+    public void ShouldGetCitiesWithBu() throws IOException {
+>>>>>>> 6774fddb9726b65f1b142e2db635462f2fc75246
         requestSpecs.param(QUERY_PARAM, "bu")
                 .expect()
                 .statusCode(HttpStatus.SC_OK)

@@ -44,7 +44,11 @@ public class RetrofitApiTest {
     @Test
     @Title("Should get error 400 with 'limit' parameter String type")
     @TestCaseId("14")
+<<<<<<< HEAD
     public void shouldGetErrorLimitIsString() throws IOException {
+=======
+    public void ShouldGetErrorLimitIsString() throws IOException {
+>>>>>>> 6774fddb9726b65f1b142e2db635462f2fc75246
 
         Call<List<City>> request = service.cities("DD");
         Response<List<City>> response = request.execute();
@@ -55,12 +59,20 @@ public class RetrofitApiTest {
     @Test
     @Title("Should get all cities with 'bu' or 'Bu'")
     @TestCaseId("15")
+<<<<<<< HEAD
     public void shouldGetCitiesWithBu() throws IOException {
+=======
+    public void ShouldGetCitiesWithBu() throws IOException {
+>>>>>>> 6774fddb9726b65f1b142e2db635462f2fc75246
 
         Call<List<City>> request = service.suggest("bu");
         Response<List<City>> response = request.execute();
         assertThat("Request status different from expected", response.code(), is(HttpStatus.SC_OK));
+<<<<<<< HEAD
         assertThat("At least one of suggested cities don't contain 'bu'",
+=======
+        assertThat("Some city don't contain 'bu'",
+>>>>>>> 6774fddb9726b65f1b142e2db635462f2fc75246
                 response.body(),
                 everyItem(hasProperty("name", anyOf(containsString("bu"), containsString("Bu")))));
 
