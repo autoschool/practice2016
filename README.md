@@ -1,3 +1,3 @@
-# Practice of automation school 2016
+Repository с файлом для docker.
+https://github.com/merkushevio/docker.git
 
-See all info in repo [autoschool/autoschool.github.io](https://github.com/autoschool/autoschool.github.io)
