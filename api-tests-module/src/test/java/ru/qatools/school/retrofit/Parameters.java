@@ -14,7 +14,7 @@ public class Parameters {
     }
 
     public static Object[][] limitsNegative() {
-        return new Object[][] {
+        return new Object[][]{
                 {"null", 404},
                 {"-3", 404},
                 {"%20", 404},
@@ -34,31 +34,35 @@ public class Parameters {
         };
     }
 
-    public static List<Object[]> cityRegion() {
-        List<Object[]> queries
-                = new ArrayList<Object[]>();
+    public static List<List<Object>> cityRegionPositive() {
+        List<List<Object>> queries
+                = new ArrayList<>();
         ArrayList<String> listCity = new ArrayList<>();
         ArrayList<String> listRegion = new ArrayList<>();
 
         listCity.add("Moscow");
-        listCity.add("");
-        listCity.add("Mosc");
-        listCity.add("Moscow Saint Petersburg");
-        listCity.add("S");
-        listCity.add("%20");
-        listCity.add(null);
+        //listCity.add("");
+        //listCity.add("Mosc");
+        //listCity.add("Moscow Saint Petersburg");
+        //listCity.add("S");
+        //listCity.add("%20");
+        //listCity.add(null);
 
         listRegion.add("ru");
         listRegion.add("");
-        listRegion.add("en");
-        listRegion.add("eng ru");
-        listRegion.add("e");
-        listRegion.add("!");
-        listRegion.add(null);
+        //listRegion.add("en");
+        //listRegion.add("eng ru");
+        //listRegion.add("e");
+        //listRegion.add("!");
+        //listRegion.add(null);
 
         for (String city : listCity) {
             for (String region : listRegion) {
-                queries.add(new Object[]{city, region, 200});
+                ArrayList<Object> list = new ArrayList<>();
+                list.add(city);
+                list.add(region);
+                list.add(200);
+                queries.add(list);
             }
         }
         return queries;

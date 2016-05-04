@@ -41,7 +41,8 @@ public class WeatherWebApiRest {
         given().baseUri(MAIN_PAGE).basePath(BASE_PATH)
                 .get(CITIES)
                 .then().assertThat().statusCode(HttpStatus.SC_OK)
-                .and().body("size()", greaterThan(ZERO));
+                .and().body("size()", greaterThan(ZERO))
+                .and().body("get(0).get(\"country\")", is(notNullValue()) );
     }
 
     @Test

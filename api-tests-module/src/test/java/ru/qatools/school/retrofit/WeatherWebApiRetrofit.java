@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.qatools.school.ApiMatchers;
 import ru.qatools.school.WebApiInterface;
 import ru.qatools.school.entity.City;
+import ru.qatools.school.entity.Widget;
 import ru.yandex.qatools.allure.annotations.Title;
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +42,11 @@ public class WeatherWebApiRetrofit {
     @DataProvider
     public static Object[][] suggest() {
         return Parameters.queryString();
+    }
+
+    @DataProvider
+    public static List<List<Object>> weather() {
+        return Parameters.cityRegionPositive();
     }
 
     @BeforeClass
@@ -103,5 +109,14 @@ public class WeatherWebApiRetrofit {
                 anyOf(is(ApiMatchers.findInList(response.body())), is(nullValue())));
     }
 
+    @Test
+    @UseDataProvider("weather")
+    @Title("Получаем данные по городу используя метод /weather с параметрами city и region")
+    public void shouldSeeWeatherCity(String city, String region, int pageCode) throws IOException{
+        Call<Widget> call = webApiInterface.getWeatherWidget(city, region);
+        Response<Widget> response = call.execute();
+        assertThat("Статус страницы не соответствует ожидаемому " + pageCode +
+                ". \n Параметр запроса: " + city, response.code(), is(pageCode));
+    }
 
 }
