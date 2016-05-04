@@ -1,4 +1,4 @@
-package ru.qatools.school.Retrofit;
+package ru.qatools.school;
 
 /**
  * Created by onodee on 27.04.2016.

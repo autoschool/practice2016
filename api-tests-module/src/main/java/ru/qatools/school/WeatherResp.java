@@ -1,4 +1,4 @@
-package ru.qatools.school.Retrofit;
+package ru.qatools.school;
 
 import java.util.List;
 

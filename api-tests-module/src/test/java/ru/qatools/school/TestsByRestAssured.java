@@ -1,6 +1,7 @@
 package ru.qatools.school;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.qatools.school.tp.TPInformerRule;
@@ -11,8 +12,8 @@ import static org.hamcrest.Matchers.*;
 
 
 /**
- * Created by onodee on 30.04.2016.
- */
+* Created by onodee on 30.04.2016.
+*/
 public class TestsByRestAssured {
 
     @Rule

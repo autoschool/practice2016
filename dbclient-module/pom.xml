@@ -26,6 +26,11 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>api-tests-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 

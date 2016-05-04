@@ -28,7 +28,6 @@ public class MyFirstTest {
     }
 
     @Test
-    @Ignore
     @UseDataProvider("getPlaces")
     public void userGoTo(Place place) {
         user().goTo(place)
