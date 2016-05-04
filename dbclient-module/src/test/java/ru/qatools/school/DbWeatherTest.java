@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,13 +31,13 @@ public class DbWeatherTest {
     }
 
     @Test
-    public void shouldSeeSuggestResponse() {
-        List<String> suggestDb = dbClient.getSuggestByQuery("Mo");
-        List<String> suggestApi = dbClient.getSuggestByQuery("Mo");
+    public void shouldSeeSuggestResponse() throws IOException{
+        List<String> suggestDb = dbClient.getSuggestByQuery("Ka");
+        List<CityResp> suggestApi = serviceRule.getService().suggest("Ka").execute().body();
 
         assertThat(suggestDb, notNullValue());
         assertThat(suggestApi, notNullValue());
-        assertThat(suggestApi, containsInAnyOrder(suggestDb));
+        assertThat(suggestApi, everyItem(hasProperty("name", isOneOf(suggestDb))));
     }
 
     @Test
