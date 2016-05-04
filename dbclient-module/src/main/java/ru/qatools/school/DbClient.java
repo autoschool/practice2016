@@ -53,8 +53,6 @@ public class DbClient {
         for (Record row : result) {
             SuggestResp bdSuggest = new SuggestResp();
 
-            String name = (String) row.getValue("name");
-
             bdSuggest.setId((long) row.getValue("id"));
             bdSuggest.setUid((long) row.getValue("uid"));
             bdSuggest.setName((String) row.getValue("name"));
