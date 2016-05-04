@@ -1,4 +1,4 @@
-package ru.qatools.school.Responces;
+package ru.qatools.school.Responses;
 
 /**
  * @author ava1on

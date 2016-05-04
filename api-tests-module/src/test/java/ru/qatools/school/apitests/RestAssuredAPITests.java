@@ -1,11 +1,14 @@
 package ru.qatools.school.apitests;
 
+import org.apache.http.HttpStatus;
 import org.junit.Test;
-import ru.qatools.school.Responces.CitiesResponse;
+import ru.qatools.school.Responses.CitiesResponse;
+import ru.qatools.school.Responses.WeatherResponse;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static ru.qatools.school.data.Constants.*;
 
@@ -22,7 +25,22 @@ public class RestAssuredAPITests {
                         baseUri(BASE_URL).
                         param(LIMIT_PARAMETER, LIMIT_VALUE).
                 when().
-                        get(CITIES_REQUEST).as(CitiesResponse[].class);
+                        get(CITIES_REQUEST).
+                then().statusCode(HttpStatus.SC_OK).
+                        and().extract().
+                        body().as(CitiesResponse[].class);
         assertThat("Неверное количество городов в ответе", citiesArray.length, is(LIMIT_VALUE));
+    }
+
+    @Test
+    public void shouldReturnCompatibleTemperatureValues(){
+        WeatherResponse weatherResponse =
+                given().
+                        baseUri(BASE_URL).
+                        param(CITY_PARAMETER, CITY_VALUE).
+                when().
+                        get(WEATHER_REQUEST).as(WeatherResponse.class);
+        assertThat("Значение температуры не правильно переведено из шкалы Цельсия в шкалу Фаренгейта", weatherResponse.getTemperatures()[2].getValue(),
+                is(closeTo(weatherResponse.recalculateCelsiusToFahrenheit(), TEMPERATURE_ERROR)));
     }
 }
