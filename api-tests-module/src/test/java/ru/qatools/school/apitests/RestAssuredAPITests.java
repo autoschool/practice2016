@@ -1,7 +1,6 @@
 package ru.qatools.school.apitests;
 
 import org.apache.http.HttpStatus;
-import org.apache.http.protocol.HTTP;
 import org.junit.Test;
 import ru.qatools.school.Responses.CitiesResponse;
 import ru.qatools.school.Responses.WeatherResponse;

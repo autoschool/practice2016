@@ -1,8 +1,5 @@
 package ru.qatools.school.Responses;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author ava1on
  */
@@ -30,40 +27,8 @@ public class WeatherResponse {
         this.wind = wind;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public String getDaypart() {
-        return daypart;
-    }
-
-    public long getDt() {
-        return dt;
-    }
-
-    public int getHumidity() {
-        return humidity;
-    }
-
-    public long getSunset() {
-        return sunset;
-    }
-
-    public long getSunrise() {
-        return sunrise;
-    }
-
     public TemperatureValues[] getTemperatures() {
         return temperatures;
-    }
-
-    public int getWeatherCode() {
-        return weatherCode;
-    }
-
-    public double getWind() {
-        return wind;
     }
 
     public Double recalculateCelsiusToFahrenheit(){

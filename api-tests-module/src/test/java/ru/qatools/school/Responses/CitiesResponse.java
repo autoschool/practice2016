@@ -13,16 +13,4 @@ public class CitiesResponse {
         this.name = name;
         this.uid = uid;
     }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getUid() {
-        return uid;
-    }
 }

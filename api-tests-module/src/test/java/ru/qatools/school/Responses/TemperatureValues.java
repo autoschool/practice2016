@@ -12,10 +12,6 @@ public class TemperatureValues {
         this.value = value;
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
     public double getValue() {
         return value;
     }
