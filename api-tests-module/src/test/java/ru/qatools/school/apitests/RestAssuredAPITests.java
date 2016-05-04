@@ -1,6 +1,7 @@
 package ru.qatools.school.apitests;
 
 import org.apache.http.HttpStatus;
+import org.apache.http.protocol.HTTP;
 import org.junit.Test;
 import ru.qatools.school.Responses.CitiesResponse;
 import ru.qatools.school.Responses.WeatherResponse;
@@ -33,14 +34,19 @@ public class RestAssuredAPITests {
     }
 
     @Test
-    public void shouldReturnCompatibleTemperatureValues(){
+    @Title("Значение температуры по шкале Фаренгейта должно соответствовать значению по шкале Цельсия")
+    public void shouldReturnCompatibleTemperatureValuesForCelsiusAndFahrenheit(){
         WeatherResponse weatherResponse =
                 given().
                         baseUri(BASE_URL).
                         param(CITY_PARAMETER, CITY_VALUE).
                 when().
-                        get(WEATHER_REQUEST).as(WeatherResponse.class);
-        assertThat("Значение температуры не правильно переведено из шкалы Цельсия в шкалу Фаренгейта", weatherResponse.getTemperatures()[2].getValue(),
+                        get(WEATHER_REQUEST).
+                then().statusCode(HttpStatus.SC_OK).
+                        and().extract().
+                        body().as(WeatherResponse.class);
+        assertThat("Значение температуры не правильно переведено из шкалы Цельсия в шкалу Фаренгейта",
+                weatherResponse.getTemperatures()[2].getValue(),
                 is(closeTo(weatherResponse.recalculateCelsiusToFahrenheit(), TEMPERATURE_ERROR)));
     }
 }
