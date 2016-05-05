@@ -10,23 +10,32 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dbclient-module</artifactId>
+    <artifactId>api-tests-module</artifactId>
+
+    <name>API Module</name>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>3.7.3</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
-        </dependency>
         <dependency>
             <groupId>ru.qatools.school</groupId>
             <artifactId>steps-module</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>dbclient-module</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
