@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.yandex.qatools.htmlelements.annotations.Name;
-import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
@@ -23,17 +22,21 @@ public class MainPage {
 
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
-    private List<WeatherWidget> weatherWidgetList;
+    private List<WeatherWidget> widgets;
 
     @Name("Кнопка добавления виджета на страницу")
     @FindBy(css = ".new-card")
     private WebElement newCardButton;
 
-    public List<WeatherWidget> getWeatherWidgetList() {
-        return weatherWidgetList;
+    public List<WeatherWidget> widgets() {
+        return widgets;
     }
 
-    public WebElement getNewCardButton() {
+    public WeatherWidget getFirstWidget() {
+        return widgets().get(0);
+    }
+
+    public WebElement newCardButton() {
         return newCardButton;
     }
 }
