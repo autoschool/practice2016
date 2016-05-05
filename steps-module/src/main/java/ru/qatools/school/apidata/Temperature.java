@@ -11,6 +11,7 @@ public class Temperature {
     public float getValue() {
         return value;
     }
+
     public String getUnit() {
         return unit;
     }
