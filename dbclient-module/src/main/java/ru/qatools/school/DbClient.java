@@ -6,6 +6,7 @@ import org.jooq.impl.DSL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
@@ -37,6 +38,12 @@ public class DbClient {
                 .where(field("id").equal(id))
                 .fetchOne();
          return result.getValue(0, String.class);
+    }
+
+    public List<Integer> getCitiesByNamePart(String namePart){
+        return create.selectFrom(table("City"))
+                .where(field("name").like("%" + namePart + "%"))
+                .fetch().getValues(field("id"), Integer.class);
     }
 
     public void close() {

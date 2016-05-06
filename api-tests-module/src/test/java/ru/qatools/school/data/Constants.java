@@ -13,4 +13,7 @@ public class Constants {
     public static final String CITY_VALUE = "Saint Petersburg";
     public static final double TEMPERATURE_ERROR = 0.1;
     public static final String REGION_PARAMETER = "region";
+    public static final String SUGGEST_REQUEST = "suggest";
+    public static final String QUERY_PARAMETER = "query";
+    public static final String CITYNAME_PART = "Saint";
 }
