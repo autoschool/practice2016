@@ -4,13 +4,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.qatools.school.pages.MainPage;
+import ru.qatools.school.pages.blocks.WeatherWidget;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
 
-public class WeatherWebTest {
+public class MyFirstWebTest {
 
-    public static final String MOSCOW = "Moscow";
+    private static final String CITY = "Lipetsk";
 
     private DefaultSteps defaultSteps;
 
@@ -22,15 +23,17 @@ public class WeatherWebTest {
         defaultSteps = new DefaultSteps(webDriverRule.getDriver());
     }
 
+
     @Test
-    @Title("Должны видеть виджет на главной странице")
-    public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidgets().get(0));
+    @Title("Открываем страницу для города «Lipetsk»")
+    public void shouldSeeWidgetWithCityFromGetParameters() {
+        defaultSteps.openMainPageWithCity(CITY);
+        WeatherWidget firstWidget = onMainPage().getFirstWeatherWidget();
+        defaultSteps.shouldSee(firstWidget);
+        defaultSteps.shouldSeeWidgetWithTitle(firstWidget, CITY);
     }
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
-
 }
