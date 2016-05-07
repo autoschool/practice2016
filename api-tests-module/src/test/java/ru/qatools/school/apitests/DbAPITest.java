@@ -9,10 +9,10 @@ import ru.yandex.qatools.allure.annotations.Title;
 
 import java.util.List;
 
-import static com.jayway.restassured.RestAssured.*;
+import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static ru.qatools.school.data.Constants.*;
-import static ru.yandex.qatools.matchers.collection.HasSameItemsAsListMatcher.hasSameItemsAsList;
 
 /**
  * @author ava1on
@@ -31,7 +31,7 @@ public class DbAPITest {
     }
 
     @Test
-    @Title("")
+    @Title("Списки городов, полученные через API и Database, должны совпадать")
     public void apiResponseShouldMatchDatabaseData(){
         List<Integer> ids =
                 given()
@@ -42,8 +42,7 @@ public class DbAPITest {
                 .then()
                     .assertThat().statusCode(HttpStatus.SC_OK)
                     .and().extract().body().path("id");
-        System.out.println(1);
         assertThat("Полученные через API данные не соответствуют Database", ids,
-                hasSameItemsAsList(dbClient.getCitiesByNamePart(CITYNAME_PART)));
+                is(dbClient.getCitiesByNamePart(CITYNAME_PART)));
     }
 }
