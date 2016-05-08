@@ -3,6 +3,7 @@ package ru.qatools.school;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 import ru.qatools.school.apiData.URI;
+import ru.yandex.qatools.allure.annotations.Title;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
@@ -16,6 +17,7 @@ public class RestassuredTests {
     public static final long MAX_INT_PLUS_ONE_LIMIT = (long) Integer.MAX_VALUE + 1;
 
     @Test
+    @Title("В ответ на запрос отрицательного количества городов должны получать Bad request")
     public void shouldGetErrorWhenRequestNegativeCitiesLimit(){
         given().baseUri(URI.BASE_URI.getValue())
                 .basePath(URI.BASE_PATH.getValue())
@@ -26,6 +28,7 @@ public class RestassuredTests {
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
     @Test
+    @Title("В ответ на запрос большего чем Integer.MAX_VALUE количества городов должны получать Bad request")
     public void shouldGetErrorWhenRequestMaxIntegerPlusOneCities(){
         given().baseUri(URI.BASE_URI.getValue())
                 .basePath(URI.BASE_PATH.getValue())
@@ -37,6 +40,7 @@ public class RestassuredTests {
     }
 
     @Test
+    @Title("Должны получать запрошенное количество городов и статус OK")
     public void shouldGetNumberOfCitiesRequested(){
         int numberOfCitiesRequested = 5;
         given().baseUri(URI.BASE_URI.getValue())

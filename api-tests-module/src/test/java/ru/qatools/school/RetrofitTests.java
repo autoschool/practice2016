@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.qatools.school.apiData.CityJSON;
 import ru.qatools.school.apiData.URI;
 import ru.qatools.school.apiData.WeatherAPI;
+import ru.yandex.qatools.allure.annotations.Title;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +33,7 @@ public class RetrofitTests {
             .build();
 
     @Test
+    @Title("В ответ на запрос отрицательного количества городов должны получать Bad request")
     public void shouldGetErrorWhenRequestNegativeCitiesLimit() throws IOException {
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
         Response<List<CityJSON>> response = weather.cities(NEGATIVE_LIMIT).execute();
@@ -40,6 +42,7 @@ public class RetrofitTests {
     }
 
     @Test
+    @Title("В ответ на запрос большего чем Integer.MAX_VALUE количества городов должны получать Bad request")
     public void shouldGetErrorWhenRequestMaxIntegerPlusOneCities() throws IOException {
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
         Response<List<CityJSON>> response = weather.cities(String.valueOf(MAX_INT_PLUS_ONE_LIMIT)).execute();
@@ -48,6 +51,7 @@ public class RetrofitTests {
     }
 
     @Test
+    @Title("Должны получать запрошенное количество городов и статус OK")
     public void shouldGetNumberOfCitiesRequested() throws IOException {
         int numberOfCitiesRequested = 2;
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
