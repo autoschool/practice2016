@@ -5,6 +5,7 @@ import org.junit.Test;
 import ru.qatools.school.apiData.URI;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.core.Is.is;
 
 /**
  * @author totallynotkate (Kate Kocijevska)
@@ -33,5 +34,19 @@ public class RestassuredTests {
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void shouldGetNumberOfCitiesRequested(){
+        int numberOfCitiesRequested = 5;
+        given().baseUri(URI.BASE_URI.getValue())
+                .basePath(URI.BASE_PATH.getValue())
+                .param(URI.LIMIT_PARAMETER.getValue(), numberOfCitiesRequested)
+                .get(URI.CITIES_RESOURCE.getValue())
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_OK)
+                .and()
+                .body("toSet.size()", is(numberOfCitiesRequested));
     }
 }
