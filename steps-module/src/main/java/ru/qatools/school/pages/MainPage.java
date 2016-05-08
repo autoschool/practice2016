@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by kurau.
+ * edited by arrumm.
  */
 public class MainPage {
 
@@ -22,22 +23,21 @@ public class MainPage {
 
     @Name("Список виджетов")
     @FindBy(css = ".card.card_md")
-    private List<WeatherWidget> weatherWidgetList;
+    private List<WeatherWidget> widgets;
 
     @Name("Кнопка добавления виджета на страницу")
     @FindBy(css = ".new-card")
     private WebElement newCardButton;
 
-    public List<WeatherWidget> getWeatherWidgetList() {
-        return weatherWidgetList;
-    }
-
-    public WebElement getNewCardButton() {
-        return newCardButton;
+    public List<WeatherWidget> widgets() {
+        return widgets;
     }
 
     public WeatherWidget getFirstWidget() {
-        return getWeatherWidgetList().get(0);
+        return widgets().get(0);
     }
 
+    public WebElement newCardButton() {
+        return newCardButton;
+    }
 }
