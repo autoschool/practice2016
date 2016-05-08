@@ -29,9 +29,11 @@ public class ResponseArraySizeMatcher extends TypeSafeMatcher<Response<List<City
 
     @Override
     public void describeTo(Description description) {
-
+        description.appendText("Response should consist of a JSON array with size ").appendValue(size);
     }
 
     @Override
-    public void describeMismatchSafely(Response<List<CityJSON>> response, Description description){}
+    public void describeMismatchSafely(Response<List<CityJSON>> response, Description description){
+        description.appendText("array size was ").appendValue(response.body().size());
+    }
 }
