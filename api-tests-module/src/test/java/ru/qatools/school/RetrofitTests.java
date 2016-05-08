@@ -35,22 +35,25 @@ public class RetrofitTests {
     public void shouldGetErrorWhenRequestNegativeCitiesLimit() throws IOException {
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
         Response<List<CityJSON>> response = weather.cities(NEGATIVE_LIMIT).execute();
-        assertThat(response.code(), is(HttpStatus.SC_BAD_REQUEST));
+        assertThat("В ответ на запрос отрицательного количества городов должны получать Bad request",
+                response.code(), is(HttpStatus.SC_BAD_REQUEST));
     }
 
     @Test
     public void shouldGetErrorWhenRequestMaxIntegerPlusOneCities() throws IOException {
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
         Response<List<CityJSON>> response = weather.cities(String.valueOf(MAX_INT_PLUS_ONE_LIMIT)).execute();
-        assertThat(response.code(), is(HttpStatus.SC_BAD_REQUEST));
+        assertThat("В ответ на запрос большего чем Integer.MAX_VALUE количества городов должны получать Bad request",
+                response.code(), is(HttpStatus.SC_BAD_REQUEST));
     }
 
     @Test
     public void shouldGetNumberOfCitiesRequested() throws IOException {
-        int numberOfCitiesRequested = 5;
+        int numberOfCitiesRequested = 2;
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
         Response<List<CityJSON>> response = weather.cities(String.valueOf(numberOfCitiesRequested)).execute();
-        assertThat(response, both(responseHasHttpStatus(HttpStatus.SC_OK))
+        assertThat("Должны получать запрошенное количество городов и статус OK",
+                response, both(responseHasHttpStatus(HttpStatus.SC_OK))
                 .and(responseHasArraySize(numberOfCitiesRequested)));
     }
 }
