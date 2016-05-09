@@ -20,7 +20,7 @@ import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 import ru.yandex.qatools.allure.annotations.Title;
 
-import static ru.qatools.school.data.TemperatureRepresentation.*;
+import static ru.qatools.school.data.RepresentationPatterns.*;
 
 /**
  * @author raipc
@@ -54,7 +54,7 @@ public class MySmokeTestSuite {
 
     @Test
     @TestCaseId("5")
-    @Title("Открываем страницу для города «Lipetsk»")
+    @Title("Должен открыться виджет с городом, указанным в адресной строке")
     public void shouldSeeWidgetWithCityFromUrl() {
         defaultSteps.openMainPageWithCity(CITY);
         WeatherWidget firstWidget = onMainPage().getFirstWeatherWidget();
@@ -87,18 +87,20 @@ public class MySmokeTestSuite {
     public void shouldRemoveWidget() {
         defaultSteps.openMainPageWithCity(CITY);
         int widgetsCountBefore = onMainPage().getWeatherWidgets().size();
-        defaultSteps.clickOn(onMainPage().getFirstWeatherWidget().getActions().getRemovingWidgetButton());
+        defaultSteps.clickOn(onMainPage().getFirstWeatherWidget().getWidgetActions().getRemovingWidgetButton());
         defaultSteps.shouldHaveWidgetsCount(widgetsCountBefore - 1);
     }
 
     @Test
-    @TestCaseId("007")
+    @TestCaseId("34")
     @Title("Должны увидеть дату")
     public void shouldContainDate() {
         defaultSteps.openMainPageWithCity(CITY);
-        int widgetsCountBefore = onMainPage().getWeatherWidgets().size();
-        defaultSteps.clickOn(onMainPage().getFirstWeatherWidget().getActions().getRemovingWidgetButton());
-        defaultSteps.shouldHaveWidgetsCount(widgetsCountBefore - 1);
+        WebElement widgetDate = onMainPage().getFirstWeatherWidget().getWidgetDate();
+        defaultSteps.shouldSee(widgetDate);
+        defaultSteps.shouldMatchRepresentation(widgetDate,
+                DATE_PATTERN.toString(),
+                HUMAN_READABLE_DATE_PATTERN.toString());
     }
 
     @Test
@@ -108,7 +110,7 @@ public class MySmokeTestSuite {
         defaultSteps.openMainPageWithCity(CITY);
         defaultSteps.shouldMatchRepresentation(
                 getTemperatureWidget().getWeatherTemperatureDigit(),
-                DIGITS_PATTERN.toString(),
+                TEMPERATURE_DIGITS_PATTERN.toString(),
                 HUMAN_READABLE_DIGITS_PATTERN.toString());
     }
 

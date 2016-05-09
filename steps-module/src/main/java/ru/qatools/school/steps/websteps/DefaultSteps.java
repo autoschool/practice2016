@@ -64,7 +64,7 @@ public class DefaultSteps {
         assertThat("Количество виджетов должно быть", onMainPage().getWeatherWidgets().size(), is(widgetsCount));
     }
 
-    @Step("Элемент «{0}» должен выглядеть по шаблону {2}")
+    @Step("Элемент «{0}» должен соответствовать шаблону {2}")
     public void shouldMatchRepresentation(WebElement element, String regex, String explaination) {
         assertThat("Элемент должен соответствовать шаблону", element.getText(), matchesPattern(regex));
     }
