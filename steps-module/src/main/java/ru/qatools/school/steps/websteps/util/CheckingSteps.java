@@ -7,11 +7,11 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import java.util.Collection;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Every.everyItem;
-import static org.junit.Assert.assertThat;
 import static ru.qatools.school.matchers.HasTextSafeMatcher.hasText;
 import static ru.qatools.school.matchers.IsConvertibleToDouble.isDouble;
 import static ru.yandex.qatools.htmlelements.matchers.MatcherDecorators.should;
@@ -39,14 +39,6 @@ public class CheckingSteps {
     public static void shouldSee(Collection<? extends WebElement> elements) {
         assertThat("Должны видеть элементы", elements,
                 everyItem(allOf(exists(), notNullValue(), isDisplayed())));
-    }
-
-    @Step("Должны не видеть элемент «{0}»")
-    public static void shouldNotSee(HtmlElement element) {
-        assertThat("Должны видеть элемент", element,
-                should(not(isDisplayed()))
-                        .whileWaitingUntil(timeoutHasExpired(WAIT_TIMEOUT)
-                                .withPollingInterval(POLLING_INTERVAL)));
     }
 
     @Step("Текст элемента «{0}» должен быть «{1}»")

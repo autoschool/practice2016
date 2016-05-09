@@ -63,13 +63,13 @@ public class BasicActionSteps {
                 );
     }
 
-    @Step("Ждём пока элемент «{0}» не станет кликабельным, или {2} секунд")
-    public static void waitElementToBeClickableBasic(HtmlElement element, WebDriver driver, long timeOutInSeconds) {
+    @Step("Ждём пока текст элемента «{0}» не станет «{1}», или {3} секунд")
+    public static void waitElementToHaveTextBasic(HtmlElement element, String text, WebDriver driver, long timeOutInSeconds) {
         (new WebDriverWait(driver, timeOutInSeconds))
                 .pollingEvery(POLLING_INTERVAL, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .until(ExpectedConditions.elementToBeClickable(element));
+                .until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
     @Step("Ждём пока элемент «{0}» не устареет или {2} секунд")

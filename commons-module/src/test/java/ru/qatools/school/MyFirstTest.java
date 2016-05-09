@@ -21,8 +21,7 @@ public class MyFirstTest {
 
     @DataProvider
     public static List<Object> places() {
-        List<Object> placesList
-                = newArrayList(Place.values());
+        List<Object> placesList = newArrayList(Place.values());
         placesList.add(null);
         return placesList;
     }

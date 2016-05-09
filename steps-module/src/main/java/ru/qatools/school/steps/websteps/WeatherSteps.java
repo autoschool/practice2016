@@ -14,6 +14,8 @@ import java.util.List;
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static ru.qatools.school.WebsiteData.CITY_QUERY;
+import static ru.qatools.school.WebsiteData.MAIN_PAGE;
 import static ru.qatools.school.steps.websteps.util.BasicActionSteps.*;
 import static ru.qatools.school.steps.websteps.util.CheckingSteps.shouldBeConvertibleToDouble;
 import static ru.qatools.school.steps.websteps.util.CheckingSteps.shouldBeInRange;
@@ -24,8 +26,6 @@ import static ru.qatools.school.steps.websteps.util.CheckingSteps.shouldBeInRang
  */
 public class WeatherSteps {
 
-    private static final String MAIN_PAGE = "http://weather.lanwen.ru";
-    private static final String CITY_QUERY = MAIN_PAGE + "/#?cities=%s";
     private static final String BLANK_PAGE = "about:blank";
     private static final int WAIT_TIMEOUT = 10;
     private static final int ELEMENT_REFRESH_TIMEOUT = 1;
@@ -51,9 +51,9 @@ public class WeatherSteps {
         driver.get(format(CITY_QUERY, city));
     }
 
-    @Step("Ждём доступности элемента «{0}»")
-    public void waitElementToBeClickable(HtmlElement element) {
-        waitElementToBeClickableBasic(element, driver, WAIT_TIMEOUT);
+    @Step("Ждём пока текст элемента «{0}» не станет «{0}»")
+    public void waitElementToHaveText(HtmlElement element, String text) {
+        waitElementToHaveTextBasic(element, text, driver, WAIT_TIMEOUT);
     }
 
     @Step("Ждём что элемент «{0}» устареет")
