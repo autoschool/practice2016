@@ -7,19 +7,19 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 /**
- * Created by kurau.
+ * @author raipc
  */
-public class WidgetTitle extends HtmlElement {
+public class WidgetActions extends HtmlElement {
+    @Name("Кнопка удаления виджета")
+    @FindBy(css = ".remove-card")
+    private WebElement removingWidgetButton;
 
-    @Name("Название города в заголовке виджета")
-    @FindBy(css = ".card-title__primary")
-    private WebElement weatherTitle;
-
-    public WebElement getWeatherTitle() {
-        return weatherTitle;
-    }
-
+    @Override
     public Rectangle getRect() {
         return null;
+    }
+
+    public WebElement getRemovingWidgetButton() {
+        return removingWidgetButton;
     }
 }
