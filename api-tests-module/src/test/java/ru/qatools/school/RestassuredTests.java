@@ -1,11 +1,14 @@
 package ru.qatools.school;
 
+import com.jayway.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import ru.qatools.school.apiData.CityJSON;
 import ru.qatools.school.apiData.URI;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
@@ -42,15 +45,13 @@ public class RestassuredTests {
     @Test
     @Title("Должны получать запрошенное количество городов и статус OK")
     public void shouldGetNumberOfCitiesRequested(){
-        int numberOfCitiesRequested = 5;
-        given().baseUri(URI.BASE_URI.getValue())
+        int numberOfCitiesRequested = 2;
+        Response response = given().baseUri(URI.BASE_URI.getValue())
                 .basePath(URI.BASE_PATH.getValue())
                 .param(URI.LIMIT_PARAMETER.getValue(), numberOfCitiesRequested)
-                .get(URI.CITIES_RESOURCE.getValue())
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .and()
-                .body("toSet.size()", is(numberOfCitiesRequested));
+                .get(URI.CITIES_RESOURCE.getValue());
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        CityJSON[] cities = response.as(CityJSON[].class);
+        assertThat(cities.length, is(numberOfCitiesRequested));
     }
 }

@@ -51,7 +51,7 @@ public class RetrofitTests {
     }
 
     @Test
-    @Title("Должны получать запрошенное количество городов и статус OK")
+
     public void shouldGetNumberOfCitiesRequested() throws IOException {
         int numberOfCitiesRequested = 2;
         WeatherAPI weather = retrofit.create(WeatherAPI.class);
