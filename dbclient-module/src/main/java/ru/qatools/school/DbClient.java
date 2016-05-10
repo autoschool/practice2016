@@ -1,13 +1,14 @@
 package ru.qatools.school;
 
-import org.jooq.*;
+import org.jooq.DSLContext;
+import org.jooq.Record1;
+import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import ru.qatools.school.apidata.SuggestResp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.jooq.impl.DSL.field;
@@ -43,25 +44,11 @@ public class DbClient {
     }
 
     public List<SuggestResp> getSuggestCitiesByNamePart(String namePart) {
-        List<SuggestResp> bdSuggests = new ArrayList<>();
-
-        Result<Record> result = create.select()
+        List<SuggestResp> result = create.select()
                 .from(table("City"))
-                .where(field("name").like("%" + namePart + "%"))
-                .fetch();
-
-        for (Record row : result) {
-            SuggestResp bdSuggest = new SuggestResp();
-
-            bdSuggest.setId((long) row.getValue("id"));
-            bdSuggest.setUid((long) row.getValue("uid"));
-            bdSuggest.setName((String) row.getValue("name"));
-            bdSuggest.setCountry((String) row.getValue("country"));
-
-            bdSuggests.add(bdSuggest);
-        }
-
-        return bdSuggests;
+                .where(field("name").contains(namePart))
+                .fetchInto(SuggestResp.class);
+        return result;
     }
 
     public void close() {

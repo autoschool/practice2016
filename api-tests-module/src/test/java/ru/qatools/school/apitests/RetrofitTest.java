@@ -3,6 +3,7 @@ package ru.qatools.school.apitests;
 import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -11,6 +12,7 @@ import ru.qatools.school.DbClient;
 import ru.qatools.school.apidata.SuggestResp;
 import ru.qatools.school.apidata.WeatherApi;
 import ru.qatools.school.apidata.WeatherResp;
+import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Title;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
+import static ru.yandex.qatools.matchers.collection.HasSameItemsAsListMatcher.hasSameItemsAsList;
 
 /**
  * @author onegines (Eugene Kirienko)
@@ -37,6 +40,9 @@ public class RetrofitTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    @Rule
+    public TPInformerRule tms = new TPInformerRule("onegines");
+
     @Before
     public void init() {
         weatherApi = retrofit.create(WeatherApi.class);
@@ -50,7 +56,7 @@ public class RetrofitTest {
 
     @Test
     @Features("Suggest")
-    @Title("Должны получить код 400 после отправки запроса без параметров")
+    @Title("Должны получить код 400 после отправки запроса саджеста без параметров")
     //@TestCaseId("53")
     public void shouldGetErrorCode400AfterSendNoQueryToSuggest() throws IOException {
 
@@ -75,21 +81,21 @@ public class RetrofitTest {
 
     @Test
     @Features("Suggest")
-    @Title("Должны совпадать списки (от API и DB) городов, содержащих в названии строку из запроса")
-    //@TestCaseId("")
+    @Title("Должны совпадать списки (от API и DB) саджестов, содержащих в названии города строку из запроса")
+    //@TestCaseId("75")
     public void shouldMatchSuggestsFromApiAndDb() throws IOException {
 
         Response<List<SuggestResp>> respApi = weatherApi.suggest(CITYNAMEPART).execute();
         List<SuggestResp> respDb = dbClient.getSuggestCitiesByNamePart(CITYNAMEPART);
 
         assertThat("Неправильный код ответа", respApi.code(), is(HttpStatus.SC_OK));
-        assertThat("Списки из API и DB должны совпадать", respApi.body(), is(equalTo(respDb)));
+        assertThat("Списки из API и DB должны совпадать", respApi.body(), hasSameItemsAsList(respDb));
 
     }
 
     @Test
     @Features("Weather")
-    @Title("Должны получить код 400 после отправки запроса без параметров")
+    @Title("Должны получить код 400 после отправки запроса погоды без параметров")
     //@TestCaseId("65")
     public void shouldGetErrorCode400AfterSendNoQueryToWeather() throws IOException {
 
