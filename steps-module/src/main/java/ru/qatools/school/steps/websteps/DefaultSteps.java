@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.util.regex.Pattern;
+
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
 /**
@@ -50,7 +50,7 @@ public class DefaultSteps {
 
     @Step("Элемент «{1}» должен содержать строку «{0}»")
     public void strShouldBeInElement(String str, WebElement currElement){
-        assertThat("Город в заголовке должен совпадать с городом в URL", currElement.getText(), is(str));
+        assertThat("Строка в элементе должна совпадать с ожидаемой", currElement.getText(), is(str));
     }
 
     @Step("Клик на кнопку «{0}»")
@@ -68,16 +68,17 @@ public class DefaultSteps {
         assertThat(currElement.getText(),not(isEmptyOrNullString()));
     }
 
+    @Step("Поле элемента «{0}» должно соответствовать рещулярному выражению в «{1}»")
+    public void shouldMatchToRegExp(WebElement currElement, String regExp){
+        System.out.println("Text = " + currElement.getText() + " result = " + Pattern.matches(regExp, currElement.getText()));
+        assertTrue("Содержиме элемента должно соответствовать шаблону", Pattern.matches(regExp, currElement.getText()));
+    }
 
 
     @Step("Значение элемента «{0}» должно принадлежать интервалу «{1}» и «{2}»")
-    public void shouldBeBetweenMinAndMax(WebElement currElement, int d1, int d2){
-        int max;
-        int min;
-        if (d1<d2){min = d1; max = d2;}
-        else {min = d2; max = d2;}
-        assertThat(Integer.valueOf(currElement.getText()),greaterThanOrEqualTo(min));
-        assertThat(Integer.valueOf(currElement.getText()),lessThanOrEqualTo(max));
+    public void shouldBeBetweenMinAndMax(WebElement currElement, double d1, double d2){
+        assertThat(Double.valueOf(currElement.getText()),greaterThanOrEqualTo(Math.min(d1, d2)));
+        assertThat(Double.valueOf(currElement.getText()),lessThanOrEqualTo(Math.max(d1, d2)));
     }
 
 

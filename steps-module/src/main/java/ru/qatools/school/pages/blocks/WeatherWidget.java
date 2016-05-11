@@ -26,11 +26,11 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private WidgetActions actions;
 
-    public WidgetText WidgetText() {
+    public WidgetText widgetText() {
         return widgetText;
     }
 
-    public WidgetTitle WidgetTitle() {
+    public WidgetTitle widgetTitle() {
         return widgetTitle;
     }
 

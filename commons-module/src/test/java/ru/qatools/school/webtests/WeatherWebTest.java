@@ -1,23 +1,21 @@
 package ru.qatools.school.webtests;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
+import ru.qatools.school.data.FormatVerify;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
 import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.Title;
 
 public class WeatherWebTest {
 
     public static final String MOSCOW = "Moscow";
     public static final String OMSK = "Omsk";
+    public static final String NEW_WIDGET_TITLE = "What a city?";
     public static final String CELSIUS = "°C";
 
 
@@ -57,7 +55,7 @@ public class WeatherWebTest {
     @Title("Должны видеть город {1} в элементе {2}")
     public void shouldSeeCity() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.strShouldBeInElement(MOSCOW, onMainPage().getWeatherWidgets().get(0).WidgetTitle().getCity());
+        defaultSteps.strShouldBeInElement(MOSCOW, onMainPage().getWeatherWidgets().get(0).widgetTitle().getCity());
     }
 
     @Test
@@ -65,7 +63,7 @@ public class WeatherWebTest {
     @Title("Поле с показанием температуры первого виджета на странице не должно быть пустым")
     public void shoudBeTemperatureOnWidget(){
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldBeNotEmpty(onMainPage().getWeatherWidgets().get(0).WidgetText().digitTemperature());
+        defaultSteps.shouldBeNotEmpty(onMainPage().getWeatherWidgets().get(0).widgetText().digitTemperature());
     }
 
     @Test
@@ -105,15 +103,114 @@ public class WeatherWebTest {
     }
 
     @Test
-    @TestCaseId("11")
-    @Title("Единицы измерения температуры должны быть градусы цельсия")
-    public void unitsShouldBe(){
+    @TestCaseId("9")
+    @Title("Температура отображатся в допустимых пределах")
+    public void shouldBeCorrectTemperature() {
         defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.strShouldBeInElement(CELSIUS, onMainPage().getWeatherWidgets().get(0).WidgetText().unitsTemperature());
+        defaultSteps.shouldBeBetweenMinAndMax(onMainPage().getWeatherWidgets().get(0).widgetText().digitTemperature(), -80, 80);
     }
+   @Test
+    @TestCaseId("10")
+    @Title("Должны видеть 'What a city' в заголовке нового виджета")
+    public void shouldSeeNewCityTitle() {
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.clickButton(onMainPage().getAddWidgetButton());
+        defaultSteps.strShouldBeInElement(NEW_WIDGET_TITLE, onMainPage().getWeatherWidgets().get(0).widgetTitle().getCity());
+    }
+
+    @Test
+    @TestCaseId("11")
+    @Title("Формат вывода температуры в градусах цельсия должен соответствовать заданному формату")
+    public void celsiusTemperatureShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().temperature(), format.getRegExpForCelsius());
+    }
+
+    @Test
+    @TestCaseId("12")
+    @Title("Время и дата в заголовке соответствуют заданному формату")
+    public void dateShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetTitle().getDate(), format.getRegExpForDate());
+    }
+
+    @Test
+    @TestCaseId("13")
+    @Title("Время восхода солнца в первом виджет соответствуют заданному формату")
+    public void sunriseTimeShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().sunriseLine(), format.getRegExpForSunriseTime());
+    }
+
+    @Test
+    @TestCaseId("14")
+    @Title("Время захода солнца в первом виджет соответствуют заданному формату")
+    public void sunsetTimeShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().sunsetLine(), format.getRegExpForSunsetTime());
+    }
+
+    @Test
+    @TestCaseId("15")
+    @Title("Скорость ветра в первом виджете соответствуют заданному формату")
+    public void windSpeedShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().windLine(), format.getRegExpForWind());
+    }
+
+    @Test
+    @TestCaseId("16")
+    @Title("Влажность воздуха в первом виджете соответствуют заданному формату")
+    public void humiditySpeedShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().humidityLine(), format.getRegExpForHumidity());
+    }
+
+    @Test
+    @TestCaseId("17")
+    @Title("Формат вывода температуры в градусах Кельвина должен соответствовать заданному формату")
+    public void kelvinTemperatureShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.clickButton(onMainPage().getWeatherWidgets().get(0).widgetText().temperature());
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().temperature(), format.getRegExpForKelvin());
+    }
+
+    @Test
+    @TestCaseId("18")
+    @Title("Формат вывода температуры в градусах по-кайфу должен соответствовать заданному формату")
+    public void kaifTemperatureShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.clickButton(onMainPage().getWeatherWidgets().get(0).widgetText().temperature());
+        defaultSteps.clickButton(onMainPage().getWeatherWidgets().get(0).widgetText().temperature());
+        defaultSteps.clickButton(onMainPage().getWeatherWidgets().get(0).widgetText().temperature());
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().temperature(), format.getRegExpForKaif());
+    }
+
+    @Test
+    @TestCaseId("19")
+    @Title("Формат вывода температуры в градусах Фаренгейта должен соответствовать заданному формату")
+    public void farenheitTemperatureShouldBeInCorrectFormat(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.clickButton(onMainPage().getWeatherWidgets().get(0).widgetText().temperature());
+        defaultSteps.clickButton(onMainPage().getWeatherWidgets().get(0).widgetText().temperature());
+        defaultSteps.shouldMatchToRegExp(onMainPage().getWeatherWidgets().get(0).widgetText().temperature(), format.getRegExpForFarenheit());
+    }
+
+    @Test
+    @TestCaseId("20")
+    @Title("Новый виджет добавляется на первое место")
+    public void newWidgetShouldBeFirst(){
+        defaultSteps.openMainPageWithCity(MOSCOW);
+        defaultSteps.clickButton(onMainPage().getAddWidgetButton());
+        defaultSteps.strShouldBeInElement(NEW_WIDGET_TITLE,onMainPage().getWeatherWidgets().get(0).widgetTitle().getCity());
+    }
+
+
+
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
+    private FormatVerify format = new FormatVerify();
 
 }

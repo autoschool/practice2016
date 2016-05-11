@@ -14,8 +14,8 @@ import static org.junit.Assume.assumeThat;
 
 public class ConnectedToTPTest {
 
-    @Rule
-    public TPInformerRule tms = new TPInformerRule("ruletest");
+  /* @Rule
+   public TPInformerRule tms = new TPInformerRule("ruletest");
 
 
     @Test
@@ -44,5 +44,5 @@ public class ConnectedToTPTest {
     public void shouldBeSkipped() throws IOException, InterruptedException {
         SECONDS.sleep(5);
         assumeThat(true, is(false));
-    }
+    }*/
 }

@@ -15,8 +15,16 @@ public class WidgetTitle extends HtmlElement {
     @FindBy(css = ".inplace_displayed")
     private WebElement weatherCity;
 
+    @Name("Время, дата и часовой пояс в заголовке виджета")
+    @FindBy(css = ".card-title__secondary")
+    private WebElement weatherDate;
+
     public WebElement getCity(){
         return this.weatherCity;
+    }
+
+    public WebElement getDate(){
+        return this.weatherDate;
     }
 
     public Rectangle getRect() {
