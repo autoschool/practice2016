@@ -26,4 +26,3 @@ public class CitySuggest extends HtmlElement {
         return null;
     }
 }
-

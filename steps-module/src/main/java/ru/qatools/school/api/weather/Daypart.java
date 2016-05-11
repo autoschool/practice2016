@@ -7,5 +7,3 @@ public enum Daypart {
     DAY,
     NIGHT
 }
-
-
