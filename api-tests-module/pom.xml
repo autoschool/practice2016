@@ -9,9 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dbclient-module</artifactId>
+    <artifactId>api-tests-module</artifactId>
+    <packaging>jar</packaging>
 
-    <name>DB Client</name>
+    <name>API Tests Module</name>
 
     <dependencies>
         <dependency>
@@ -20,12 +21,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
+            <groupId>ru.qatools.school</groupId>
+            <artifactId>dbclient-module</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
         </dependency>
     </dependencies>
+
 </project>

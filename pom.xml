@@ -15,36 +15,52 @@
     <modules>
         <module>steps-module</module>
         <module>commons-module</module>
+        <module>api-tests-module</module>
         <module>dbclient-module</module>
     </modules>
 
     <properties>
         <compiler.version>1.8</compiler.version>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <allure.version>1.4.23</allure.version>
         <selenium.version>2.53.0</selenium.version>
         <htmlelements.version>1.15</htmlelements.version>
         <aspectj.version>1.8.5</aspectj.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-    </dependencies>
-
     <dependencyManagement>
         <dependencies>
-
             <!--https://github.com/jayway/rest-assured/wiki/GettingStarted-->
             <dependency>
                 <groupId>com.jayway.restassured</groupId>
                 <artifactId>rest-assured</artifactId>
                 <version>2.9.0</version>
             </dependency>
-            
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>converter-gson</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tngtech.java</groupId>
+                <artifactId>junit-dataprovider</artifactId>
+                <version>1.10.4</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>1.7.21</version>
+            </dependency>
             <dependency>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-junit-adaptor</artifactId>
@@ -74,6 +90,21 @@
                 <groupId>ru.yandex.qatools.htmlelements</groupId>
                 <artifactId>htmlelements-matchers</artifactId>
                 <version>1.12</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq</artifactId>
+                <version>3.7.3</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -113,9 +144,30 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <!--Needed only to show reports locally. Run jetty:run and
+                    open localhost:8080 to show the report-->
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.2.10.v20150310</version>
+                    <configuration>
+                        <webAppSourceDirectory>${project.basedir}/commons-module/target/site/allure-maven-plugin
+                        </webAppSourceDirectory>
+                        <stopKey>stop</stopKey>
+                        <stopPort>1234</stopPort>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
-
-
 </project>
