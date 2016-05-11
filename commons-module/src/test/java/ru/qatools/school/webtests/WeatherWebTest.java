@@ -109,7 +109,7 @@ public class WeatherWebTest {
     @Title("Должны отображаться все элементы виджета")
     public void shouldSeeAllWidgetElements() {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetTitle().cityName());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
         List<HtmlElement> widgetElements = weatherSteps.listAllWidgetElements(firstWidget());
         shouldSee(widgetElements);
     }
@@ -120,7 +120,8 @@ public class WeatherWebTest {
     @UseDataProvider("temperatureClicksUnitsRange")
     public void shouldChangeTemperatureUnitsWhenClickOnTemperature(int nClicks, String units, int lowest, int highest) {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetText().temperatureValue());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
+
         weatherSteps.clickOn(firstWidget().widgetText().temperatureValue(), nClicks);
         shouldHaveText(firstWidget().widgetText().temperatureUnit(), units);
     }
@@ -131,7 +132,8 @@ public class WeatherWebTest {
     @UseDataProvider("temperatureClicksUnitsRange")
     public void shouldSeeTemperatureValuesInRange(int nClicks, String units, int lowest, int highest) {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetText().temperatureValue());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
+
         weatherSteps.clickOn(firstWidget().widgetText().temperatureValue(), nClicks);
         weatherSteps.shouldHaveTemperatureValueInRange(firstWidget(), lowest, highest);
     }
@@ -141,7 +143,7 @@ public class WeatherWebTest {
     @Title("Должен меняться город в виджете при вводе другого города")
     public void shouldHaveCityNameChangedWhenChangeIt() {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetTitle().cityName());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
         weatherSteps.changeCityName(firstWidget(), ANOTHER_CITY);
         shouldSee(firstWidget().widgetTitle().cityName());
         shouldHaveText(firstWidget().widgetTitle().cityName(), ANOTHER_CITY);
@@ -152,7 +154,7 @@ public class WeatherWebTest {
     @Title("Должно отображаться поле для ввода города после заполнения с ошибкой")
     public void shouldSeeCityNameWhenFilledWithError() {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetTitle().cityName());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
         weatherSteps.changeCityName(firstWidget(), NOT_A_CITY);
         shouldSee(firstWidget().widgetTitle().cityName());
     }
@@ -162,7 +164,7 @@ public class WeatherWebTest {
     @Title("Должно отображаться поле для ввода города после стирания из него текста")
     public void shouldSeeCityNameWhenCleared() {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetTitle().cityName());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
         weatherSteps.clearText(firstWidget().widgetTitle().cityName());
         shouldSee(firstWidget().widgetTitle().cityName());
     }
@@ -243,7 +245,7 @@ public class WeatherWebTest {
     @Title("Должен появляться саджест при клике на название города и нажатии стрелки вниз")
     public void shouldSeeSuggestWhenClickAndPressArrowDown() {
         weatherSteps.openMainPageWithCity(SOME_CITY);
-        weatherSteps.waitElementToStale(firstWidget().widgetTitle().cityName());
+        weatherSteps.waitElementToHaveText(firstWidget().widgetTitle().cityName(), SOME_CITY);
         weatherSteps.openSuggest();
         shouldSee(firstWidget().suggest());
     }

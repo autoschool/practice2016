@@ -22,19 +22,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>ru.qatools.school</groupId>
-            <artifactId>dbclient-module</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.tngtech.java</groupId>
             <artifactId>junit-dataprovider</artifactId>
-            <version>1.10.4</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
         </dependency>
     </dependencies>
 

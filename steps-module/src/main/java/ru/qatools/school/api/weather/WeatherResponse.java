@@ -17,9 +17,9 @@ public class WeatherResponse {
     private double wind;
     private List<Temperature> temperatures;
 
-    public void setWeatherResponse(String city, Daypart daypart, int weathercode,
-                                   long sunset, long sunrise, long dt,
-                                   int humidity, double wind, List<Temperature> temperatures) {
+    public WeatherResponse(String city, Daypart daypart, int weathercode,
+                           long sunset, long sunrise, long dt,
+                           int humidity, double wind, List<Temperature> temperatures) {
         this.city = city;
         this.daypart = daypart;
         this.weathercode = weathercode;
