@@ -2,10 +2,12 @@ package ru.qatools.school;
 
 import org.jooq.*;
 import org.jooq.impl.DSL;
+import ru.qatools.school.utils.deserialization.CitySuggest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
@@ -37,6 +39,13 @@ public class DbClient {
                 .where(field("id").equal(id))
                 .fetchOne();
          return result.getValue(0, String.class);
+    }
+
+    public List<CitySuggest> getSuggestedCities(String query){
+        return create.select()
+                .from(table("City"))
+                .where(field("name").contains(query))
+                .fetchInto(CitySuggest.class);
     }
 
     public void close() {
