@@ -17,6 +17,7 @@
         <module>commons-module</module>
         <module>dbclient-module</module>
         <module>dbclient-tests</module>
+        <module>api-data-module</module>
     </modules>
 
     <properties>

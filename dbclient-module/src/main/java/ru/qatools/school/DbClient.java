@@ -2,7 +2,7 @@ package ru.qatools.school;
 
 import org.jooq.*;
 import org.jooq.impl.DSL;
-import ru.qatools.school.utils.deserialization.CitySuggest;
+import ru.qatools.school.apiData.CitySuggest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

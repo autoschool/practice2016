@@ -3,7 +3,7 @@ package ru.qatools.school;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.qatools.school.utils.deserialization.CitySuggest;
+import ru.qatools.school.apiData.CitySuggest;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Title;
 
