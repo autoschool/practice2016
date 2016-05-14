@@ -1,7 +1,9 @@
 package ru.qatools.school.retrofit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Parameters {
 
@@ -37,32 +39,36 @@ public class Parameters {
     public static List<List<Object>> cityRegionPositive() {
         List<List<Object>> queries
                 = new ArrayList<>();
-        ArrayList<String> listCity = new ArrayList<>();
-        ArrayList<String> listRegion = new ArrayList<>();
+        HashMap<String, Boolean> listCity = new HashMap<>();
+        HashMap<String, Boolean> listRegion = new HashMap<>();
 
-        listCity.add("Moscow");
+        listCity.put("Moscow", true);
         //listCity.add("");
         //listCity.add("Mosc");
-        //listCity.add("Moscow Saint Petersburg");
+        listCity.put("Moscow Saint Petersburg", false);
         //listCity.add("S");
         //listCity.add("%20");
         //listCity.add(null);
 
-        listRegion.add("ru");
-        listRegion.add("");
+        listRegion.put("ru", true);
+        listRegion.put("", true);
         //listRegion.add("en");
         //listRegion.add("eng ru");
         //listRegion.add("e");
         //listRegion.add("!");
         //listRegion.add(null);
 
-        for (String city : listCity) {
-            for (String region : listRegion) {
+        for (Map.Entry<String, Boolean> cityEntry : listCity.entrySet()) {
+            for (Map.Entry<String, Boolean> regionEntry : listRegion.entrySet()) {
                 ArrayList<Object> list = new ArrayList<>();
-                list.add(city);
-                list.add(region);
-                list.add(200);
-                queries.add(list);
+                list.add(cityEntry.getKey());
+                list.add(regionEntry);
+                if (cityEntry.getValue() && regionEntry.getValue()) {
+                    list.add(200);
+                } else {
+                    list.add(400);
+                }
+                    queries.add(list);
             }
         }
         return queries;
