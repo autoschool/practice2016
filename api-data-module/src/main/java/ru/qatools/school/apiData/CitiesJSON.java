@@ -3,7 +3,7 @@ package ru.qatools.school.apiData;
 /**
  * Created by totallynotkate (Kate Kocijevska).
  */
-public class CityJSON {
+public class CitiesJSON {
     public int uid;
 
     public String name;

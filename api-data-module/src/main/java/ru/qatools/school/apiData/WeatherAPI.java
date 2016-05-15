@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface WeatherAPI {
     @GET("api/cities")
-    Call<List<CityJSON>> cities(@Query("limit") String limit);
+    Call<List<CitiesJSON>> cities(@Query("limit") String limit);
 }
