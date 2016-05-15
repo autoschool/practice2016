@@ -1,3 +1,4 @@
-# Practice of automation school 2016
+#Onodee87 docker repositoty
 
-See all info in repo [autoschool/autoschool.github.io](https://github.com/autoschool/autoschool.github.io)
+[GitHub repository] (https://github.com/OnoDee87/docker_study "Onodee87 github repository")
+[Docker repository](https://hub.docker.com/r/onodee87/yandexqa/ "Onodee87 docker repository")
