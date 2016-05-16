@@ -14,7 +14,7 @@ import static java.lang.System.currentTimeMillis;
  */
 public class TPInformerRule extends TestWatcher {
 
-    private String project;
+   private String project;
     private long start;
 
     public TPInformerRule(String project) {
@@ -60,5 +60,4 @@ public class TPInformerRule extends TestWatcher {
     private String idFrom(Description description) {
         return description.getAnnotation(TestCaseId.class).value();
     }
-
 }
