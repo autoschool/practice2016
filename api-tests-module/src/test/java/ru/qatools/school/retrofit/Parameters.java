@@ -1,5 +1,7 @@
 package ru.qatools.school.retrofit;
 
+import org.apache.http.HttpStatus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,30 +45,30 @@ public class Parameters {
         HashMap<String, Boolean> listRegion = new HashMap<>();
 
         listCity.put("Moscow", true);
-        //listCity.add("");
-        //listCity.add("Mosc");
+        listCity.put("", true);
+        listCity.put("Mosc", true);
         listCity.put("Moscow Saint Petersburg", false);
-        //listCity.add("S");
-        //listCity.add("%20");
-        //listCity.add(null);
+        listCity.put("S", true);
+        listCity.put("%20", false);
+        listCity.put(null, false);
 
         listRegion.put("ru", true);
         listRegion.put("", true);
-        //listRegion.add("en");
-        //listRegion.add("eng ru");
-        //listRegion.add("e");
-        //listRegion.add("!");
-        //listRegion.add(null);
+        listRegion.put("en", true);
+        listRegion.put("eng ru", false);
+        listRegion.put("e", true);
+        listRegion.put("!", false);
+        listRegion.put(null, false);
 
         for (Map.Entry<String, Boolean> cityEntry : listCity.entrySet()) {
             for (Map.Entry<String, Boolean> regionEntry : listRegion.entrySet()) {
                 ArrayList<Object> list = new ArrayList<>();
                 list.add(cityEntry.getKey());
-                list.add(regionEntry);
+                list.add(regionEntry.getKey());
                 if (cityEntry.getValue() && regionEntry.getValue()) {
-                    list.add(200);
+                    list.add(HttpStatus.SC_OK);
                 } else {
-                    list.add(400);
+                    list.add(HttpStatus.SC_BAD_REQUEST);
                 }
                     queries.add(list);
             }
