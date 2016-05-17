@@ -4,8 +4,10 @@ package ru.qatools.school.retrofit;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import retrofit2.Call;
@@ -15,6 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.qatools.school.ApiMatchers;
 import ru.qatools.school.WebApiInterface;
 import ru.qatools.school.entity.City;
+import ru.qatools.school.entity.Widget;
+import ru.qatools.school.tp.TPInformerRule;
 import ru.yandex.qatools.allure.annotations.Title;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +31,9 @@ import static org.hamcrest.core.Is.is;
 public class WeatherWebApiRetrofit {
     private static final String MAIN_PAGE = "http://weather.lanwen.ru/api/";
     private static WebApiInterface webApiInterface;
+
+    //@Rule
+    //public TPInformerRule tms = new TPInformerRule("merkushevio");
 
     @DataProvider
     public static Object[][] limitPositive() {
@@ -41,6 +48,11 @@ public class WeatherWebApiRetrofit {
     @DataProvider
     public static Object[][] suggest() {
         return Parameters.queryString();
+    }
+
+    @DataProvider
+    public static List<List<Object>> weather() {
+        return Parameters.cityRegionPositive();
     }
 
     @BeforeClass
@@ -103,5 +115,14 @@ public class WeatherWebApiRetrofit {
                 anyOf(is(ApiMatchers.findInList(response.body())), is(nullValue())));
     }
 
+    @Test
+    @UseDataProvider("weather")
+    @Title("Получаем данные по городу используя метод /weather с параметрами city и region")
+    public void shouldSeeWeatherCity(String city, String region, int pageCode) throws IOException{
+        Call<Widget> call = webApiInterface.getWeatherWidget(city, region);
+        Response<Widget> response = call.execute();
+        assertThat("Статус страницы не соответствует ожидаемому " + pageCode +
+                ". \n Параметр запроса: " + city, response.code(), is(pageCode));
+    }
 
 }

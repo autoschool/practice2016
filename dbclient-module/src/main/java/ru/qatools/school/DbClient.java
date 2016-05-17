@@ -6,6 +6,7 @@ import org.jooq.impl.DSL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
@@ -14,12 +15,13 @@ import static org.jooq.impl.DSL.table;
  * Created by omaz on 27.04.16.
  */
 public class DbClient {
+    private static final PropertiesDbClient properties = new PropertiesDbClient();
     private static final String CONNECTION_STRING =
-            System.getProperty("db.url", "db.url");
+            System.getProperty("db.url", properties.getProperties().getProperty("db.url"));
     private static final String USER =
-            System.getProperty("db.user", "db.user");
+            System.getProperty("db.user", properties.getProperties().getProperty("db.user"));
     private static final String PASSWORD =
-            System.getProperty("db.password", "db.password");
+            System.getProperty("db.password", properties.getProperties().getProperty("db.password"));
 
     private Connection connection;
     private DSLContext create;
@@ -38,7 +40,7 @@ public class DbClient {
                 .from(table("City"))
                 .where(field("id").equal(id))
                 .fetchOne();
-         return result.getValue(0, String.class);
+        return result.getValue(0, String.class);
     }
 
     public void close() {
