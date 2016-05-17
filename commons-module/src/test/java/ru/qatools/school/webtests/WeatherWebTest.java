@@ -60,7 +60,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("6")
+    @TestCaseId("6")
     @Title("Должны видеть только кнопку [+] ")
     public void shouldSeeOnlyAddWidgetButton(){
         defaultSteps.openMainPageWithoutParameters();
@@ -69,7 +69,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("2")
+    @TestCaseId("2")
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -77,7 +77,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("8")
+    @TestCaseId("8")
     @Title("В заголовке виджета должны видеть город, указанный в запросе")
     public void shouldSeeSelectedCityOnWidgetTitle() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -85,7 +85,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("16")
+    @TestCaseId("16")
     @Title("Должны видеть новый виджет при открытии страницы без параметров")
     public void shouldSeeNewWidgetOnMainPageWithoutParameters() {
         defaultSteps.openMainPageWithCity("");
@@ -93,7 +93,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("3")
+    @TestCaseId("3")
     @Title("Должны видеть на один виджет больше после нажатия на кнопку [+]")
     public void shouldSeeOneMoreWidget() {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -103,7 +103,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("5")
+    @TestCaseId("5")
     @Title("Должны видеть на один виджет меньше после нажатия на кнопку [-]")
     public void shouldSeeLessWidgets(){
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -113,7 +113,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("9")
+    @TestCaseId("9")
     @Title("Должны видеть время и дату в формате \"Ч AM/PM, дд ммм гг\"")
     public void shouldSeeDateAndTime(){
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -121,7 +121,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("11")
+    @TestCaseId("11")
     @Title("Должны видеть новое название города после изменения")
     public void shouldSeeNewCityAfterChangeUsingEnterKey(){
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -130,7 +130,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("12")
+    @TestCaseId("12")
     @Title("Должны видеть список автозаполнения")
     public void shouldSeeSuggestCitiesList(){
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -139,7 +139,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("13")
+    @TestCaseId("13")
     @Title("В списке автозаполнения должны отображаться только города, содержащие введенную строку")
     public void shouldSeeSuitableSuggestedCities(){
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -148,7 +148,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("14")
+    @TestCaseId("14")
     @Title("Должны изменить город используя список автозаполения")
     public void shouldSeeNewCityAfterChangeUsingSuggestedList(){
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -159,7 +159,7 @@ public class WeatherWebTest {
 
     @Test
     @UseDataProvider("temperatureFormat")
-    //@TestCaseId("4")
+    @TestCaseId("4")
     @Title("Температура должна отображатся в правильном формате")
     public void shouldSeeTemperature(int numberOfClicks, DataPatterns pattern) {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -169,7 +169,7 @@ public class WeatherWebTest {
 
     @Test
     @UseDataProvider("weatherDataFormat")
-    //@TestCaseId("7")
+    @TestCaseId("7")
     @Title("Погодные данные должны отображаться в правильном формате")
     public void shouldSeeWeatherData(int id, DataPatterns pattern) {
         defaultSteps.openMainPageWithCity(MOSCOW);
@@ -177,7 +177,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("10")
+    @TestCaseId("10")
     @Title("Должны видеть заголовок страницы")
     public void shouldSeePageTitle(){
         defaultSteps.openMainPageWithoutParameters();
@@ -185,7 +185,7 @@ public class WeatherWebTest {
     }
 
     @Test
-    //@TestCaseId("23")
+    @TestCaseId("23")
     @Title("Должны видеть иконку погоды")
     public void shouldSeeWeatherImage(){
         defaultSteps.openMainPageWithCity(MOSCOW);

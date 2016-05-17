@@ -3,8 +3,10 @@ package ru.qatools.school.apitests;
 import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import ru.qatools.school.DbClient;
+import ru.qatools.school.rules.DbClientRule;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import java.util.List;
@@ -20,14 +22,12 @@ import static ru.qatools.school.data.Constants.*;
 public class DbAPITest {
     private DbClient dbClient;
 
+    @Rule
+    public DbClientRule dbClientRule = new DbClientRule();
+
     @Before
     public void setupDbConnection(){
-        dbClient = new DbClient();
-    }
-
-    @After
-    public void closeDbConnection(){
-        dbClient.close();
+        dbClient = dbClientRule.getDbClient();
     }
 
     @Test
