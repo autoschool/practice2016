@@ -40,12 +40,10 @@
             <groupId>ru.yandex.qatools.htmlelements</groupId>
             <artifactId>htmlelements-matchers</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.cthul</groupId>
             <artifactId>cthul-matchers</artifactId>
