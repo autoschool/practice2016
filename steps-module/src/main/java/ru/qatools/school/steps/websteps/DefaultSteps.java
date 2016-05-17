@@ -120,8 +120,9 @@ public class DefaultSteps {
 
     private HtmlElement findElementByName(String item, List<HtmlElement> list){
         for(HtmlElement elem : list)
-            if(elem.getText().equals(item))
+            if(elem.getText().equals(item)) {
                 return elem;
+            }
         return null;
     }
 }
