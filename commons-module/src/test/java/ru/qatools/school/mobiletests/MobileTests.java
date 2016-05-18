@@ -7,6 +7,8 @@ import ru.qatools.school.rules.MobileDriverRule;
 import ru.qatools.school.screens.MainScreen;
 import ru.qatools.school.screens.SelectStationScreen;
 import ru.qatools.school.steps.mobilesteps.MobileSteps;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.htmlelements.annotations.Name;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
@@ -30,14 +32,16 @@ public class MobileTests {
     }
 
     @Test
-    public void shouldSeeTime(){
+    @Title("Время поездки от Арбатской до Борисово должно быть больше 10 минут")
+    public void shouldSeeOver10MinutesTime(){
         SelectStationScreen selectStationScreen = mobileSteps.goToSelectStationScreen(onMainScreen().fromField());
         mobileSteps.input(selectStationScreen.stationNameInput(), FIRST_STATION);
         mobileSteps.tap(selectStationScreen.stationsList().get(0));
         selectStationScreen = mobileSteps.goToSelectStationScreen(onMainScreen().toField());
         mobileSteps.input(selectStationScreen.stationNameInput(), SECOND_STATION);
         mobileSteps.tap(selectStationScreen.stationsList().get(0));
-        assertThat(Integer.parseInt(onMainScreen().topPanel().rideTimeString().getText().trim().split(" ")[0]),
+        assertThat("Неправильное время поездки",
+                Integer.parseInt(onMainScreen().topPanel().rideTimeString().getText().trim().split(" ")[0]),
                 greaterThan(10));
     }
 
