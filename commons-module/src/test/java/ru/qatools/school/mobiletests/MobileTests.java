@@ -21,6 +21,7 @@ public class MobileTests {
 
     public static final String FIRST_STATION = "Arbatskaya";
     public static final String SECOND_STATION = "Borisovo";
+    public static final int TIME = 10;
     private MobileSteps mobileSteps;
 
     @Rule
@@ -33,16 +34,16 @@ public class MobileTests {
 
     @Test
     @Title("Время поездки от Арбатской до Борисово должно быть больше 10 минут")
-    public void shouldSeeOver10MinutesTime(){
+    public void shouldSeeGreaterTime(){
         SelectStationScreen selectStationScreen = mobileSteps.goToSelectStationScreen(onMainScreen().fromField());
         mobileSteps.input(selectStationScreen.stationNameInput(), FIRST_STATION);
         mobileSteps.tap(selectStationScreen.stationsList().get(0));
+
         selectStationScreen = mobileSteps.goToSelectStationScreen(onMainScreen().toField());
         mobileSteps.input(selectStationScreen.stationNameInput(), SECOND_STATION);
         mobileSteps.tap(selectStationScreen.stationsList().get(0));
-        assertThat("Неправильное время поездки",
-                Integer.parseInt(onMainScreen().topPanel().rideTimeString().getText().trim().split(" ")[0]),
-                greaterThan(10));
+
+        mobileSteps.shouldSeeTimeGreaterThan(TIME);
     }
 
     private MainScreen onMainScreen(){
