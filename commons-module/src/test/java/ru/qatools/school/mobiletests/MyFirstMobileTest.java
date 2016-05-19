@@ -22,6 +22,7 @@ public class MyFirstMobileTest {
     private static final String STATION_FROM = "Арбатская";
     private static final String STATION_TO = "Борисово";
     private static final int MINIMUM_TRAVEL_TIME = 10;
+
     @Rule
     public MobileDriverRule mobileDriverRule = new MobileDriverRule();
     private MobileSteps steps;
@@ -35,13 +36,14 @@ public class MyFirstMobileTest {
     @Title("Время в пути между станциями должно быть не менее 10 минут")
     public void expectTravelTimeBetweenTwoDifferentStationMoreThatTenMinutes() throws MalformedURLException {
         steps.clickOn(onMainScreen().getStationFrom());
-        steps.enterText(onSelectStationScreen().getEditText(), STATION_FROM);
+        steps.enterText(onSelectStationScreen().getStationName(), STATION_FROM);
         steps.clickOn(onSelectStationScreen().getFirstCityFromSuggestList());
         steps.clickOn(onMainScreen().getStationTo());
-        steps.enterText(onSelectStationScreen().getEditText(), STATION_TO);
+        steps.enterText(onSelectStationScreen().getStationName(), STATION_TO);
         steps.clickOn(onSelectStationScreen().getFirstCityFromSuggestList());
-        assertThat("время в пути должно быть больше минимального времени между двумя станциями", onMainScreen().getTimeNeededInMinutes(), greaterThan(MINIMUM_TRAVEL_TIME));
-        System.out.println(onMainScreen().getTimeNeededInMinutes());
+        assertThat("время в пути должно быть больше минимального времени между двумя станциями",
+                onMainScreen().getTimeNeededInMinutes(), greaterThan(MINIMUM_TRAVEL_TIME));
+
     }
 
 

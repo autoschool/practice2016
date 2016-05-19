@@ -14,9 +14,9 @@ import java.util.List;
  * Created by aasx on 18.05.2016.
  */
 public class SelectStationScreen {
-    @Name("Enter city name text field")
+    @Name("Enter station name")
     @FindBy(id = "ru.yandex.metro:id/filterTextId")
-    private HtmlElement editText;
+    private HtmlElement stationName;
 
     @Name("Suggest List")
     @FindBy(id = "ru.yandex.metro:id/txtStationName")
@@ -30,8 +30,8 @@ public class SelectStationScreen {
         return suggestList.get(0);
     }
 
-    public HtmlElement getEditText() {
-        return editText;
+    public HtmlElement getGetStationName() {
+        return stationName;
     }
 
 }
