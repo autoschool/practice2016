@@ -13,17 +13,17 @@ import static org.junit.Assert.assertThat;
 /**
  * @author onegines (Eugene Kirienko)
  */
-public class DefaultSteps {
+public class MobileSteps {
 
     private WebDriver driver;
 
-    public DefaultSteps(WebDriver driver) {
+    public MobileSteps(WebDriver driver) {
         this.driver = driver;
     }
 
 
     @Step("Кликаем по элементу {0}")
-    public void clickOn(WebElement element) {
+    public void tapOn(WebElement element) {
         element.click();
     }
 
@@ -39,11 +39,10 @@ public class DefaultSteps {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(timeInText);
 
-        if (matcher.find()) {
-            int timeInMinutes = Integer.parseInt(matcher.group());
-            assertThat("Неправильное время", timeInMinutes, greaterThan(minTime));
-        } else {
-            throw new NumberFormatException("Can't parse in number: " + timeInText);
+        int timeInMinutes = 0;
+        while (matcher.find()) {
+            timeInMinutes = timeInMinutes * 60 + Integer.parseInt(matcher.group());
         }
+        assertThat("Неправильное время", timeInMinutes, greaterThan(minTime));
     }
 }

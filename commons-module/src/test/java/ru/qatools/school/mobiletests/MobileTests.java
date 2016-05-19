@@ -6,7 +6,7 @@ import org.junit.Test;
 import ru.qatools.school.rules.MobileDriverRule;
 import ru.qatools.school.screens.MainScreen;
 import ru.qatools.school.screens.SelectStationScreen;
-import ru.qatools.school.steps.mobilesteps.DefaultSteps;
+import ru.qatools.school.steps.mobilesteps.MobileSteps;
 import ru.yandex.qatools.allure.annotations.Title;
 
 /**
@@ -18,7 +18,7 @@ public class MobileTests {
     private static final String STATION_2 = "Borisovo";
     private static final int MIN_TIME = 10;
 
-    private DefaultSteps defaultSteps;
+    private MobileSteps mobSteps;
 
     @Rule
     public MobileDriverRule mobileDriverRule = new MobileDriverRule();
@@ -28,7 +28,7 @@ public class MobileTests {
 
     @Before
     public void initSteps() {
-        defaultSteps = new DefaultSteps(mobileDriverRule.getDriver());
+        mobSteps = new MobileSteps(mobileDriverRule.getDriver());
     }
 
     private MainScreen onMainScreen() {
@@ -43,15 +43,15 @@ public class MobileTests {
     @Title("Время в пути от Арбатской до Борисово должно быть больше 10 минут")
 //    @TestCaseId("##")
     public void shouldSeeAddWidgetButtonOnPageWithNoQuery() {
-        defaultSteps.clickOn(onMainScreen().fromField());
-        defaultSteps.enterText(onSelectStationScreen().stationNameField(), STATION_1);
-        defaultSteps.clickOn(onSelectStationScreen().firstResult());
+        mobSteps.tapOn(onMainScreen().fromField());
+        mobSteps.enterText(onSelectStationScreen().stationNameField(), STATION_1);
+        mobSteps.tapOn(onSelectStationScreen().firstResult());
 
-        defaultSteps.clickOn(onMainScreen().toField());
-        defaultSteps.enterText(onSelectStationScreen().stationNameField(), STATION_2);
-        defaultSteps.clickOn(onSelectStationScreen().firstResult());
+        mobSteps.tapOn(onMainScreen().toField());
+        mobSteps.enterText(onSelectStationScreen().stationNameField(), STATION_2);
+        mobSteps.tapOn(onSelectStationScreen().firstResult());
 
-        defaultSteps.shouldSeeTimeMoreThan(onMainScreen().timeField(), MIN_TIME);
+        mobSteps.shouldSeeTimeMoreThan(onMainScreen().timeField(), MIN_TIME);
     }
 
 }
