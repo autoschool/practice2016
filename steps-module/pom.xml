@@ -45,7 +45,18 @@
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
         </dependency>
-        
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
