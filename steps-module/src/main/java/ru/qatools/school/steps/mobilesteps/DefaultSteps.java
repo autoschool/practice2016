@@ -1,19 +1,18 @@
 package ru.qatools.school.steps.mobilesteps;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import ru.qatools.school.pages.MainPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
-import static java.lang.String.format;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.assertThat;
-import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
+
+import static org.hamcrest.Matchers.greaterThan;
+
 
 public class DefaultSteps {
-
-    //public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
 
     private WebDriver driver;
 
@@ -21,23 +20,27 @@ public class DefaultSteps {
         this.driver = driver;
     }
 
-    @Step("Тапаем по полю from главной странцы приложения ")
-    public void tapOnFromInMainScreen() {
-        HtmlElement el = (HtmlElement) driver.findElement(By.id("tv_from_name"));
-        el.click();
+
+    @Step("Тап по элементу {0}")
+    public void clickOn(HtmlElement element) {
+        element.click();
     }
 
-    /*@Step("Открываем главную страницу для города «{0}»")
-    public void openMainPageWithCity(String city) {
-        driver.get(format(MAIN_PAGE, city));
+    @Step("Вводим в поле «{0}» текст «{1}»")
+    public void enterText(HtmlElement element, String text) {
+        element.sendKeys(text);
     }
 
-    @Step("Должны видеть на странице «{0}»")
-    public void shouldSee(WebElement element) {
-        assertThat("Должны видеть элемент", element, isDisplayed());
+    @Step("Время в «{0}» должно быть больше, чем «{1}»")
+    public void shouldSeeTimeLongerThan(HtmlElement element, int minTime) {
+
+        String timeText = element.getText();
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(timeText);
+        matcher.find();
+        int timeMinut = Integer.parseInt(matcher.group());
+        assertThat("Неправильное расчетное время поездки!", timeMinut, greaterThan(minTime));
+
     }
 
-    private MainPage onMainPage() {
-        return new MainPage(driver);
-    }*/
 }

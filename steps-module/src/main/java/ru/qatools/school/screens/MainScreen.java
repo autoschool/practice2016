@@ -13,23 +13,32 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
  * Created by o.polyakov on 18.05.2016.
  */
 public class MainScreen {
+
     public MainScreen(WebDriver driver) {
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
 
-    @Name("Главный экран приложения")
+    @Name("Поле ввода начальной станции - From")
     @FindBy(id = "tv_from_name")
-    private HtmlElement fromStation;
+    private HtmlElement fromStationField;
 
-    public HtmlElement getFromStation() {
-        return fromStation;
+    public HtmlElement getFromStationField() {
+        return fromStationField;
     }
 
-    @Name("Главный экран приложения")
+    @Name("Поле ввода конечной станции - To")
     @FindBy(id = "tv_to_name")
-    private HtmlElement toStation;
+    private HtmlElement toStationField;
 
-    public HtmlElement getToStation() {
-        return fromStation;
+    public HtmlElement getToStationField() {
+        return toStationField;
+    }
+
+    @Name("Предполагаемое время в пути")
+    @FindBy(id = "tv_time")
+    private HtmlElement timeField;
+
+    public HtmlElement getTimeField() {
+        return timeField;
     }
 }

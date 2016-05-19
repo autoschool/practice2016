@@ -13,7 +13,9 @@ import java.net.MalformedURLException;
 
 public class AndroidMetroTest {
 
-    public static final String MOSCOW = "Moscow";
+    private static final String STATION_FROM = "Arbatskaya";
+    private static final String STATION_TO = "Borisovo";
+    private static final int MINIMUM_TIME = 10;
 
     private DefaultSteps defaultSteps;
 
@@ -21,19 +23,31 @@ public class AndroidMetroTest {
     public MobileDriverRule mobileDriverRule = new MobileDriverRule();
 
     @Before
-    public void initSteps() throws MalformedURLException {
+    public void initSteps() {
         defaultSteps = new DefaultSteps(mobileDriverRule.getDriver());
     }
 
-    @Test
-    @Title("Должно открыться активити From")
-    public void shouldOpenActivityFrom() {
-        defaultSteps.tapOnFromInMainScreen();
-        //defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+    private MainScreen onMainScreen() {
+        return new MainScreen(mobileDriverRule.getDriver());
     }
 
-    /*private MainScreen onMainPage() {
-        return new MainPage(webDriverRule.getDriver());
-    }*/
+    private SelectStationScreen onSelectStationScreen() {
+        return new SelectStationScreen(mobileDriverRule.getDriver());
+    }
+
+    @Test
+    @Title("Время в пути от Арбатской до Борисово должно быть более 10 минут")
+    public void shouldSeeCorrectTimeTravel() {
+        defaultSteps.clickOn(onMainScreen().getFromStationField());
+        defaultSteps.enterText(onSelectStationScreen().getStationNameField(), STATION_FROM);
+        defaultSteps.clickOn(onSelectStationScreen().getStationsNameList().get(0));
+
+        defaultSteps.clickOn(onMainScreen().getToStationField());
+        defaultSteps.enterText(onSelectStationScreen().getStationNameField(), STATION_TO);
+        defaultSteps.clickOn(onSelectStationScreen().getStationsNameList().get(0));
+
+        defaultSteps.shouldSeeTimeLongerThan(onMainScreen().getTimeField(), MINIMUM_TIME);
+
+    }
 
 }
