@@ -26,8 +26,7 @@ public class UserSteps {
         return this;
     }
 
-    public UserSteps shouldBeAtPlace(Place expectedPlace) {
-        assertThat("Places should match!", this.place, is(expectedPlace));
-        return this;
+    public void shouldBeAtPlace(Place expectedPlace) {
+        assertThat(this.place, is(expectedPlace));
     }
 }

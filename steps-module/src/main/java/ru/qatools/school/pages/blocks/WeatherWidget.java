@@ -8,6 +8,8 @@ import ru.qatools.school.pages.blocks.widgetblocks.WidgetTitle;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
+import java.util.List;
+
 /**
  * Created by kurau.
  */
@@ -25,6 +27,22 @@ public class WeatherWidget extends HtmlElement {
     @FindBy(css = ".card-actions")
     private WebElement actions;
 
+    @Name("Название города в виджете")
+    @FindBy(css = ".inplace.inplace_displayed")
+    private WebElement place;
+
+    @Name("Кнопка удаления виджета")
+    @FindBy(css = ".remove-card.btn.btn-default")
+    private WebElement removeBtn;
+
+    @Name("Блок отображения температуры")
+    @FindBy(css = ".weather-temperature.md-12")
+    private WebElement weatherBlock;
+
+    @Name("Единица измерения температуры")
+    @FindBy(css = ".weather-temperature__unit")
+    private WebElement weatherType;
+
     public WidgetText getWidgetText() {
         return widgetText;
     }
@@ -35,6 +53,22 @@ public class WeatherWidget extends HtmlElement {
 
     public WebElement getActions() {
         return actions;
+    }
+
+    public WebElement getPlace() {
+        return place;
+    }
+
+    public WebElement getRemoveBtn() {
+        return removeBtn;
+    }
+
+    public WebElement getWeatherBlock() {
+        return weatherBlock;
+    }
+
+    public WebElement getWeatherType() {
+        return weatherType;
     }
 
     public Rectangle getRect() {
