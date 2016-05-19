@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>commons-module</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>Commons Module</name>
 

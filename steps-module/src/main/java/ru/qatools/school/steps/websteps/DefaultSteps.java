@@ -14,9 +14,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.isDisplayed;
 
-/**
- * Created by kurau.
- */
+
 public class DefaultSteps {
 
     public static final String MAIN_PAGE = "http://weather.lanwen.ru/#?cities=%s";
@@ -68,7 +66,7 @@ public class DefaultSteps {
         assertThat(currElement.getText(),not(isEmptyOrNullString()));
     }
 
-    @Step("Поле элемента «{0}» должно соответствовать рещулярному выражению в «{1}»")
+    @Step("Поле элемента «{0}» должно соответствовать регулярному выражению в «{1}»")
     public void shouldMatchToRegExp(WebElement currElement, String regExp){
         System.out.println("Text = " + currElement.getText() + " result = " + Pattern.matches(regExp, currElement.getText()));
         assertTrue("Содержиме элемента должно соответствовать шаблону", Pattern.matches(regExp, currElement.getText()));
