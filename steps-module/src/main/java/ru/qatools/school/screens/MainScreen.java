@@ -34,7 +34,7 @@ public class MainScreen {
     }
 
     public int getTimeNeededInMinutes() {
-        int time = Integer.parseInt(timeNeeded.getText().substring(1, 2));
+        int time = Integer.parseInt(timeNeeded.getText().substring(1, 3));
         return time;
     }
 

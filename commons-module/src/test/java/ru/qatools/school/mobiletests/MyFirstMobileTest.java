@@ -12,42 +12,44 @@ import ru.yandex.qatools.allure.annotations.Title;
 import java.net.MalformedURLException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * Created by aasx on 18.05.2016.
  */
 public class MyFirstMobileTest {
 
-    private static final String STATION_FROM="Aeroport";
-    private static final String STATION_TO="Akademicheskaya";
-
-    private MobileSteps steps;
-
-
+    private static final String STATION_FROM = "Арбатская";
+    private static final String STATION_TO = "Борисово";
+    private static final int MINIMUM_TRAVEL_TIME = 10;
     @Rule
     public MobileDriverRule mobileDriverRule = new MobileDriverRule();
+    private MobileSteps steps;
 
     @Before
-    public void initSteps() throws MalformedURLException { steps = new MobileSteps(mobileDriverRule.getDriver())  ;}
+    public void initSteps() throws MalformedURLException {
+        steps = new MobileSteps(mobileDriverRule.getDriver());
+    }
 
     @Test
-    @Title("Время в пути между станциями {0} и {1} должно быть не менее 10 минут")
-    public void expectTravelTimeBetweenTwoDifferentStationMoreThatTenMinutes () throws MalformedURLException {
+    @Title("Время в пути между станциями должно быть не менее 10 минут")
+    public void expectTravelTimeBetweenTwoDifferentStationMoreThatTenMinutes() throws MalformedURLException {
         steps.clickOn(onMainScreen().getStationFrom());
-        steps.clickOn(onSelectStationScreen().getEditText());
-        steps.enterText(onSelectStationScreen().getEditText(),STATION_FROM);
-        steps.clickOn(onSelectStationScreen().getFirstCityFromList());
+        steps.enterText(onSelectStationScreen().getEditText(), STATION_FROM);
+        steps.clickOn(onSelectStationScreen().getFirstCityFromSuggestList());
         steps.clickOn(onMainScreen().getStationTo());
-        steps.clickOn(onSelectStationScreen().getEditText());
         steps.enterText(onSelectStationScreen().getEditText(), STATION_TO);
-        steps.clickOn(onSelectStationScreen().getFirstCityFromList());
-        assertThat("время в пути должно быть больше 10 минут", onMainScreen().getTimeNeededInMinutes()<10 );
+        steps.clickOn(onSelectStationScreen().getFirstCityFromSuggestList());
+        assertThat("время в пути должно быть больше минимального времени между двумя станциями", onMainScreen().getTimeNeededInMinutes(), greaterThan(MINIMUM_TRAVEL_TIME));
+        System.out.println(onMainScreen().getTimeNeededInMinutes());
     }
 
 
     private MainScreen onMainScreen() throws MalformedURLException {
-        return new MainScreen(mobileDriverRule.getDriver());}
+        return new MainScreen(mobileDriverRule.getDriver());
+    }
+
     private SelectStationScreen onSelectStationScreen() throws MalformedURLException {
-        return new SelectStationScreen(mobileDriverRule.getDriver());}
+        return new SelectStationScreen(mobileDriverRule.getDriver());
+    }
 }

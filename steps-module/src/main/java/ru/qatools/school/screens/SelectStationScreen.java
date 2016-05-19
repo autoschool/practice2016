@@ -19,14 +19,14 @@ public class SelectStationScreen {
     private HtmlElement editText;
 
     @Name("Suggest List")
-    @FindBy(id = "filterTextId")
+    @FindBy(id = "ru.yandex.metro:id/txtStationName")
     private List<HtmlElement> suggestList;
 
     public SelectStationScreen(WebDriver driver) {
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
 
-    public HtmlElement getFirstCityFromList() {
+    public HtmlElement getFirstCityFromSuggestList() {
         return suggestList.get(0);
     }
 
