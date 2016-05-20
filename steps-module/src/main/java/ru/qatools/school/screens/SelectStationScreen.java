@@ -30,7 +30,7 @@ public class SelectStationScreen {
         return suggestList.get(0);
     }
 
-    public HtmlElement getGetStationName() {
+    public HtmlElement getStationName() {
         return stationName;
     }
 

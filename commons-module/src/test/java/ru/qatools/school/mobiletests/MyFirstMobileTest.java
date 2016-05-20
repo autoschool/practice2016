@@ -33,7 +33,7 @@ public class MyFirstMobileTest {
     }
 
     @Test
-    @Title("Время в пути между станциями должно быть не менее 10 минут")
+    @Title("Время в пути между станциями должно быть не менее 10 минут ")
     public void expectTravelTimeBetweenTwoDifferentStationMoreThatTenMinutes() throws MalformedURLException {
         steps.clickOn(onMainScreen().getStationFrom());
         steps.enterText(onSelectStationScreen().getStationName(), STATION_FROM);
