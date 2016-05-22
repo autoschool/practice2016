@@ -1,5 +1,6 @@
 package ru.qatools.school.rules;
 
+import org.junit.rules.ExternalResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -9,7 +10,8 @@ import java.net.URL;
 /**
  * @author ava1on
  */
-public class MobileDriverRule {
+public class MobileDriverRule extends ExternalResource{
+
     private WebDriver driver;
 
     protected void before() throws Throwable{
@@ -21,8 +23,7 @@ public class MobileDriverRule {
         driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), desiredCapabilities);
     }
 
-    private void after(){
-        driver.close();
+    protected void after(){
         driver.quit();
     }
 
