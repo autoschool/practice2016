@@ -15,6 +15,7 @@
     <modules>
         <module>steps-module</module>
         <module>commons-module</module>
+        <module>api-tests-module</module>
         <module>dbclient-module</module>
     </modules>
 
@@ -33,18 +34,22 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+        <dependency>
+            <groupId>com.tngtech.java</groupId>
+            <artifactId>junit-dataprovider</artifactId>
+            <version>1.10.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-
             <!--https://github.com/jayway/rest-assured/wiki/GettingStarted-->
             <dependency>
                 <groupId>com.jayway.restassured</groupId>
                 <artifactId>rest-assured</artifactId>
                 <version>2.9.0</version>
             </dependency>
-            
             <dependency>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-junit-adaptor</artifactId>
