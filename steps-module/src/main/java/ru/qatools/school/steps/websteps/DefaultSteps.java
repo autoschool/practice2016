@@ -1,6 +1,6 @@
 package ru.qatools.school.steps.websteps;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.qatools.school.pages.MainPage;

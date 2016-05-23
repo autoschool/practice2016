@@ -19,12 +19,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * Created by Gavrilov_IS on 11.05.2016.
+ * @author Gavrilov_IS
  */
 public class RetrofitAPITest {
     private final String BASE_URL = "http://weather.lanwen.ru/api/";
     private WeatherAPI weather;
     private final String CITY = "Moscow";
+    private final int CITY_LIMIT = 5;
 
     Retrofit client = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -42,19 +43,14 @@ public class RetrofitAPITest {
         Response<WeatherInfo> response = weather.getWeather(CITY).execute();
         assertThat("Успешная обработка запроса", response.code(), is(HttpStatus.SC_OK));
         assertThat("Город в ответе должен соответствовать запрошенному", response.body().getCity(), is(CITY));
-
-        System.out.println(response.headers().toString());
-        System.out.println("respinse 0 = " + response.body().getListOfTemperatures().get(0).toString());
-        System.out.println("respinse 0 = " + response.body().getListOfTemperatures().get(1).toString());
-        System.out.println("respinse 0 = " + response.body().getListOfTemperatures().get(2).toString());
     }
 
     @Test
-    @Title("Запрос на /cities с параметром limit=5 вернул 5 записей")
+    @Title("Запрос на /cities с параметром limit=CITY_LIMIT вернул указанное количество записей")
     public void shouldGetExpectedCountOfCities() throws IOException {
-        Response<List<City>> response = weather.getCitiesWithLimit(5).execute();
+        Response<List<City>> response = weather.getCitiesWithLimit(CITY_LIMIT).execute();
         assertThat("Успешная обработка запроса", response.code(), is(HttpStatus.SC_OK));
-        assertEquals("Город в ответе должен соответствовать запрошенному", response.body().size(), 5);
+        assertEquals("Город в ответе должен соответствовать запрошенному", response.body().size(), CITY_LIMIT);
     }
 
 }

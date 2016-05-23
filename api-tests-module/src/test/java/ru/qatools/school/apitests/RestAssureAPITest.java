@@ -1,7 +1,7 @@
 package ru.qatools.school.apitests;
 
+import com.jayway.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import com.jayway.restassured.builder.RequestSpecBuilder;
@@ -11,7 +11,6 @@ import ru.qatools.school.apitests.data.WeatherInfo;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import java.io.IOException;
-import java.util.List;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,6 +23,7 @@ public class RestAssureAPITest {
     private static final String MAIN_PAGE = "http://weather.lanwen.ru/";
     private static final String BASE_PATH = "api";
     private final String CITY = "Moscow";
+    private final int CITY_LIMIT = 5;
 
     private RequestSpecification reqSpec;
 
@@ -47,13 +47,14 @@ public class RestAssureAPITest {
     }
 
     @Test
-    @Title("Запрос на /cities с параметром limit=5 вернул 5 записей")
+    @Title("Запрос на /cities с параметром limit=CITY_LIMIT вернул указанное количество записей")
     public void shouldGetExpectedCountOfCities() throws IOException {
-       List<City> list = given().spec(reqSpec)
+        Response response = given().spec(reqSpec)
                 .param("limit", 5)
-                .get("cities")
-                .then().assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .extract().path("");
+                .get("cities");
+        response.then().assertThat()
+                .statusCode(HttpStatus.SC_OK);
+        City[] cities = response.as(City[].class);
+        assertThat("Количество городов должно соответствовать указанному лимиту", cities.length, is(CITY_LIMIT));
     }
 }
