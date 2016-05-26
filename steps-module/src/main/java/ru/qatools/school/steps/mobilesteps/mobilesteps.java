@@ -6,7 +6,6 @@ import ru.qatools.school.screens.SelectStationScreen;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.Matchers.greaterThan;
@@ -56,28 +55,24 @@ public class MobileSteps {
 
         int hours=0, minutes=0;
         String strTime = element.getText();
-        String regex_h = "h";
-        String regex_min = "min";
 
-        Pattern p = Pattern.compile(regex_h);
-        Matcher m = p.matcher(strTime);
-        if (m.find()) {
+        String regex = "([\\s]+h+[\\s]|[\\s]+min)";
 
-            hours = Integer.parseInt(strTime.substring(0, m.start()-1).replaceAll( "[^\\d]", "" ));
-            strTime = strTime.substring(m.end());
+        Pattern p = Pattern.compile(regex);
+
+        String[] mas = p.split(strTime);
+
+        if (mas.length == 1){
+            minutes = Integer.parseInt(mas[0].replaceAll("\\s", ""));
         }
-
-        p = Pattern.compile(regex_min);
-        m = p.matcher(strTime);
-        if (m.find()) {
-            minutes = Integer.parseInt(strTime.substring(0, m.start()-1).replaceAll( "[^\\d]", "" ));
+        else{
+            hours = Integer.parseInt(mas[0].replaceAll("\\s", ""));
+            minutes = Integer.parseInt(mas[1].replaceAll("\\s", ""));
         }
 
         assertThat("Value should be greater",
                 hours*60+minutes,
                 greaterThan(time));
-
     }
-
 
 }
