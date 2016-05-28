@@ -3,6 +3,7 @@ package ru.qatools.school.webtests;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import ru.qatools.school.DbClient;
 import ru.qatools.school.pages.MainPage;
 import ru.qatools.school.rules.WebDriverRule;
 import ru.qatools.school.steps.websteps.DefaultSteps;
@@ -25,12 +26,12 @@ public class WeatherWebTest {
     @Test
     @Title("Должны видеть виджет на главной странице")
     public void shouldSeeWidgetOnMainPage() {
-        defaultSteps.openMainPageWithCity(MOSCOW);
-        defaultSteps.shouldSee(onMainPage().getWeatherWidget().get(0));
+        defaultSteps.dbString(dbClient.getCityById("Po"));
     }
 
     private MainPage onMainPage() {
         return new MainPage(webDriverRule.getDriver());
     }
+    DbClient dbClient = new DbClient();
 
 }
