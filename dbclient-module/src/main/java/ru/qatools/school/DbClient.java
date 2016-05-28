@@ -17,7 +17,7 @@ public class DbClient {
     private static final String CONNECTION_STRING =
             System.getProperty("db.url", "jdbc:mysql://db.weather.lanwen.ru:3306/weather");
     private static final String USER = System.getProperty("db.user", "autoschool");
-    private static final String PASSWORD = System.getProperty("db.password", "ya2016");;
+    private static final String PASSWORD = System.getProperty("db.password", U_PASSWORD);
 
     private Connection connection;
     private DSLContext create;
