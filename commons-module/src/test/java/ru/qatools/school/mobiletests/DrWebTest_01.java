@@ -8,7 +8,7 @@ import ru.qatools.school.rules.MobileDriverRule;
 import ru.qatools.school.steps.mobilesteps.DefaultSteps;
 import ru.yandex.qatools.allure.annotations.Title;
 
-public class DrWebTest {
+public class DrWebTest_01 {
 
     /*private static final String STATION_FROM = "Arbatskaya";
     private static final String STATION_TO = "Borisovo";
@@ -44,33 +44,41 @@ public class DrWebTest {
         return new UrlFilterScreen(mobileDriverRule.getDriver());
     }
 
-    @Test
-    @Title("Принимаем лицензию и проходимся по экранам приложения")
-    public void shouldClickClick() {
+    @Before
+    public void shouldClickClickLicensScreen() {
         defaultSteps.clickOn(onLicensScreen().getStatisticCheckbox());
         defaultSteps.clickOn(onLicensScreen().getLicensAcceptButton());
+    }
+
+    /*@Test
+    @Title("Принимаем лицензионное соглашение")
+    public void shouldClickClickLicensScreen() {
+        defaultSteps.clickOn(onLicensScreen().getStatisticCheckbox());
+        defaultSteps.clickOn(onLicensScreen().getLicensAcceptButton());
+    }*/
+
+    @Test
+    @Title("Прокликиваем сканнер")
+    public void shouldClickClickScannerScreen() {
         defaultSteps.clickOn(onMainScreen().getScaner());
         defaultSteps.clickOn(onScannerScreen().getBackButton());
+    }
+
+    @Test
+    @Title("Прокликиваем ")
+    public void shouldClickClickAntispamScreen() {
         defaultSteps.clickOn(onMainScreen().getAntispam());
         defaultSteps.clickOn(onAntispamScreen().getFilteringProfileList().get(1));
-        defaultSteps.clickOn(onMainScreen().getUrlFilter());
+    }
+
+    @Test
+    @Title("Принимаем лицензию и проходимся по экранам приложения")
+    public void shouldClickClickUrlFilterScreen() {
         defaultSteps.clickOn(onUrlFilterScreen().getUrlSwitcher());
         defaultSteps.clickOn(onUrlFilterScreen().getUrlFilterEnableBatton());
-        defaultSteps.clickOn(onUrlFilterScreen().getUrlCategoriesList().get(4));
+        defaultSteps.clickOn(onUrlFilterScreen().getUrlCategoriesList().get(1));
         defaultSteps.clickOn(onUrlFilterScreen().getRestrictAccess());
         defaultSteps.clickOn(onUrlFilterScreen().getBackButton());
-
-        //defaultSteps.clickOn(onScannerScreen().getScannerList().get(0));
-        /*defaultSteps.clickOn(onMainScreen().getFromStationField());
-        defaultSteps.enterText(onSelectStationScreen().getStationNameField(), STATION_FROM);
-        defaultSteps.clickOn(onSelectStationScreen().getStationsNameList().get(0));
-
-        defaultSteps.clickOn(onMainScreen().getToStationField());
-        defaultSteps.enterText(onSelectStationScreen().getStationNameField(), STATION_TO);
-        defaultSteps.clickOn(onSelectStationScreen().getStationsNameList().get(0));
-
-        defaultSteps.shouldSeeTimeLongerThan(onMainScreen().getTimeField(), MINIMUM_TIME);*/
-
     }
 
 }

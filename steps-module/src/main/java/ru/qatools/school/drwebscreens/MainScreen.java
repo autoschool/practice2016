@@ -35,10 +35,10 @@ public class MainScreen {
 
     @Name("URL filtr")
     @FindBy(id = "component_urlfiltr")
-    private HtmlElement urlFiltr;
+    private HtmlElement urlFilter;
 
-    public HtmlElement getUrlFiltr() {
-        return urlFiltr;
+    public HtmlElement getUrlFilter() {
+        return urlFilter;
     }
 
     @Name("Antitheft")
