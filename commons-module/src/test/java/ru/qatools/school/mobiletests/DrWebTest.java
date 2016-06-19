@@ -44,21 +44,79 @@ public class DrWebTest {
         return new UrlFilterScreen(mobileDriverRule.getDriver());
     }
 
+    private AntitheftScreen onAntitheftScreen() {
+        return new AntitheftScreen(mobileDriverRule.getDriver());
+    }
+
+    private FirewallScreen onFirewallScreen() {
+        return new FirewallScreen(mobileDriverRule.getDriver());
+    }
+
+    private SecurityAuditorScreen onSecurityAuditorScreen() {
+        return new SecurityAuditorScreen(mobileDriverRule.getDriver());
+    }
+
     @Test
     @Title("Принимаем лицензию и проходимся по экранам приложения")
     public void shouldClickClick() {
         defaultSteps.clickOn(onLicensScreen().getStatisticCheckbox());
         defaultSteps.clickOn(onLicensScreen().getLicensAcceptButton());
-        defaultSteps.clickOn(onMainScreen().getScaner());
+
+        /*defaultSteps.clickOn(onMainScreen().getScaner());
         defaultSteps.clickOn(onScannerScreen().getBackButton());
+
         defaultSteps.clickOn(onMainScreen().getAntispam());
         defaultSteps.clickOn(onAntispamScreen().getFilteringProfileList().get(1));
+
         defaultSteps.clickOn(onMainScreen().getUrlFilter());
         defaultSteps.clickOn(onUrlFilterScreen().getUrlSwitcher());
         defaultSteps.clickOn(onUrlFilterScreen().getUrlFilterEnableBatton());
         defaultSteps.clickOn(onUrlFilterScreen().getUrlCategoriesList().get(4));
         defaultSteps.clickOn(onUrlFilterScreen().getRestrictAccess());
-        defaultSteps.clickOn(onUrlFilterScreen().getBackButton());
+        defaultSteps.clickOn(onUrlFilterScreen().getBackButton());*/
+
+        //defaultSteps.clickOn(onMainScreen().getAntitheft());
+        /*defaultSteps.clickOn(onAntitheftScreen().getAntitheftSwitcher());
+        defaultSteps.enterText(onAntitheftScreen().getPasswordEditField(), "pppp");
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.enterText(onAntitheftScreen().getPasswordEditField(), "pppp");
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonBack());
+        defaultSteps.clickOn(onAntitheftScreen().getCrossButton());*/
+
+        /*defaultSteps.clickOn(onAntitheftScreen().getAntitheftEnableBatton());
+        defaultSteps.enterText(onAntitheftScreen().getPasswordEditField(), "pppp");
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.enterText(onAntitheftScreen().getPasswordEditField(), "pppp");
+        defaultSteps.clickOn(onAntitheftScreen().getShowPasswordButton());
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.clickOn(onAntitheftScreen().getAddContactButton());
+        defaultSteps.clickOn(onAntitheftScreen().getNewContactCategory());
+        defaultSteps.enterText(onAntitheftScreen().getPhoneNumberEditorField(), "12345");
+        defaultSteps.clickOn(onAntitheftScreen().getSaveBatton());
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.enterText(onAntitheftScreen().getEmailEditField(), "123@ya.ru");
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.enterText(onAntitheftScreen().getBlockTextField(), " Ururu!!! 777");
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());
+        defaultSteps.clickOn(onAntitheftScreen().getCancelBatton());
+
+        defaultSteps.clickOn(onMainScreen().getAntitheft());
+        defaultSteps.enterText(onAntitheftScreen().getPasswordEditField(), "pppp");
+        defaultSteps.clickOn(onAntitheftScreen().getAntitheftWizardBattonContinue());*/
+
+        defaultSteps.clickOn(onMainScreen().getFirewall());
+        /*defaultSteps.clickOn(onFirewallScreen().getFirewallEnableBatton());
+        defaultSteps.clickOn(onFirewallScreen().getVPNTrustCheckbox());
+        defaultSteps.clickOn(onFirewallScreen().getVPNOkButton());
+        defaultSteps.clickOn(onFirewallScreen().getFirewallSwitcher());*/
+        defaultSteps.clickOn(onFirewallScreen().getFirewallTabList().get(1));
+        defaultSteps.clickOn(onFirewallScreen().getFirewallTabList().get(2));
+        defaultSteps.clickOn(onFirewallScreen().getFirewallTabList().get(0));
+        defaultSteps.clickOn(onFirewallScreen().getBackButton());
+
+        defaultSteps.clickOn(onMainScreen().getAuditor());
+        defaultSteps.clickOn(onSecurityAuditorScreen().getBackButton());
 
         //defaultSteps.clickOn(onScannerScreen().getScannerList().get(0));
         /*defaultSteps.clickOn(onMainScreen().getFromStationField());

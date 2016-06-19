@@ -99,7 +99,7 @@ public class AntitheftScreen {
         return addContactCategoriesList;
     }
 
-    public HtmlElement newContactCategory() {
+    public HtmlElement getNewContactCategory() {
         return addContactCategoriesList.get(3);
     }
 
@@ -136,7 +136,7 @@ public class AntitheftScreen {
     }
 
     @Name("Кнопка Отменить")
-    @FindBy(id = "cancel_button")
+    @FindBy(id = "com.android.settings:id/cancel_button")
     private HtmlElement cancelBatton;
 
     public HtmlElement getCancelBatton() {
